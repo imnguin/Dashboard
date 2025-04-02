@@ -19,7 +19,26 @@ module.exports = {
                         presets: ['@babel/preset-env', '@babel/preset-react']
                     }
                 }
-            }
+            },
+            {
+                test: /\.(gif|png|jpe?g|svg)$/i, // Xử lý các file GIF, PNG, JPG, SVG
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]', // Giữ nguyên tên file
+                            outputPath: 'assets/', // Đầu ra trong thư mục dist/assets/
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.css$/, // Xử lý các file CSS
+                use: [
+                    'style-loader', // Inject CSS vào DOM
+                    'css-loader',   // Đọc và xử lý file CSS
+                ],
+            },
         ]
     },
     plugins: [

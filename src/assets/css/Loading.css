@@ -1,0 +1,17 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.loading-container img {
+  width: 100px;
+  height: 100px;
+  background: transparent; /* Đảm bảo nền của hình ảnh trong suốt */
+}
