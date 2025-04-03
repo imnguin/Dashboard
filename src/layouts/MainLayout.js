@@ -125,6 +125,10 @@ const MainLayout = (props) => {
                         </Col>
                     </Row>
                 </Layout.Header>
+                <Layout.Content style={{ margin: '10px 10px 0', overflow: 'initial', minHeight: `calc(100vh - 145px)` }}>
+                    <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer, borderRadius: 7 }}>{props.children}</div>
+                </Layout.Content>
+                <Layout.Footer style={{ textAlign: 'center', }}>©2025 Created by Nguin</Layout.Footer>
             </Layout>
         </Layout>
     );
