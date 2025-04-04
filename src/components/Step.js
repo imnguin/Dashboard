@@ -12,7 +12,7 @@ const Step = (props) => {
     }, [props?.current, props?.items]);
 
     return (
-        <Steps current={props?.current} size='small' labelPlacement="vertical" items={items} direction={isSmallScreen ? 'vertical' : 'horizontal'} />
+        <Steps style={{ marginBottom: 30 }} current={props?.current} size='small' labelPlacement="vertical" items={items} direction={isSmallScreen ? 'vertical' : 'horizontal'} />
     )
 }
 export default Step;

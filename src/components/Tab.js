@@ -7,7 +7,7 @@ const Tab = (props) => {
             <Tabs
                 defaultActiveKey="1"
                 tabPosition={props.mode}
-                style={{ height: 220 }}
+                style={{ height: 220, marginBottom: 30 }}
                 items={Array.from({ length: 30 }, (_, i) => {
                     const id = String(i);
                     return {
