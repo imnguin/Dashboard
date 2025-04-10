@@ -43,7 +43,7 @@ const items = AppMenu.map(item => {
     return getItem(item.label, item.name, item.icon, item.subItem, item.path);
 });
 
-const MainLayout = (props) => {
+const MainLayout2 = (props) => {
     const [collapsed, setCollapsed] = useState(false);
     const [collapsedWidth, setCollapsedWidth] = useState(70);
     const { token: { colorBgContainer }, } = theme.useToken();
@@ -115,12 +115,12 @@ const MainLayout = (props) => {
                                     }
                                 ],
                             }} placement="bottomLeft" arrow>
-                                {/* <div style={{
+                                <div style={{
                                     float: 'right',
                                     marginRight: 10
                                 }}>
                                     <Avatar size='default' icon={<UserOutlined />}></Avatar>  {!isMobile ? `${'188197'} - ${'Lâm Xuân Nguyên'}` : ''}
-                                </div> */}
+                                </div>
                             </Dropdown>
                         </Col>
                     </Row>
@@ -133,4 +133,4 @@ const MainLayout = (props) => {
         </Layout>
     );
 }
-export default MainLayout;
+export default MainLayout2;

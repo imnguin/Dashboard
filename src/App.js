@@ -1,6 +1,7 @@
 import React from 'react';
 import Router from './routers';
-import './index.css'
+import './index.css';
+import 'antd/dist/reset.css';
 
 function App() {
     return (

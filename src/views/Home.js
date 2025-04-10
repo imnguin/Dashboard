@@ -62,7 +62,7 @@ const Home = (props) => {
     return (
         <>
             {isFinish && <Step items={items} current={current} />}
-            <Tab />
+            {/* <Tab /> */}
             <div style={{ marginTop: 100 }}>
                 <Button onClick={fetchData}>Click</Button>
             </div>
