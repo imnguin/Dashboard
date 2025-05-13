@@ -3,7 +3,7 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # hoặc tên nhánh bạn dùng
+      - main
 
 permissions:
   contents: read
@@ -26,22 +26,23 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: npm run build # Tạo các tệp đã build trong thư mục ./dist
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3  # Cập nhật lên phiên bản mới
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: ./dist  # Thư mục đầu ra
+          path: ./dist # Upload thư mục build lên
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact # Tải artifact đã upload trước đó
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
