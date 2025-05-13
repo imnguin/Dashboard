@@ -15,8 +15,19 @@ const Router = () => {
                 <Route
                     path='*'
                     element={
-                        <ProtectedRoute>
-                            <React.Suspense fallback={<div>Đang tải dữ liệu... </div>}>
+                        // <ProtectedRoute>
+                        //     <React.Suspense fallback={<div>Đang tải dữ liệu... </div>}>
+                        //         <Routes>
+                        //             {
+                        //                 configRoute.map(({ component: Component, path, layout, breadcrumb }) => (
+                        //                     <Route path={path} key={path} element={Component ? <MainLayout layout={!!layout ? layout : 'Nguin'}><Component /></MainLayout> : <Navigate to={'/'} replace={true} />} />
+                        //                 ))
+                        //             }
+                        //         </Routes>
+                        //     </React.Suspense>
+                        // </ProtectedRoute>
+
+                        <React.Suspense fallback={<div>Đang tải dữ liệu... </div>}>
                                 <Routes>
                                     {
                                         configRoute.map(({ component: Component, path, layout, breadcrumb }) => (
@@ -25,7 +36,6 @@ const Router = () => {
                                     }
                                 </Routes>
                             </React.Suspense>
-                        </ProtectedRoute>
                     }>
                 </Route>
             </Routes>
