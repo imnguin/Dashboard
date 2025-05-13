@@ -3,22 +3,27 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Hoặc tên nhánh bạn dùng
+      - main  # hoặc nhánh chính của bạn
+  workflow_dispatch:  # Cho phép chạy tay từ tab Actions
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 21.7.3
 
@@ -26,23 +31,21 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build  # Tạo ra thư mục ./dist
+        run: npm run build
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v2  # Sử dụng v2 nếu v3 gặp lỗi
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: build-artifact
-          path: ./dist  # Đảm bảo thư mục ./dist chứa các tệp đã build
+          path: ./dist  # Webpack build ra thư mục này
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v2  # Sử dụng v2 nếu v3 gặp lỗi
-        with:
-          name: build-artifact  # Tên của artifact khi upload trước đó
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
