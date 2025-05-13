@@ -65,7 +65,7 @@ const MainLayout2 = (props) => {
         navigate('/login');
     }
 
-    if (props.layout === '404') {
+    if (props.layout === 'notUse') {
         return (
             props.children
         );
@@ -117,16 +117,16 @@ const MainLayout2 = (props) => {
                             }} placement="bottomLeft" arrow>
                                 <div style={{
                                     float: 'right',
-                                    marginRight: 10
+                                    marginRight: 20
                                 }}>
-                                    <Avatar size='default' icon={<UserOutlined />}></Avatar>  {!isMobile ? `${'188197'} - ${'Lâm Xuân Nguyên'}` : ''}
+                                    <Avatar size='default' icon={<UserOutlined />}></Avatar>
                                 </div>
                             </Dropdown>
                         </Col>
                     </Row>
                 </Layout.Header>
                 <Layout.Content style={{ margin: '10px 10px 0', overflow: 'initial', minHeight: `calc(100vh - 145px)` }}>
-                    <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer, borderRadius: 7 }}>{props.children}</div>
+                    {props.children}
                 </Layout.Content>
                 <Layout.Footer style={{ textAlign: 'center', }}>©2025 Created by Nguin</Layout.Footer>
             </Layout>

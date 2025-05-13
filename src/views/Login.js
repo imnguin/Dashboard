@@ -13,7 +13,7 @@ import {
     ProFormText,
     setAlpha,
 } from '@ant-design/pro-components';
-import { Button, Space, Tabs, message, theme, ConfigProvider } from 'antd';
+import { Button, Space, theme, ConfigProvider, App } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HOSTNAME } from '../constants/systemVars';
@@ -34,6 +34,7 @@ const ThemedLogin = ({ isDark, toggleDark }) => {
         verticalAlign: 'middle',
         cursor: 'pointer',
     };
+    const { notification } = App.useApp();
 
     const onFinish = async (values) => {
         const response = await dispatch(
@@ -43,11 +44,19 @@ const ThemedLogin = ({ isDark, toggleDark }) => {
             })
         );
         if (!response.iserror) {
-            message.success('Đăng nhập thành công!');
+            notification.success({
+                message: 'Thông báo',
+                description: response.messagedetail,
+                placement: 'bottomRight'
+            });
             const pathname = location?.state?.from?.pathname || '/';
             navigate(pathname);
         } else {
-            message.error(response.message);
+            notification.error({
+                message: 'Thông báo',
+                description: response.messagedetail,
+                placement: 'bottomRight'
+            });
         }
     };
 
@@ -141,7 +150,7 @@ const Login = () => {
                 algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
             }}
         >
-            <ThemedLogin isDark={isDark} toggleDark={() => setIsDark(!isDark)} />
+            <App><ThemedLogin isDark={isDark} toggleDark={() => setIsDark(!isDark)} /></App>
         </ConfigProvider>
     );
 };
