@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biểu đồ Nhân sự (Đã Khôi Phục Tổng Giá Trị)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <style>
+        /* CSS chung */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .chart-container {
+            /* Kích thước ban đầu */
+            width: 800px; 
+            height: 500px;
+            position: relative;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Buộc canvas chiếm 100% không gian container */
+        #personnelChart {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        /* *** PHẦN QUAN TRỌNG: Định vị container cho tổng giá trị *** */
+        #totalLabelsContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Không chặn sự kiện chuột */
+            z-index: 10;
+        }
+        .total-label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            text-align: right;
+            position: absolute;
+            right: 5px; /* Điều chỉnh khoảng cách từ mép phải */
+        }
+        /* ********************************************************** */
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <h2>Nhân sự</h2>
+        <div style="position: relative; height: calc(100% - 44px);">
+            <canvas id="personnelChart"></canvas>
+            <div id="totalLabelsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Đăng ký plugin DataLabels để hiển thị giá trị bên trong thanh
+        Chart.register(ChartDataLabels);
+
+        // Dữ liệu từ hình ảnh
+        const labels = ['LV1', 'LV2', 'LV3', 'LV4'];
+
+        const dataPending = [650, 550, 25, 101];    // Đang chờ thực hiện (Vàng)
+        const dataInProgress = [450, 42, 235, 59];  // Đang thực hiện (Xanh đậm)
+        const dataOnHold = [55, 55, 75, 12];      // Đang trồng (Xanh lá)
+
+        const totalCounts = dataPending.map((val, i) => 
+            val + dataInProgress[i] + dataOnHold[i]
+        );
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Đang trồng',
+                    data: dataOnHold,
+                    backgroundColor: '#1cc88a', // Xanh lá
+                    stack: 'Stack 0',
+                    borderRadius: 0,
+                    categoryPercentage: 0.8,
+                    barPercentage: 0.9,
+                },
+                {
+                    label: 'Đang chờ thực hiện',
+                    data: dataPending,
+                    backgroundColor: '#f6c23e', // Vàng
+                    stack: 'Stack 0',
+                    borderRadius: 0,
+                    categoryPercentage: 0.8,
+                    barPercentage: 0.9,
+                },
+                {
+                    label: 'Đang thực hiện',
+                    data: dataInProgress,
+                    backgroundColor: '#4e73df', // Xanh đậm/xanh dương
+                    stack: 'Stack 0',
+                    borderRadius: 0,
+                    categoryPercentage: 0.8,
+                    barPercentage: 0.9,
+                }
+            ],
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y', // Biểu đồ thanh ngang
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        align: 'center',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    datalabels: {
+                        color: 'white',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: function(value) {
+                            // Chỉ hiển thị giá trị nếu lớn hơn 0
+                            return value > 0 ? value : '';
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        display: false, // Ẩn trục X (các số)
+                        grid: { display: false },
+                        border: { display: false }
+                    },
+                    y: {
+                        stacked: true,
+                        grid: { display: false },
+                        border: { display: false },
+                        ticks: {
+                            color: '#333',
+                            font: { size: 14, weight: 'bold' }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        right: 60 // Khoảng đệm cho tổng giá trị bên phải
+                    }
+                }
+            }
+        };
+
+        // Khởi tạo biểu đồ
+        const ctx = document.getElementById('personnelChart').getContext('2d');
+        const personnelChart = new Chart(ctx, config);
+
+
+        // --- LOGIC HIỂN THỊ TỔNG GIÁ TRỊ TÙY CHỈNH ---
+        function renderTotalLabels() {
+            const container = document.getElementById('totalLabelsContainer');
+            container.innerHTML = '';
+            
+            // Lấy thông tin vùng vẽ và trục từ biểu đồ
+            const chartArea = personnelChart.chartArea;
+            if (!chartArea) return;
+
+            const yScale = personnelChart.scales.y;
+
+            labels.forEach((label, index) => {
+                const totalValue = totalCounts[index];
+                
+                // Lấy vị trí pixel cho nhãn LV hiện tại trên trục Y
+                const yPos = yScale.getPixelForTick(index);
+
+                // Tính chiều cao của thanh và offset
+                const barHeight = yScale.getPixelForTick(0) - yScale.getPixelForTick(1) || 30;
+                const offset = barHeight / 2;
+
+
+                const div = document.createElement('div');
+                div.className = 'total-label';
+                div.textContent = totalValue.toLocaleString('vi-VN'); // Hiển thị tổng giá trị
+                
+                // Định vị nhãn bằng top và đặt right = 0
+                div.style.top = `${yPos - offset}px`; 
+                div.style.right = '0px'; // Đảm bảo nhãn sát mép phải của container
+                
+                container.appendChild(div);
+            });
+        }
+
+        // Gọi hàm sau khi biểu đồ render
+        personnelChart.options.onAfterDraw = renderTotalLabels;
+        personnelChart.update();
+        // --- KẾT THÚC LOGIC HIỂN THỊ TỔNG GIÁ TRỊ TÙY CHỈNH ---
+    </script>
+</body>
+</html>
