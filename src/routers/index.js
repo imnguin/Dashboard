@@ -5,6 +5,7 @@ import MainLayout from '../layouts/MainLayout';
 import Login from '../views/Login';
 import configRoute from './config';
 import Test from '../views/Test';
+import Dashboard from '../views/Dashboard';
 
 const Router = () => {
     return (
@@ -12,6 +13,7 @@ const Router = () => {
             <Routes>
                 <Route path='/login' element={<Login />}></Route>
                 <Route path='/Test' element={<Test />}></Route>
+                <Route path='/Dashboard' element={<Dashboard />}></Route>
                 <Route
                     path='*'
                     element={
