@@ -15,6 +15,7 @@ import { ExportOutlined, WarningFilled, MoreOutlined } from '@ant-design/icons';
 import StarRatingChart from "../components/StarRatingChart";
 import ErrorImpactChart from "../components/ErrorImpactChart";
 import SalesTargetChart from "../components/SalesTargetChart";
+import PersonnelStackedChart from "../components/PersonnelStackedChart";
 const Dashboard = () => {
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
@@ -155,7 +156,7 @@ const Dashboard = () => {
                     xl={6}
                     xxl={6}
                     style={{
-                        display: isMobile ? "none" : "flex",
+                        display: screens.md && !screens.lg ? "none" : "flex",
                         alignItems: "center",
                         justifyContent: "flex-end",
                         height: "100%",
@@ -207,7 +208,7 @@ const Dashboard = () => {
             </Row>
             <Row style={{ padding: 15 }} gutter={[15, 15]}>
                 <Col span={24}>
-                    <Row gutter={[10, 10]}>
+                    <Row gutter={[10, 10]} >
                         <Col xs={24} sm={24} md={14} lg={14} xl={16}>
                             <div
                                 style={{
@@ -217,6 +218,7 @@ const Dashboard = () => {
                                     borderRadius: 10,
                                     flexDirection: 'column',
                                     padding: 10,
+                                    height: '100%'
                                 }}
                             >
                                 <Row
@@ -264,7 +266,7 @@ const Dashboard = () => {
                                                 border: '1px solid #dbe2ebff',
                                                 borderRadius: 10,
                                                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                                height: '100%',
+                                                minHeight: '80%',
                                                 padding: 10,
                                                 flexDirection: 'column',
                                                 backgroundColor: '#FFEBED',
@@ -304,7 +306,7 @@ const Dashboard = () => {
                                                 border: '1px solid #dbe2ebff',
                                                 borderRadius: 10,
                                                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                                height: '100%',
+                                                minHeight: '80%',
                                                 padding: 10,
                                                 flexDirection: 'column',
                                                 backgroundColor: '#FFF4ED',
@@ -344,7 +346,7 @@ const Dashboard = () => {
                                                 border: '1px solid #dbe2ebff',
                                                 borderRadius: 10,
                                                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                                height: '100%',
+                                                minHeight: '80%',
                                                 padding: 10,
                                                 flexDirection: 'column',
                                                 backgroundColor: '#DCFCE7',
@@ -384,7 +386,7 @@ const Dashboard = () => {
                                                 border: '1px solid #dbe2ebff',
                                                 borderRadius: 10,
                                                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                                height: '100%',
+                                                minHeight: '80%',
                                                 padding: 10,
                                                 flexDirection: 'column',
                                                 backgroundColor: '#C3E6FF',
@@ -418,112 +420,6 @@ const Dashboard = () => {
                                     </Col>
                                 </Row>
                             </div>
-                            <Row gutter={[10, 20]} style={{ marginTop: 15 }}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            backgroundColor: '#FFFFFF',
-                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                                            borderRadius: 10,
-                                            flexDirection: 'column',
-                                            padding: 20,
-                                            minHeight: 500
-                                        }}
-                                    >
-                                        <Row gutter={[10, 10]}>
-                                            <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                                                <div
-                                                    style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        gap: 10,
-                                                    }}
-                                                >
-                                                    <span style={{ fontWeight: 'bold', fontSize: 22, color: 'black' }}>Hiệu quả hài lòng</span>
-                                                    <span style={{ fontSize: 16, color: '#0195FF', fontWeight: 'bold' }}>323.839 đơn hàng</span>
-                                                </div>
-                                            </Col>
-                                            <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ display: 'flex', justifyContent: isMobile ? 'flex-start' : 'flex-end' }}>
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, }}>
-                                                    <span>Sao đánh giá TB</span>
-                                                    <span><span style={{ fontSize: 23, fontWeight: 'bold', marginRight: 5 }}>4.5</span><Rate value={4.5} /></span>
-                                                    <span><span style={{ color: 'red' }}>&#9660; 0.2%</span> so với tháng trước</span>
-                                                </div>
-                                            </Col>
-                                            <Col span={24}>
-                                                <div style={{ display: 'flex', justifyContent: 'center', minHeight: isMobile ? 250 : 350 }}>
-                                                    <StarRatingChart />
-                                                </div>
-                                            </Col>
-                                            <Col span={24}>
-                                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                    <ErrorImpactChart title="Lỗi ảnh hưởng sao phục vụ" />
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            backgroundColor: '#FFFFFF',
-                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                                            borderRadius: 10,
-                                            flexDirection: 'column',
-                                            padding: 10,
-                                            minHeight: 500
-                                        }}
-                                    >
-                                        Nhân sự
-                                    </div>
-                                </Col>
-                            </Row>
-                            <Row gutter={[10, 10]} style={{ marginTop: 15 }}>
-                                <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            backgroundColor: '#FFFFFF',
-                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-                                            borderRadius: 10,
-                                            flexDirection: 'column',
-                                            padding: 10
-                                        }}
-                                    >
-                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                            <SalesTargetChart
-                                                title="Tổng thu nhập"
-                                                dataTarget={[500, 500, 500, 500, 500, 500]}
-                                                dataSales={[250, 100, 800, 230, 390, 410]}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            backgroundColor: '#FFFFFF',
-                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-                                            borderRadius: 10,
-                                            flexDirection: 'column',
-                                            padding: 10
-                                        }}
-                                    >
-                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                            <SalesTargetChart
-                                                title="Doanh thu tháng này"
-                                                backgroundColor1='#BFDBFE'
-                                                backgroundColor2='#2563EB'
-                                                dataTarget={[500, 500, 500, 500, 500, 500]}
-                                                dataSales={[250, 300, 10, 150, 900, 400]}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                            </Row>
                         </Col>
                         <Col xs={24} sm={24} md={10} lg={10} xl={8}>
                             <div
@@ -531,10 +427,11 @@ const Dashboard = () => {
                                     backgroundColor: '#FFFFFF',
                                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                                     borderRadius: 10,
-                                    padding: 10,
+                                    padding: 5,
+                                    height: '100%'
                                 }}
                             >
-                                <Row style={{ width: '100%', padding: 10 }} gutter={[0, 20]}>
+                                <Row style={{ width: '100%', padding: 10 }} gutter={[0, 10]}>
                                     <Col span={24}>
                                         <div
                                             style={{
@@ -670,7 +567,7 @@ const Dashboard = () => {
                                 </Row>
                             </div>
 
-                            <div
+                            {/* <div
                                 style={{
                                     display: 'flex',
                                     backgroundColor: '#FFFFFF',
@@ -683,7 +580,133 @@ const Dashboard = () => {
                                 }}
                             >
                                 Tư vấn cài app
+                            </div> */}
+                        </Col>
+                    </Row>
+                    <Row gutter={[10, 20]} style={{ marginTop: 15 }}>
+                        <Col xs={24} sm={24} md={24} lg={14} xl={9}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    backgroundColor: '#FFFFFF',
+                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                    borderRadius: 10,
+                                    flexDirection: 'column',
+                                    padding: 20,
+                                    height: '100%'
+                                }}
+                            >
+                                <Row gutter={[10, 30]}>
+                                    <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: 10,
+                                            }}
+                                        >
+                                            <span style={{ fontWeight: 'bold', fontSize: 22, color: 'black' }}>Hiệu quả hài lòng</span>
+                                            <span style={{ fontSize: 16, color: '#0195FF', fontWeight: 'bold' }}>323.839 đơn hàng</span>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{ display: 'flex', justifyContent: isMobile ? 'flex-start' : 'flex-end' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, }}>
+                                            <span>Sao đánh giá TB</span>
+                                            <span><span style={{ fontSize: 23, fontWeight: 'bold', marginRight: 5 }}>4.5</span><Rate value={4.5} /></span>
+                                            <span><span style={{ color: 'red' }}>&#9660; 0.2%</span> so với tháng trước</span>
+                                        </div>
+                                    </Col>
+                                    <Col span={24}>
+                                        <div style={{ display: 'flex', justifyContent: 'center', minHeight: isMobile ? 250 : 350 }}>
+                                            <StarRatingChart />
+                                        </div>
+                                    </Col>
+                                    <Col span={24}>
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <ErrorImpactChart title="Lỗi ảnh hưởng sao phục vụ" />
+                                        </div>
+                                    </Col>
+                                </Row>
                             </div>
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={10} xl={15}>
+                            <Row gutter={[10, 10]}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            backgroundColor: '#FFFFFF',
+                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                            borderRadius: 10,
+                                            flexDirection: 'column',
+                                            padding: 10,
+                                            minHeight: 300
+                                        }}
+                                    >
+                                        <PersonnelStackedChart width="1000px" height="600px" />
+                                    </div>
+                                </Col>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            backgroundColor: '#FFFFFF',
+                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                            borderRadius: 10,
+                                            flexDirection: 'column',
+                                            padding: 10,
+                                            minHeight: 300
+                                        }}
+                                    >
+                                        Tư vấn cài app
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row gutter={[10, 10]} style={{ marginTop: 10 }}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            backgroundColor: '#FFFFFF',
+                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+                                            borderRadius: 10,
+                                            flexDirection: 'column',
+                                            padding: 10
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <SalesTargetChart
+                                                title="Tổng thu nhập"
+                                                dataTarget={[500, 500, 500, 500, 500, 500]}
+                                                dataSales={[250, 100, 800, 230, 390, 410]}
+                                            />
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            backgroundColor: '#FFFFFF',
+                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+                                            borderRadius: 10,
+                                            flexDirection: 'column',
+                                            padding: 10
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <SalesTargetChart
+                                                title="Doanh thu tháng này"
+                                                backgroundColor1='#BFDBFE'
+                                                backgroundColor2='#2563EB'
+                                                dataTarget={[500, 500, 500, 500, 500, 500]}
+                                                dataSales={[250, 300, 10, 150, 900, 400]}
+                                            />
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Col>

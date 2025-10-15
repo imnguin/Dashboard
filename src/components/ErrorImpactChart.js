@@ -88,13 +88,14 @@ const ErrorImpactChart = ({ width = 700, height = 500, title = 'Lỗi ảnh hư�
                 text: title,
                 align: 'start',
                 font: {
-                    size: 20,
+                    size: 22,
                     weight: 'bold'
                 },
                 padding: {
                     top: 10,
                     bottom: 30
-                }
+                },
+                color : 'black'
             },
             legend: {
                 display: false,
