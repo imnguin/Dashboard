@@ -42,7 +42,7 @@ function splitLabel(label, maxLineLength = 10) {
     return lines;
 }
 
-const ErrorImpactChart = ({ width = 700, height = 500, title = 'Lỗi ảnh hưởng sao phục vụ' }) => {
+const ErrorImpactChart = ({ width = '100%', minHeight = 200, title = 'Lỗi ảnh hưởng sao phục vụ' }) => {
 
     // Dữ liệu giả định (Bạn nên truyền qua props trong thực tế)
     const labels = [
@@ -95,7 +95,7 @@ const ErrorImpactChart = ({ width = 700, height = 500, title = 'Lỗi ảnh hư�
                     top: 10,
                     bottom: 30
                 },
-                color : 'black'
+                color: 'black'
             },
             legend: {
                 display: false,
@@ -146,8 +146,8 @@ const ErrorImpactChart = ({ width = 700, height = 500, title = 'Lỗi ảnh hư�
     return (
         <div
             style={{
-                minHeight: 400,
-                width: '100%',
+                minHeight: minHeight,
+                width: width,
                 position: 'relative',
                 backgroundColor: 'white',
                 padding: '30px',

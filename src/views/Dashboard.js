@@ -1,6 +1,10 @@
 import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip } from "antd";
 import React from "react";
-import dayjs from "dayjs"; // Import dayjs
+import dayjs from "dayjs";
+import weekday from 'dayjs/plugin/weekday';
+import localeData from 'dayjs/plugin/localeData';
+dayjs.extend(weekday);
+dayjs.extend(localeData);
 import avatar from "../assets/images/anh-dai-dien-hai-yodyvn.jpg";
 import bell from "../assets/images/free-bell-icon-860-thumb.png";
 import logo from "../assets/images/111.png";
@@ -17,6 +21,7 @@ import ErrorImpactChart from "../components/ErrorImpactChart";
 import SalesTargetChart from "../components/SalesTargetChart";
 import PersonnelStackedChart from "../components/PersonnelStackedChart";
 import './styledashboard.css';
+import WavySparkChart from "../components/WavySparkChart";
 
 const { RangePicker } = DatePicker;
 const Dashboard = () => {
@@ -77,10 +82,54 @@ const Dashboard = () => {
         },
     ];
     const statItems = [
-        { src: chothuchien, title: 'Chờ thực hiện', trend: 'up', percentage: '5.68%', bgColor: '#FFEBED' },
-        { src: dichuyen, title: 'Di chuyển', trend: 'down', percentage: '2.3%', bgColor: '#FFF4ED' },
-        { src: dangthuchien, title: 'Đang thực hiện', trend: 'up', percentage: '5.68%', bgColor: '#DCFCE7' },
-        { src: hoanthanh, title: 'Hoàn tất', trend: 'up', percentage: '5.68%', bgColor: '#C3E6FF' },
+        {
+            src: chothuchien,
+            title: 'Chờ thực hiện',
+            value: '12.345 Đơn',
+            numericValue: 5678,
+            trend: 'up',
+            percentage: '5.68%',
+            bgColor: '#FFEBED',
+            chartData: [20, 30, 25, 35, 30, 40, 35, 45, 40, 50, 45, 55, 50, 60],
+            chartLineColor: '#FF6F6F', // Màu đường biểu đồ
+            chartFillColor: 'rgba(255, 111, 111, 0.2)', // Màu fill biểu đồ
+        },
+        {
+            src: dichuyen,
+            title: 'Di chuyển',
+            value: '5.678 Đơn',
+            numericValue: 2300,
+            trend: 'down',
+            percentage: '2.3%',
+            bgColor: '#FFF4ED',
+            chartData: [60, 50, 55, 45, 40, 35, 40, 30, 25, 20, 15, 10, 5], // Dữ liệu giảm
+            chartLineColor: '#FFB870', // Màu đường biểu đồ
+            chartFillColor: 'rgba(255, 184, 112, 0.2)', // Màu fill biểu đồ
+        },
+        {
+            src: dangthuchien,
+            title: 'Đang thực hiện',
+            value: '8.901 Đơn',
+            numericValue: 8901,
+            trend: 'up',
+            percentage: '5.68%',
+            bgColor: '#DCFCE7',
+            chartData: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+            chartLineColor: '#4CAF50',
+            chartFillColor: 'rgba(76, 175, 80, 0.2)',
+        },
+        {
+            src: hoanthanh,
+            title: 'Hoàn tất',
+            value: '25.432 Đơn',
+            numericValue: 25432,
+            trend: 'up',
+            percentage: '5.68%',
+            bgColor: '#C3E6FF',
+            chartData: [30, 35, 40, 38, 45, 50, 48, 55, 60, 58, 65, 70, 68, 75],
+            chartLineColor: '#2196F3',
+            chartFillColor: 'rgba(33, 150, 243, 0.2)',
+        },
     ];
     const notificationItems = [
         {
@@ -147,7 +196,7 @@ const Dashboard = () => {
                                 <Form.Item className="form-item">
                                     <RangePicker
                                         className="range-picker"
-                                        defaultValue={[dayjs('2015/01/01', 'DD/MM/YYYY'), dayjs('2015/01/01', 'DD/MM/YYYY')]}
+                                        defaultValue={[dayjs(), dayjs()]}
                                         format={'DD/MM/YYYY'}
                                     />
                                 </Form.Item>
@@ -199,18 +248,28 @@ const Dashboard = () => {
                                     {statItems.map((item, index) => (
                                         <Col xs={24} sm={24} md={12} lg={12} xl={6} key={index}>
                                             <div className={`stat-card ${item.title.toLowerCase().replace(/\s/g, '')}`} style={{ backgroundColor: item.bgColor }}>
-                                                <div className="stat-content">
-                                                    <img src={item.src} className="stat-icon" />
-                                                    <div className="stat-text">
-                                                        <Typography.Text className="stat-value">12.345 Đơn</Typography.Text>
-                                                        <Typography.Text className="stat-label">{item.title}</Typography.Text>
+                                                <div className="stat-wrapper">
+                                                    <div className="stat-content">
+                                                        <img src={item.src} className="stat-icon" />
+                                                        <div className="stat-text">
+                                                            <Typography.Text className="stat-value">{item.value}</Typography.Text>
+                                                            <Typography.Text className="stat-label">{item.title}</Typography.Text>
+                                                        </div>
+                                                    </div>
+                                                    <div className="stat-details">
+                                                        <span className={`stat-trend ${item.trend}`}>{item.trend === 'down' ? '▼' : '▲'}</span>
+                                                        <span className="stat-percentage"> {item.percentage}</span>
+                                                        <span className="stat-link">Xem chi tiết</span>
                                                     </div>
                                                 </div>
-                                                <div className="stat-details">
-                                                    <span className={`stat-trend ${item.trend}`}>{item.trend === 'down' ? '&#9660;' : '&#9650;'}</span>
-                                                    <span className="stat-percentage"> {item.percentage}</span>
-                                                    <span className="stat-link">Xem chi tiết</span>
-                                                </div>
+                                                {item.chartData && (
+                                                    <WavySparkChart
+                                                        data={item.chartData}
+                                                        trend={item.trend}
+                                                        lineColor={item.chartLineColor}
+                                                        fillColor={item.chartFillColor}
+                                                    />
+                                                )}
                                             </div>
                                         </Col>
                                     ))}
@@ -247,7 +306,7 @@ const Dashboard = () => {
                     <Row gutter={[10, 20]} className="bottom-row" style={{ marginTop: 15 }}>
                         <Col xs={24} sm={24} md={24} lg={14} xl={8}>
                             <div className="satisfaction-card">
-                                <Row gutter={[10, 30]}>
+                                <Row gutter={[10, 10]}>
                                     <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                                         <div className="satisfaction-header">
                                             <span className="satisfaction-title">Hiệu quả hài lòng</span>
@@ -268,67 +327,69 @@ const Dashboard = () => {
                                     </Col>
                                     <Col span={24}>
                                         <div className="error-chart-container">
-                                            <ErrorImpactChart title="Lỗi ảnh hưởng sao phục vụ" />
+                                            <ErrorImpactChart minHeight={isMobile ? 400 : 200} title="Lỗi ảnh hưởng sao phục vụ" />
                                         </div>
                                     </Col>
                                 </Row>
                             </div>
                         </Col>
                         <Col xs={24} sm={24} md={24} lg={10} xl={16}>
-                            <Row gutter={[10, 10]}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div className="personnel-card">
-                                        <PersonnelStackedChart />
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div className="table-card">
-                                        <Row className="table-header" gutter={[10, 10]}>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <span className="table-title">Tư vấn cài App</span>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12} className={`table-date-col ${!screens.md ? 'mobile' : ''}`}>
-                                                <Typography.Text>
-                                                    <span>01/09/2023 - 30/09/2023</span>
-                                                    <span className="table-link">Chi tiết</span>
-                                                </Typography.Text>
-                                            </Col>
-                                        </Row>
-                                        <Table
-                                            columns={columns}
-                                            dataSource={data}
-                                            size="large"
-                                            pagination={false}
-                                        />
-                                    </div>
-                                </Col>
-                            </Row>
-                            <Row gutter={[10, 10]} className="sales-row" style={{ marginTop: 10 }}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div className="sales-card">
-                                        <div className="sales-chart-container">
-                                            <SalesTargetChart
-                                                title="Tổng thu nhập"
-                                                dataTarget={[500, 500, 500, 500, 500, 500]}
-                                                dataSales={[250, 100, 800, 230, 390, 410]}
+                            <div>
+                                <Row gutter={[10, 10]}>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                        <div className="personnel-card">
+                                            <PersonnelStackedChart />
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                        <div className="table-card">
+                                            <Row className="table-header" gutter={[10, 10]}>
+                                                <Col xs={24} sm={24} md={12}>
+                                                    <span className="table-title">Tư vấn cài App</span>
+                                                </Col>
+                                                <Col xs={24} sm={24} md={12} className={`table-date-col ${!screens.md ? 'mobile' : ''}`}>
+                                                    <Typography.Text>
+                                                        <span>01/09/2023 - 30/09/2023</span>
+                                                        <span className="table-link">Chi tiết</span>
+                                                    </Typography.Text>
+                                                </Col>
+                                            </Row>
+                                            <Table
+                                                columns={columns}
+                                                dataSource={data}
+                                                size="large"
+                                                pagination={false}
                                             />
                                         </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div className="sales-card">
-                                        <div className="sales-chart-container">
-                                            <SalesTargetChart
-                                                title="Doanh thu tháng này"
-                                                backgroundColor1='#BFDBFE'
-                                                backgroundColor2='#2563EB'
-                                                dataTarget={[500, 500, 500, 500, 500, 500]}
-                                                dataSales={[250, 300, 10, 150, 900, 400]}
-                                            />
+                                    </Col>
+                                </Row>
+                                <Row gutter={[10, 10]} className="sales-row" style={{ marginTop: 10 }}>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                        <div className="sales-card">
+                                            <div className="sales-chart-container">
+                                                <SalesTargetChart
+                                                    title="Tổng thu nhập"
+                                                    dataTarget={[500, 500, 500, 500, 500, 500]}
+                                                    dataSales={[250, 100, 800, 230, 390, 410]}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                </Col>
-                            </Row>
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                        <div className="sales-card">
+                                            <div className="sales-chart-container">
+                                                <SalesTargetChart
+                                                    title="Doanh thu tháng này"
+                                                    backgroundColor1='#BFDBFE'
+                                                    backgroundColor2='#2563EB'
+                                                    dataTarget={[500, 500, 500, 500, 500, 500]}
+                                                    dataSales={[250, 300, 10, 150, 900, 400]}
+                                                />
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
                         </Col>
                     </Row>
                 </Col>
