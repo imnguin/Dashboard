@@ -150,7 +150,7 @@ const PersonnelStackedChart = ({
     return (
         <div
             style={{
-                height: 300,
+                height: 400,
                 width: '100%',
                 position: 'relative',
                 display: 'flex',
