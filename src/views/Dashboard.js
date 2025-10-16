@@ -1,4 +1,4 @@
-import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip } from "antd";
+import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip, message, notification } from "antd";
 import React from "react";
 import dayjs from "dayjs";
 import weekday from 'dayjs/plugin/weekday';
@@ -27,6 +27,13 @@ const { RangePicker } = DatePicker;
 const Dashboard = () => {
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIcon = (type, description) => {
+        api[type]({
+            message: 'Thông báo',
+            description: description
+        });
+    };
     const isMobile = window.matchMedia("(max-width: 576px)").matches;
     const colors = ['#0195FF', '#00E096', '#884EFF', '#FF8F0C'];
     const columns = [
@@ -166,6 +173,14 @@ const Dashboard = () => {
             isError: true
         },
     ];
+
+    const showNotification = () => {
+        notification.info({
+            message: 'Thông báo',
+            description: 'Tính năng đang phát triển!',
+            placement: 'topRight',
+        });
+    };
     return (
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>
@@ -176,7 +191,7 @@ const Dashboard = () => {
                     </div>
                 </Col>
                 <Col xs={24} md={16} lg={12} xl={13} xxl={14} className="form-col">
-                    <Form className="search-form">
+                    <Form className="search-form" onFinish={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
                         <Row className="form-row" gutter={[16, 16]} justify="center" align="middle">
                             <Col xs={24} sm={12} md={6}>
                                 <Form.Item className="form-item">
@@ -238,7 +253,13 @@ const Dashboard = () => {
                                     <Col xs={24} sm={24} md={12} className={`operation-date ${!screens.md ? 'mobile' : ''}`}>
                                         <Typography.Text>
                                             <span>01/09/2023 - 30/09/2023</span>
-                                            <Button className="export-button" type="primary" size="middle" icon={<ExportOutlined />}>
+                                            <Button
+                                                className="export-button"
+                                                type="primary"
+                                                size="middle"
+                                                icon={<ExportOutlined />}
+                                                onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}
+                                            >
                                                 Export
                                             </Button>
                                         </Typography.Text>
@@ -259,7 +280,7 @@ const Dashboard = () => {
                                                     <div className="stat-details">
                                                         <span className={`stat-trend ${item.trend}`}>{item.trend === 'down' ? '▼' : '▲'}</span>
                                                         <span className="stat-percentage"> {item.percentage}</span>
-                                                        <span className="stat-link">Xem chi tiết</span>
+                                                        <span className="stat-link" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>Xem chi tiết</span>
                                                     </div>
                                                 </div>
                                                 {item.chartData && (
@@ -281,7 +302,7 @@ const Dashboard = () => {
                                 <Row className="notification-row" gutter={[0, 10]} style={{ width: '100%', padding: 10 }}>
                                     {notificationItems.map((item, index) => (
                                         <Col span={24} key={index}>
-                                            <div className={`notification-item ${item.isError ? 'error' : ''}`}>
+                                            <div className={`notification-item ${item.isError ? 'error' : ''}`} onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
                                                 <div className="notification-content">
                                                     <div className="notification-icon-container" style={{ backgroundColor: item.bgColor }}>
                                                         <img src={item.icon} className="notif-icon" />
@@ -345,12 +366,12 @@ const Dashboard = () => {
                                         <div className="table-card">
                                             <Row className="table-header" gutter={[10, 10]}>
                                                 <Col xs={24} sm={24} md={12}>
-                                                    <span className="table-title">Tư vấn cài App</span>
+                                                    <span className="table-title" >Tư vấn cài App</span>
                                                 </Col>
                                                 <Col xs={24} sm={24} md={12} className={`table-date-col ${!screens.md ? 'mobile' : ''}`}>
                                                     <Typography.Text>
                                                         <span>01/09/2023 - 30/09/2023</span>
-                                                        <span className="table-link">Chi tiết</span>
+                                                        <span className="table-link" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>Chi tiết</span>
                                                     </Typography.Text>
                                                 </Col>
                                             </Row>
@@ -394,6 +415,7 @@ const Dashboard = () => {
                     </Row>
                 </Col>
             </Row>
+            {contextHolder}
         </div>
     );
 };

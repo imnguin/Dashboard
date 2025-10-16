@@ -311,6 +311,7 @@
 .stat-link {
   margin-left: auto; /* Lề trái: Đẩy link sang phải cùng */
   color: #01d9c0; /* Màu chữ */
+  cursor: pointer;
 }
 /* ================================================= */
 /* KẾT THÚC STAT CARD */
@@ -339,6 +340,7 @@
   border: 1px solid #ffffffff;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 /* Dãn cách cho thông báo lỗi */
@@ -559,6 +561,7 @@
   margin-left: 10px;
   text-decoration-line: underline;
   color: #0195ff;
+  cursor: pointer;
 }
 
 /* Hàng sales */
