@@ -101,6 +101,7 @@
 .notification-bell-container {
   position: relative; /* Vị trí: Đặt làm gốc cho các phần tử tuyệt đối bên trong */
   display: inline-block; /* Hiển thị: Chỉ chiếm không gian nội dung */
+  cursor: pointer;
 }
 
 /* Icon chuông */

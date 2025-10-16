@@ -226,7 +226,7 @@ const Dashboard = () => {
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6} className={`user-col ${!screens.lg ? 'hidden' : ''}`}>
                     <div className="user-info">
-                        <div className="notification-bell-container">
+                        <div className="notification-bell-container" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
                             <img src={bell} alt="Notification Bell" className="bell-icon" />
                             <span className="notification-dot" />
                         </div>
