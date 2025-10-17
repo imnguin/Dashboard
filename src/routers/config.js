@@ -1,11 +1,11 @@
 
-import Home from "../views/Home";
+import Dashboard from "../views/Dashboard";
 import PageNotFound from "../views/PageNotFound";
 
 const configRoute = [
     {
         path: '/',
-        component: Home,
+        component: Dashboard,
         layout: 'Nguin'
     },
     {

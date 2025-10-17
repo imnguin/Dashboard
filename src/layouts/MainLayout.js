@@ -72,65 +72,8 @@ const MainLayout2 = (props) => {
     }
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <Layout.Sider
-                trigger={null}
-                collapsible
-                collapsed={collapsed}
-                collapsedWidth={collapsedWidth}
-                breakpoint="lg"
-                onBreakpoint={(broken) => handleBreakPoint(broken)}
-            >
-                <Menu theme="dark" mode="inline" items={items} />
-            </Layout.Sider>
-            <Layout>
-                <Layout.Header style={{ padding: 0, background: colorBgContainer }}>
-                    <Row>
-                        <Col flex="100px">
-                            <Button
-                                type="text"
-                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                                onClick={() => setCollapsed?.(!collapsed)}
-                                style={{
-                                    fontSize: '16px',
-                                    width: 64,
-                                    height: 64,
-                                }}
-                            />
-                        </Col>
-                        <Col flex="auto">
-                            <Dropdown menu={{
-                                items: [
-                                    {
-                                        key: '1',
-                                        label: 'Thông tin nhân viên'
-                                    },
-                                    {
-                                        key: '2',
-                                        label: 'Đổi mật khẩu'
-                                    },
-                                    {
-                                        key: '3',
-                                        label: <span onClick={() => Logout()}>Đăng xuất</span>
-                                    }
-                                ],
-                            }} placement="bottomLeft" arrow>
-                                <div style={{
-                                    float: 'right',
-                                    marginRight: 20
-                                }}>
-                                    <Avatar size='default' icon={<UserOutlined />}></Avatar>
-                                </div>
-                            </Dropdown>
-                        </Col>
-                    </Row>
-                </Layout.Header>
-                <Layout.Content style={{ margin: '10px 10px 0', overflow: 'initial', minHeight: `calc(100vh - 145px)` }}>
-                    {props.children}
-                </Layout.Content>
-                <Layout.Footer style={{ textAlign: 'center', }}>©2025 Created by Nguin</Layout.Footer>
-            </Layout>
-        </Layout>
+        // Thiết kế layout cho toàn bộ web ở đây
+        props.children
     );
 }
 export default MainLayout2;

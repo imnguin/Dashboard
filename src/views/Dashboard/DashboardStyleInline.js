@@ -1,21 +1,21 @@
 import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip } from "antd";
 import React from "react";
 import dayjs from "dayjs"; // Import dayjs
-import avatar from "../assets/images/anh-dai-dien-hai-yodyvn.jpg";
-import bell from "../assets/images/free-bell-icon-860-thumb.png";
-import logo from "../assets/images/111.png";
-import chothuchien from "../assets/images/chothuchien.png";
-import dichuyen from "../assets/images/dichuyen.png";
-import dangthuchien from "../assets/images/dangthuchien.png";
-import hoanthanh from "../assets/images/hoanthanh.png";
-import bellicon from "../assets/images/bellicon.png";
-import bagicon from "../assets/images/bagicon.png";
-import warningicon from "../assets/images/warningicon.png";
+import avatar from "../../assets/images/anh-dai-dien-hai-yodyvn.jpg";
+import bell from "../../assets/images/free-bell-icon-860-thumb.png";
+import logo from "../../assets/images/111.png";
+import chothuchien from "../../assets/images/chothuchien.png";
+import dichuyen from "../../assets/images/dichuyen.png";
+import dangthuchien from "../../assets/images/dangthuchien.png";
+import hoanthanh from "../../assets/images/hoanthanh.png";
+import bellicon from "../../assets/images/bellicon.png";
+import bagicon from "../../assets/images/bagicon.png";
+import warningicon from "../../assets/images/warningicon.png";
 import { ExportOutlined, WarningFilled, MoreOutlined, SearchOutlined } from '@ant-design/icons';
-import StarRatingChart from "../components/StarRatingChart";
-import ErrorImpactChart from "../components/ErrorImpactChart";
-import SalesTargetChart from "../components/SalesTargetChart";
-import PersonnelStackedChart from "../components/PersonnelStackedChart";
+import StarRatingChart from "./components/StarRatingChart";
+import ErrorImpactChart from "./components/ErrorImpactChart";
+import SalesTargetChart from "./components/SalesTargetChart";
+import PersonnelStackedChart from "./components/PersonnelStackedChart";
 const { RangePicker } = DatePicker;
 const Dashboard = () => {
     const { useBreakpoint } = Grid;
