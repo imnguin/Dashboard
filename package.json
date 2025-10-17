@@ -1,11 +1,9 @@
 {
-    "name": "Dashboard",
+    "name": "dashboard",
     "version": "1.0.0",
     "main": "index.js",
     "repository": "https://github.com/imnguin/Dashboard.git",
-    "author": "Lâm Xuân Nguyên <100450698+imnguin@users.noreply.github.com>",
     "license": "MIT",
-    "homepage": "https://imguin.github.io/Dashboard",
     "dependencies": {
         "@ant-design/pro-components": "^2.8.7",
         "@emotion/css": "^11.13.5",
