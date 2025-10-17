@@ -1,0 +1,164 @@
+/* Container chính của toàn bộ ứng dụng */
+.app-container {
+  height: 100vh; /* Chiều cao: Bằng 100% chiều cao của viewport (màn hình) */
+  background-color: #defefb; /* Màu nền: Đặt màu nền nhạt cho ứng dụng */
+  overflow-x: hidden; /* Tràn ngang: Ngăn thanh cuộn ngang xuất hiện */
+  max-width: 100%; /* Chiều rộng tối đa: Không vượt quá 100% chiều rộng cha */
+}
+
+/* Hàng tiêu đề/header */
+.header-row {
+  background-color: #ffffff; /* Màu nền: Trắng */
+  display: flex; /* Bố cục: Sử dụng Flexbox */
+  align-items: center; /* Căn chỉnh mục: Căn giữa các mục theo chiều dọc */
+  padding: 15px 20px; /* Đệm: 15px trên dưới, 20px trái phải */
+  min-height: 64px; /* Chiều cao tối thiểu: Đảm bảo chiều cao nhất định */
+  width: 100%; /* Chiều rộng: Chiếm toàn bộ chiều rộng */
+  box-sizing: border-box; /* Tính toán kích thước: Tính padding và border vào tổng kích thước */
+}
+
+/* Container chứa logo */
+.logo-container {
+  display: flex; /* Bố cục: Flexbox */
+  justify-content: flex-start; /* Căn chỉnh nội dung: Đẩy logo về phía trái */
+  align-items: center; /* Căn chỉnh mục: Căn giữa theo chiều dọc */
+  height: 100%; /* Chiều cao: 100% chiều cao cha */
+  gap: 10px; /* Khoảng cách: 10px giữa các mục con */
+}
+
+/* Căn giữa logo khi ở chế độ mobile */
+.logo-container.mobile {
+  justify-content: center; /* Căn chỉnh nội dung: Căn giữa */
+}
+
+/* Ảnh logo */
+.logo-img {
+  height: 60px; /* Chiều cao ảnh */
+}
+
+/* Văn bản logo */
+.logo-text {
+  font-weight: bold; /* Độ đậm chữ: Chữ đậm */
+  font-size: 19px; /* Kích thước chữ */
+}
+
+/* Cột chứa form tìm kiếm */
+.form-col {
+  display: flex; /* Bố cục: Flexbox */
+  align-items: center; /* Căn chỉnh mục: Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn chỉnh nội dung: Căn giữa theo chiều ngang */
+  height: 100%; /* Chiều cao: 100% chiều cao cha */
+  padding: 0; /* Đệm: Không có padding */
+}
+
+/* Form tìm kiếm */
+.search-form {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  margin: 0; /* Lề: Không có lề */
+  max-width: 100%; /* Chiều rộng tối đa: 100% */
+}
+
+/* Hàng trong form */
+.form-row {
+  min-height: 100%; /* Chiều cao tối thiểu: 100% */
+  margin: 0; /* Lề: Không có lề */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  box-sizing: border-box; /* Tính toán kích thước: Tính padding và border vào tổng kích thước */
+}
+
+/* Item trong form (Ant Design) */
+.form-item {
+  margin: 0; /* Lề: Không có lề */
+}
+
+/* Range Picker (chọn ngày tháng) */
+.range-picker {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+/* Cột chứa thông tin người dùng */
+.user-col {
+  display: flex; /* Bố cục: Flexbox */
+  align-items: center; /* Căn chỉnh mục: Căn giữa theo chiều dọc */
+  justify-content: flex-end; /* Căn chỉnh nội dung: Đẩy về phía phải */
+  height: 100%; /* Chiều cao: 100% chiều cao cha */
+}
+
+/* Ẩn cột người dùng khi có class hidden */
+.user-col.hidden {
+  display: none; /* Hiển thị: Ẩn hoàn toàn */
+}
+
+/* Khung chứa chuông thông báo và avatar */
+.user-info {
+  display: flex; /* Bố cục: Flexbox */
+  gap: 15px; /* Khoảng cách: 15px giữa các mục con */
+  align-items: center; /* Căn chỉnh mục: Căn giữa theo chiều dọc */
+  height: 100%; /* Chiều cao: 100% chiều cao cha */
+}
+
+/* Container cho chuông thông báo */
+.notification-bell-container {
+  position: relative; /* Vị trí: Đặt làm gốc cho các phần tử tuyệt đối bên trong */
+  display: inline-block; /* Hiển thị: Chỉ chiếm không gian nội dung */
+  cursor: pointer;
+}
+
+/* Icon chuông */
+.bell-icon {
+  height: 25px; /* Chiều cao icon */
+  width: 25px; /* Chiều rộng icon */
+  border-radius: 50%; /* Bo tròn: Tạo hình tròn */
+}
+
+/* Chấm đỏ thông báo */
+.notification-dot {
+  position: absolute; /* Vị trí: Tuyệt đối so với .notification-bell-container */
+  top: -3px; /* Vị trí trên: Dịch lên 3px */
+  right: -3px; /* Vị trí phải: Dịch sang phải 3px */
+  height: 8px; /* Chiều cao */
+  width: 8px; /* Chiều rộng */
+  background-color: red; /* Màu nền: Đỏ */
+  border-radius: 50%; /* Bo tròn: Hình tròn */
+  z-index: 10; /* Lớp: Nằm trên cùng */
+  border: 1px solid white; /* Đường viền: 1px màu trắng */
+}
+
+/* Chi tiết người dùng (tên, ID) */
+.user-details {
+  display: flex; /* Bố cục: Flexbox */
+  flex-direction: column; /* Hướng flex: Xếp chồng theo chiều dọc */
+  align-items: flex-end; /* Căn chỉnh mục: Căn về phía cuối (phải) */
+  line-height: 1.2; /* Chiều cao dòng */
+}
+
+/* ID người dùng */
+.user-id {
+  font-size: 13px; /* Kích thước chữ */
+  color: #787486; /* Màu chữ */
+}
+
+/* Avatar người dùng */
+.avatar-img {
+  height: 35px; /* Chiều cao ảnh */
+  width: 35px; /* Chiều rộng ảnh */
+  border-radius: 50%; /* Bo tròn: Hình tròn */
+  object-fit: cover; /* Điều chỉnh ảnh: Cắt ảnh để vừa với kích thước */
+  border: 1px solid #b4d4ff; /* Đường viền */
+}
+
+/* Hàng chứa nội dung chính */
+.content-row {
+  padding: 15px; /* Đệm: 15px xung quanh */
+}
+
+/* Thẻ chứa bảng/biểu đồ lớn */
+.operation-card {
+  display: flex; /* Bố cục: Flexbox */
+  background-color: #ffffff; /* Màu nền: Trắng */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  border-radius: 10px; /* Bo tròn góc */
+  flex-direction: column; /* Hướng flex: Xếp chồng theo chiều dọc */
+  padding: 10px; /* Đệm */
+  height: 100%; /* Chiều cao: Chiếm 100% chiều cao cha */
+}

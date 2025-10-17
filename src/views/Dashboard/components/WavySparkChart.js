@@ -30,7 +30,7 @@ const WavySparkChart = ({ data, trend, lineColor, fillColor }) => {
             {
                 data: data,
                 borderColor: lineColor || defaultLineColor,
-                borderWidth: 3,
+                borderWidth: 4,
                 pointRadius: 0,
                 tension: 0.4, // Tạo đường cong gợn sóng
                 fill: true, // Quan trọng: Đổ màu bên dưới đường
