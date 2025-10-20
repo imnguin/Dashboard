@@ -188,6 +188,40 @@ const Dashboard2 = () => {
 
     const topStarItems = [
         {
+            title: '1 sao',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #DC5C53 100%)',
+            crossColor: '#D32F2F',
+            percent: 15
+        },
+        {
+            title: '2 sao',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #FF6C02 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: '3 sao',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #FF6C02 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: '4 sao',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #104086 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: '5 sao',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #104086 100%)',
+            crossColor: '#D32F2F'
+        },
+    ];
+
+    const topErrItems = [
+        {
             title: 'T3. Trễ hẹn',
             subTitle: '3755 - Trụ sở MWG',
             bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #DC5C53 100%)',
@@ -218,6 +252,7 @@ const Dashboard2 = () => {
             crossColor: '#D32F2F'
         },
     ];
+
     return (
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>
@@ -418,7 +453,7 @@ const Dashboard2 = () => {
                         </Col>
                         <Col xs={24} md={12} xl={6}>
                             <div className="operation-card">
-                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Top sao theo khu vực</span>
+                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Top kho có tỷ trọng sao thấp</span>
                                 <div style={{ padding: 10 }}>
                                     {
                                         topStarItems.map((item, index) => {
@@ -461,7 +496,9 @@ const Dashboard2 = () => {
 
                                                     <div style={{ flexGrow: 1 }}>
                                                         <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '10px', color: '#2B3674' }}>{item.title}</div>
-                                                        <div style={{ fontSize: '12px', fontWeight: '700', color: '#4BA665' }}>{item.subTitle}</div>
+                                                        <div style={{ fontSize: '12px', fontWeight: '700', color: '#4BA665' }}>{item.subTitle}
+                                                            <span style={{ marginLeft: 10, color: 'red' }}>{item.percent || 0}%</span>
+                                                        </div>
                                                     </div>
 
                                                     <div
@@ -505,10 +542,10 @@ const Dashboard2 = () => {
                         </Col>
                         <Col xs={24} md={12} xl={6}>
                             <div className="operation-card">
-                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Top tỷ trọng khiếu nại theo khu vực</span>
+                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Top tỷ trọng khiếu nại theo kho</span>
                                 <div style={{ padding: 10 }}>
                                     {
-                                        topStarItems.map((item, index) => {
+                                        topErrItems.map((item, index) => {
                                             return (
                                                 <div
                                                     key={index}
