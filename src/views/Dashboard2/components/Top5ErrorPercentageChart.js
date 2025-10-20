@@ -70,8 +70,8 @@ const data = {
 const options = {
     indexAxis: 'y', // Biểu đồ Thanh Ngang
     responsive: true,
-    maintainAspectRatio: false, 
-    
+    maintainAspectRatio: false,
+
     plugins: {
         legend: { display: false },
         title: {
@@ -97,7 +97,7 @@ const options = {
             align: 'right', // Đặt nhãn ở cuối thanh
             color: '#333',
             font: { size: 13, weight: 'bold' },
-            formatter: function(value) {
+            formatter: function (value) {
                 return value.toLocaleString(); // Định dạng số (ví dụ: 1,550)
             }
         }
@@ -113,14 +113,14 @@ const options = {
         x: {
             min: 0,
             // Tự động điều chỉnh max X-axis cho phù hợp với tổng số lớn nhất
-            max: Math.ceil(Math.max(...preparedData.counts) / 500) * 500, 
+            max: Math.ceil(Math.max(...preparedData.counts) / 500) * 500,
             grid: {
                 color: '#e0e0e0',
                 borderDash: [5, 5]
             },
             ticks: {
                 // Không hiển thị dấu %
-                callback: (value) => value.toLocaleString(), 
+                callback: (value) => value.toLocaleString(),
                 color: '#333',
                 font: { size: 12 }
             },
@@ -143,18 +143,12 @@ const options = {
 
 const Top5ErrorCountChart = () => {
     return (
-        <div 
-            style={{ 
-                width: '100%', 
-                height: '400px',
-                padding: '15px', 
-                // backgroundColor: 'white', 
-                // borderRadius: '10px', 
-                // boxShadow: '0 8px 8px rgba(0,0,0,0.2)'
-            }}
+        <div
+            style={{ flexGrow: 1 }}
         >
             <Bar data={data} options={options} />
         </div>
+
     );
 };
 
