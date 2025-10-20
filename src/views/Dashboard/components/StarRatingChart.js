@@ -45,7 +45,7 @@ const StarRatingChart = (props) => {
                     font: {
                         size: 14,
                     },
-                    boxWidth: 10,
+                    boxWidth: 10
                 }
             },
             tooltip: {
@@ -62,6 +62,7 @@ const StarRatingChart = (props) => {
                     },
                 },
             },
+            datalabels: { display: true },
         },
         animation: {
             animateRotate: true,

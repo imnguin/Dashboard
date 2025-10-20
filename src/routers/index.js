@@ -13,7 +13,7 @@ const Router = () => {
                 <Route
                     path='*'
                     element={
-                        <ProtectedRoute>
+                        // <ProtectedRoute>
                             <React.Suspense fallback={<div>Đang tải dữ liệu... </div>}>
                                 <Routes>
                                     {
@@ -23,7 +23,7 @@ const Router = () => {
                                     }
                                 </Routes>
                             </React.Suspense>
-                        </ProtectedRoute>
+                        // </ProtectedRoute>
                     }>
                 </Route>
             </Routes>

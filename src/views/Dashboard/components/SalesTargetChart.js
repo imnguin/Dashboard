@@ -92,6 +92,7 @@ const SalesTargetChart = (props) => {
                     padding: 20,
                 }
             },
+            datalabels: { display: false },
             tooltip: {
                 callbacks: {
                     title: (context) => context[0].label,

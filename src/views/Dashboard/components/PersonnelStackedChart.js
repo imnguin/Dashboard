@@ -103,6 +103,7 @@ const PersonnelStackedChart = ({
                     padding: 20
                 }
             },
+            datalabels: { display: false },
             tooltip: {
                 mode: 'index',
                 intersect: false,

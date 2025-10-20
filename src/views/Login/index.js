@@ -74,27 +74,27 @@ const ThemedLogin = ({ isDark, toggleDark }) => {
                 }}
             >
                 <LoginForm
-                    logo="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                    title="Hệ thống"
-                    subTitle={
-                        <div style={{ color: token.colorText }}>
-                            Nền tảng quản lý hiện đại
-                        </div>
-                    }
-                    actions={
-                        <Space style={{ justifyContent: 'space-between', width: '100%' }}>
-                            <span style={{ color: token.colorText }}>Đăng nhập với</span>
-                            <GithubOutlined style={iconStyles} />
-                            <Button
-                                type="text"
-                                icon={isDark ? <BulbFilled /> : <BulbOutlined />}
-                                onClick={toggleDark}
-                                style={{ marginLeft: 'auto' }}
-                            >
-                                {isDark ? 'Sáng' : 'Tối'}
-                            </Button>
-                        </Space>
-                    }
+                    // logo="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                    // title="Hệ thống"
+                    // subTitle={
+                    //     <div style={{ color: token.colorText }}>
+                    //         Nền tảng quản lý hiện đại
+                    //     </div>
+                    // }
+                    // actions={
+                    //     <Space style={{ justifyContent: 'space-between', width: '100%' }}>
+                    //         <span style={{ color: token.colorText }}>Đăng nhập với</span>
+                    //         <GithubOutlined style={iconStyles} />
+                    //         <Button
+                    //             type="text"
+                    //             icon={isDark ? <BulbFilled /> : <BulbOutlined />}
+                    //             onClick={toggleDark}
+                    //             style={{ marginLeft: 'auto' }}
+                    //         >
+                    //             {isDark ? 'Sáng' : 'Tối'}
+                    //         </Button>
+                    //     </Space>
+                    // }
                     onFinish={onFinish}
                     submitter={{
                         searchConfig: {

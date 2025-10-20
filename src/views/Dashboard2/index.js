@@ -20,6 +20,9 @@ import WavySparkChart from "../Dashboard/components/WavySparkChart";
 import dayjs from "dayjs";
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
+import RatingGroupedBarChart from "./components/RatingGroupedBarChart";
+import Top5ErrorPercentageChart from "./components/Top5ErrorPercentageChart";
+import AverageStarTrendChart from "./components/AverageStarTrendChart";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -181,6 +184,39 @@ const Dashboard2 = () => {
             placement: 'topRight',
         });
     };
+
+    const topStarItems = [
+        {
+            title: 'T3. Trễ hẹn',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #DC5C53 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: 'T4. Tay nghề',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #FF6C02 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: 'T2. Thái độ',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #FF6C02 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: 'T1. Trễ hẹn',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #104086 100%)',
+            crossColor: '#D32F2F'
+        },
+        {
+            title: 'T5. Trễ hẹn',
+            subTitle: '3755 - Trụ sở MWG',
+            bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #104086 100%)',
+            crossColor: '#D32F2F'
+        },
+    ];
     return (
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>
@@ -242,7 +278,7 @@ const Dashboard2 = () => {
             </Row>
             <Row className="content-row" gutter={[15, 15]}>
                 <Col span={24}>
-                    <Row gutter={[10, 20]}>
+                    <Row gutter={[10, 10]}>
                         <Col span={24}>
                             <div className="operation-card">
                                 <Row gutter={[10, 30]} style={{ padding: 10 }}>
@@ -371,6 +407,168 @@ const Dashboard2 = () => {
                                         </div>
                                     </Col>
                                 </Row>
+                            </div>
+                        </Col>
+
+                        <Col xs={24} xl={18}>
+                            <div className="operation-card">
+                                <RatingGroupedBarChart />
+                            </div>
+                        </Col>
+                        <Col xs={24} md={12} xl={6}>
+                            <div className="operation-card">
+                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Top sao theo khu vực</span>
+                                <div style={{ padding: 10 }}>
+                                    {
+                                        topStarItems.map((item, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        padding: '10px',
+                                                        borderRadius: '12px',
+                                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                                        position: 'relative',
+                                                        width: '100%',
+                                                        background: item.bgColor, // Sử dụng biến gradient
+                                                        color: 'white',
+                                                        marginTop: '5px'
+                                                        // fontFamily: 'Arial, sans-serif'
+                                                    }}
+                                                >
+
+                                                    {/* ICON CIRCLE */}
+                                                    <div
+                                                        style={{
+                                                            width: '40px',
+                                                            height: '40px',
+                                                            minWidth: '40px',
+                                                            borderRadius: '50%',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center',
+                                                            marginRight: '15px',
+                                                            backgroundColor: '#F7C3C0',
+                                                            border: '1px solid rgba(255, 255, 255, 0.5)',
+                                                            position: 'relative',
+                                                        }}
+                                                    >
+                                                    </div>
+
+                                                    <div style={{ flexGrow: 1 }}>
+                                                        <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '10px', color: '#2B3674' }}>{item.title}</div>
+                                                        <div style={{ fontSize: '12px', fontWeight: '700', color: '#4BA665' }}>{item.subTitle}</div>
+                                                    </div>
+
+                                                    <div
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            marginLeft: '10px',
+                                                            fontSize: '20px',
+                                                            lineHeight: '1',
+                                                            opacity: '0.7'
+                                                        }}
+                                                    >
+                                                        &#8942;
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </Col>
+                        <Col xs={24} md={12} xl={9}>
+                            <div className="operation-card">
+                                <div
+                                    style={{
+                                        margin: 10,
+                                        display: 'flex',
+                                        justifyContent: 'space-between'
+                                    }}
+                                >
+                                    <span style={{ fontSize: 20, fontWeight: 'bold' }}>Số lượng lỗi khiếu nại theo khu vực</span>
+                                    <span style={{ fontSize: 20, fontWeight: 'bold' }}>2.235<span style={{ color: '#0195FF' }}>/5.505 đơn</span></span>
+                                </div>
+                                <Top5ErrorPercentageChart />
+                            </div>
+                        </Col>
+                        <Col xs={24} md={12} xl={9}>
+                            <div className="operation-card">
+                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Tỷ trọng sao - Khiếu nại theo khu vực</span>
+                                <StarRatingChart />
+                            </div>
+                        </Col>
+                        <Col xs={24} md={12} xl={6}>
+                            <div className="operation-card">
+                                <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Top tỷ trọng khiếu nại theo khu vực</span>
+                                <div style={{ padding: 10 }}>
+                                    {
+                                        topStarItems.map((item, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        padding: '10px',
+                                                        borderRadius: '12px',
+                                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                                        position: 'relative',
+                                                        width: '100%',
+                                                        background: item.bgColor, // Sử dụng biến gradient
+                                                        color: 'white',
+                                                        marginTop: '5px'
+                                                        // fontFamily: 'Arial, sans-serif'
+                                                    }}
+                                                >
+
+                                                    {/* ICON CIRCLE */}
+                                                    <div
+                                                        style={{
+                                                            width: '40px',
+                                                            height: '40px',
+                                                            minWidth: '40px',
+                                                            borderRadius: '50%',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center',
+                                                            marginRight: '15px',
+                                                            backgroundColor: '#F7C3C0',
+                                                            border: '1px solid rgba(255, 255, 255, 0.5)',
+                                                            position: 'relative',
+                                                        }}
+                                                    >
+                                                    </div>
+
+                                                    <div style={{ flexGrow: 1 }}>
+                                                        <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '10px', color: '#2B3674' }}>{item.title}</div>
+                                                        <div style={{ fontSize: '12px', fontWeight: '700', color: '#4BA665' }}>{item.subTitle}</div>
+                                                    </div>
+
+                                                    <div
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            marginLeft: '10px',
+                                                            fontSize: '20px',
+                                                            lineHeight: '1',
+                                                            opacity: '0.7'
+                                                        }}
+                                                    >
+                                                        &#8942;
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </Col>
+                        <Col span={24}>
+                            <div className="operation-card">
+                                <AverageStarTrendChart />
                             </div>
                         </Col>
                     </Row>

@@ -108,7 +108,8 @@ const ErrorImpactChart = ({ width = '100%', minHeight = 200, title = 'Lỗi ản
                         return `${originalLabel}: ${context.parsed.y.toLocaleString()} lượt`;
                     }
                 }
-            }
+            },
+            datalabels: { display: false }
         },
         scales: {
             x: {

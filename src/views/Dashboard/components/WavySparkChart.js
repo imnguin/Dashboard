@@ -57,6 +57,7 @@ const WavySparkChart = ({ data, trend, lineColor, fillColor }) => {
             tooltip: {
                 enabled: false,
             },
+            datalabels: { display: false },
         },
         layout: {
             padding: 0,

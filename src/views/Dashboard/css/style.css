@@ -268,14 +268,17 @@
 
 /* Giá trị thống kê */
 .stat-value {
-  font-size: 22px; /* Kích thước chữ */
+  font-size: 17px; /* Kích thước chữ */
   font-weight: bold; /* Độ đậm chữ */
   color: #000000ff; /* Màu chữ */
+  white-space: nowrap; /* Ngăn xuống dòng */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  text-overflow: ellipsis; /* Hiện dấu ... khi tràn */
 }
 
 /* Nhãn thống kê */
 .stat-label {
-  font-size: 14px;
+  font-size: 12px;
   color: #000000ff;
   font-weight: bold;
   white-space: nowrap; /* Ngăn xuống dòng */
