@@ -23,6 +23,7 @@ import localeData from 'dayjs/plugin/localeData';
 import RatingGroupedBarChart from "./components/RatingGroupedBarChart";
 import Top5ErrorPercentageChart from "./components/Top5ErrorPercentageChart";
 import AverageStarTrendChart from "./components/AverageStarTrendChart";
+import pajamastimeout from '../../assets/images/pajamas_time-out.png'
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -455,6 +456,7 @@ const Dashboard2 = () => {
                                                             position: 'relative',
                                                         }}
                                                     >
+                                                        <img src={pajamastimeout}></img>
                                                     </div>
 
                                                     <div style={{ flexGrow: 1 }}>
@@ -540,7 +542,7 @@ const Dashboard2 = () => {
                                                             border: '1px solid rgba(255, 255, 255, 0.5)',
                                                             position: 'relative',
                                                         }}
-                                                    >
+                                                    ><img src={pajamastimeout}></img>
                                                     </div>
 
                                                     <div style={{ flexGrow: 1 }}>
