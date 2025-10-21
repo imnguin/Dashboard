@@ -1,34 +1,30 @@
 import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip, message, notification } from "antd";
 import React from "react";
-import avatar from "../../assets/images/anh-dai-dien-hai-yodyvn.jpg";
-import bell from "../../assets/images/free-bell-icon-860-thumb.png";
-import logo from "../../assets/images/111.png";
-import chothuchien from "../../assets/images/chothuchien.png";
-import dichuyen from "../../assets/images/dichuyen.png";
-import dangthuchien from "../../assets/images/dangthuchien.png";
-import hoanthanh from "../../assets/images/hoanthanh.png";
-import bellicon from "../../assets/images/bellicon.png";
-import bagicon from "../../assets/images/bagicon.png";
-import warningicon from "../../assets/images/warningicon.png";
+import avatar from "../../../assets/images/anh-dai-dien-hai-yodyvn.jpg";
+import bell from "../../../assets/images/free-bell-icon-860-thumb.png";
+import logo from "../../../assets/images/111.png";
+import chothuchien from "../../../assets/images/chothuchien.png";
+import dichuyen from "../../../assets/images/dichuyen.png";
+import dangthuchien from "../../../assets/images/dangthuchien.png";
+import hoanthanh from "../../../assets/images/hoanthanh.png";
+import bellicon from "../../../assets/images/bellicon.png";
+import bagicon from "../../../assets/images/bagicon.png";
+import warningicon from "../../../assets/images/warningicon.png";
 import { ExportOutlined, WarningFilled, MoreOutlined, SearchOutlined, StarFilled, ExclamationCircleFilled } from '@ant-design/icons';
-import StarRatingChart from "../Dashboard/components/StarRatingChart";
-import ErrorImpactChart from "../Dashboard/components/ErrorImpactChart";
-import SalesTargetChart from "../Dashboard/components/SalesTargetChart";
-import PersonnelStackedChart from "../Dashboard/components/PersonnelStackedChart";
-import './css/style.css';
-import WavySparkChart from "../Dashboard/components/WavySparkChart";
+import StarRatingChart from "../components/StarRatingChart";
+import '../css/style.css';
 import dayjs from "dayjs";
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
-import RatingGroupedBarChart from "./components/RatingGroupedBarChart";
-import Top5ErrorPercentageChart from "./components/Top5ErrorPercentageChart";
-import AverageStarTrendChart from "./components/AverageStarTrendChart";
-import pajamastimeout from '../../assets/images/pajamas_time-out.png'
+import RatingGroupedBarChart from "../components/RatingGroupedBarChart";
+import Top5ErrorPercentageChart from "../components/Top5ErrorPercentageChart";
+import AverageStarTrendChart from "../components/AverageStarTrendChart";
+import pajamastimeout from '../../../assets/images/pajamas_time-out.png'
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
 const { RangePicker } = DatePicker;
-const Dashboard2 = () => {
+const Detail1 = () => {
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
     const [api, contextHolder] = notification.useNotification();
@@ -618,4 +614,4 @@ const Dashboard2 = () => {
     );
 };
 
-export default Dashboard2;
+export default Detail1;

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Avatar, Button, Col, Dropdown, Grid, Layout, Menu, Row, theme } from "antd";
-import AppMenu from "../views";
 import { Link, useNavigate } from "react-router-dom";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UserOutlined
 } from '@ant-design/icons';
+import appMenu from "../constants/appMenu";
 
 const { useBreakpoint } = Grid;
 
@@ -39,7 +39,7 @@ const getItem = (label = null, key = null, icon = null, children = null, path = 
     return item;
 }
 
-const items = AppMenu.map(item => {
+const items = appMenu.map(item => {
     return getItem(item.label, item.name, item.icon, item.subItem, item.path);
 });
 

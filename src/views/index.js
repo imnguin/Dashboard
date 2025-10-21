@@ -1,16 +1,5 @@
-import {
-    HomeOutlined,
-    OrderedListOutlined
-} from '@ant-design/icons';
+import dashboardRouter from "./Dashboard/dashboardRouter";
 
-const AppMenu = [
-    {
-        name: 'Home',
-        icon: HomeOutlined,
-        label: 'Trang chủ',
-        path: '/',
-        subItem: []
-    }
+export const appRouters = [
+    ...dashboardRouter
 ];
-
-export default AppMenu;
