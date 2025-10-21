@@ -13,17 +13,17 @@ const Router = () => {
                 <Route
                     path='*'
                     element={
-                        // <ProtectedRoute>
+                        <ProtectedRoute>
                             <React.Suspense fallback={<div>Đang tải dữ liệu... </div>}>
                                 <Routes>
                                     {
                                         configRoute.map(({ component: Component, path, layout, breadcrumb }) => (
-                                            <Route path={path} key={path} element={Component ? <MainLayout layout={!!layout ? layout : 'Nguin'}><Component /></MainLayout> : <Navigate to={'/'} replace={true} />} />
+                                            <Route path={path} key={path} element={Component ? <MainLayout layout={!!layout ? layout : 'MainLayout'}><Component /></MainLayout> : <Navigate to={'/'} replace={true} />} />
                                         ))
                                     }
                                 </Routes>
                             </React.Suspense>
-                        // </ProtectedRoute>
+                        </ProtectedRoute>
                     }>
                 </Route>
             </Routes>

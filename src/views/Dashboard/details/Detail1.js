@@ -444,7 +444,28 @@ const Detail1 = () => {
 
                         <Col xs={24} xl={18}>
                             <div className="operation-card">
-                                <RatingGroupedBarChart />
+                                <RatingGroupedBarChart
+                                    title='Tổng quan sao đánh giá'
+                                    labels={[
+                                        'Kho Hà Nội dài tối đa hai dòng số một',
+                                        'Tên kho sẽ dài tối đa hai dòng',
+                                        'Kho Đà Nẵng rất dài, dài nữa',
+                                        'Kho Hải Phòng',
+                                        'Kho Cần Thơ siêu dài khủng khiếp',
+                                        'Tên kho rất rất rất dài',
+                                        'Kho thành phố Hồ Chí Minh',
+                                        'Kho Thái Nguyên',
+                                        'Kho Bình Dương cực kỳ dài'
+                                    ]}
+                                    chartData={{
+                                        'Không đánh giá': { data: [55, 60, 58, 55, 56, 57, 58, 55, 62], color: '#4CAF50' },
+                                        '1 Sao': { data: [15, 25, 20, 22, 25, 18, 22, 19, 12], color: '#E53935' },
+                                        '2 Sao': { data: [30, 30, 35, 32, 28, 25, 27, 25, 38], color: '#FFB300' },
+                                        '3 Sao': { data: [50, 55, 52, 58, 55, 50, 55, 52, 45], color: '#4FC3F7' },
+                                        '4 Sao': { data: [75, 80, 78, 75, 78, 80, 75, 80, 85], color: '#00BCD4' },
+                                        '5 Sao': { data: [175, 180, 175, 180, 175, 180, 175, 180, 190], color: '#1813F4' },
+                                    }}
+                                />
                             </div>
                         </Col>
                         <Col xs={24} md={12} xl={6}>

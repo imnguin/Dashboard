@@ -7,7 +7,7 @@ const configRoute = [
     {
         path: '/',
         component: Dashboard,
-        layout: 'Nguin'
+        layout: 'MainLayout'
     },
     ...appRouters,
     {

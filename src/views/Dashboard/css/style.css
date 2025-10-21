@@ -268,7 +268,7 @@
 
 /* Giá trị thống kê */
 .stat-value {
-  font-size: 17px; /* Kích thước chữ */
+  font-size: 18px; /* Kích thước chữ */
   font-weight: bold; /* Độ đậm chữ */
   color: #000000ff; /* Màu chữ */
   white-space: nowrap; /* Ngăn xuống dòng */
@@ -294,6 +294,7 @@
   color: #888;
   margin-top: 8px; /* Lề trên */
   width: 100%; /* Chiếm toàn bộ chiều rộng (để căn link sang phải) */
+  gap: 5px;
 }
 
 /* Mũi tên tăng (Trend Up) */
@@ -308,12 +309,12 @@
 
 /* Giá trị phần trăm */
 .stat-percentage {
+  font-weight: 500;
   color: #000000ff; /* Màu chữ */
 }
 
 /* Link "Xem chi tiết" */
 .stat-link {
-  margin-left: auto; /* Lề trái: Đẩy link sang phải cùng */
   color: #01d9c0; /* Màu chữ */
   cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import Dashboard from ".";
 import Detail1 from "./details/Detail1";
+import Detail2 from "./details/Detail2";
 
 const dashboardRouter = [
     {
@@ -9,6 +10,10 @@ const dashboardRouter = [
     {
         path: '/Detail1',
         component: Detail1
+    },
+    {
+        path: '/Detail2',
+        component: Detail2
     }
 ]
 

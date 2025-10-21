@@ -20,6 +20,7 @@ import WavySparkChart from "./components/WavySparkChart";
 import dayjs from "dayjs";
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
+import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -97,7 +98,7 @@ const Dashboard = () => {
             trend: 'up',
             percentage: '5.68%',
             bgColor: '#FFEBED',
-            chartData: [20, 30, 25, 35, 30, 40, 35, 45, 40, 50, 45, 55, 50, 60],
+            chartData: [20, 30, 25, 35, 30, 40, 35, 45, 40, 50, 45, 55],
             chartLineColor: '#FF6F6F', // Màu đường biểu đồ
             chartFillColor: 'rgba(255, 111, 111, 0.2)', // Màu fill biểu đồ
         },
@@ -109,7 +110,7 @@ const Dashboard = () => {
             trend: 'down',
             percentage: '2.3%',
             bgColor: '#FFF4ED',
-            chartData: [60, 50, 55, 45, 40, 35, 40, 30, 25, 20, 15, 10, 5], // Dữ liệu giảm
+            chartData: [60, 50, 55, 45, 40, 35, 40, 30, 25, 20, 15], // Dữ liệu giảm
             chartLineColor: '#FFB870', // Màu đường biểu đồ
             chartFillColor: 'rgba(255, 184, 112, 0.2)', // Màu fill biểu đồ
         },
@@ -121,7 +122,7 @@ const Dashboard = () => {
             trend: 'up',
             percentage: '5.68%',
             bgColor: '#DCFCE7',
-            chartData: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+            chartData: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60,],
             chartLineColor: '#4CAF50',
             chartFillColor: 'rgba(76, 175, 80, 0.2)',
         },
@@ -133,7 +134,7 @@ const Dashboard = () => {
             trend: 'up',
             percentage: '5.68%',
             bgColor: '#C3E6FF',
-            chartData: [30, 35, 40, 38, 45, 50, 48, 55, 60, 58, 65, 70, 68, 75],
+            chartData: [30, 35, 40, 38, 45, 50, 48, 55, 60, 58, 65, 70],
             chartLineColor: '#2196F3',
             chartFillColor: 'rgba(33, 150, 243, 0.2)',
         },
@@ -343,20 +344,28 @@ const Dashboard = () => {
                                     </Col>
                                     <Col span={24}>
                                         <div className={`chart-container ${isMobile ? 'mobile' : ''}`}>
-                                            <StarRatingChart />
+                                            <StarRatingChart
+                                                chartData={[8, 10, 12, 15, 25, 30]}
+                                                labels={['1 Sao', '2 Sao', '3 Sao', '4 Sao', '5 Sao', 'Không đánh giá']}
+                                            />
                                         </div>
                                     </Col>
                                     <Col span={24}>
                                         <div className="error-chart-container">
-                                            <ErrorImpactChart minHeight={isMobile ? 400 : 200} title="Lỗi ảnh hưởng sao phục vụ" />
+                                            <ErrorImpactChart
+                                                minHeight={isMobile ? 400 : 200}
+                                                width='100%'
+                                                title="Lỗi ảnh hưởng sao phục vụ"
+                                                labels={['T1. Tay nghề', 'T2. Thái độ phục vụ', 'T3. Trễ hẹn/chậm thời gian', 'T4. Quy trình', 'T5. Lỗi đặc biệt nghiêm trọng']}
+                                                chartData={[12000, 9000, 20500, 6500, 1000]}
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
                             </div>
                         </Col>
                         <Col xs={24} sm={24} md={24} lg={10} xl={16}>
-                            <div>
-                                <Row gutter={[10, 10]}>
+                            <Row gutter={[10, 10]}>
                                     <Col xs={24} sm={24} md={24} lg={24} xl={12}>
                                         <div className="personnel-card">
                                             <PersonnelStackedChart />
@@ -383,34 +392,12 @@ const Dashboard = () => {
                                             />
                                         </div>
                                     </Col>
-                                </Row>
-                                <Row gutter={[10, 10]} className="sales-row" style={{ marginTop: 10 }}>
-                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <Col span={24}>
                                         <div className="sales-card">
-                                            <div className="sales-chart-container">
-                                                <SalesTargetChart
-                                                    title="Tổng thu nhập"
-                                                    dataTarget={[500, 500, 500, 500, 500, 500]}
-                                                    dataSales={[250, 100, 800, 230, 390, 410]}
-                                                />
-                                            </div>
-                                        </div>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                        <div className="sales-card">
-                                            <div className="sales-chart-container">
-                                                <SalesTargetChart
-                                                    title="Doanh thu tháng này"
-                                                    backgroundColor1='#BFDBFE'
-                                                    backgroundColor2='#2563EB'
-                                                    dataTarget={[500, 500, 500, 500, 500, 500]}
-                                                    dataSales={[250, 300, 10, 150, 900, 400]}
-                                                />
-                                            </div>
+                                            <SalesTrendAndTargetChart />
                                         </div>
                                     </Col>
                                 </Row>
-                            </div>
                         </Col>
                     </Row>
                 </Col>

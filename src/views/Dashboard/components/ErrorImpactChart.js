@@ -10,7 +10,6 @@ import {
     Legend
 } from 'chart.js';
 
-// Đăng ký các thành phần cần thiết của Chart.js
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -20,8 +19,6 @@ ChartJS.register(
     Legend
 );
 
-// *** HÀM TIỆN ÍCH TỰ ĐỘNG CHIA CHUỖI NHÃN CHO TRỤC X ***
-// Hàm này giúp nhãn tự động xuống dòng khi dữ liệu động quá dài.
 function splitLabel(label, maxLineLength = 10) {
     if (label.length <= maxLineLength) {
         return label;
@@ -42,34 +39,23 @@ function splitLabel(label, maxLineLength = 10) {
     return lines;
 }
 
-const ErrorImpactChart = ({ width = '100%', minHeight = 200, title = 'Lỗi ảnh hưởng sao phục vụ' }) => {
-
-    // Dữ liệu giả định (Bạn nên truyền qua props trong thực tế)
-    const labels = [
-        'T1. Tay nghề',
-        'T2. Thái độ phục vụ',
-        'T3. Trễ hẹn/chậm thời gian',
-        'T4. Quy trình',
-        'T5. Lỗi đặc biệt nghiêm trọng'
-    ];
-
-    const errorCounts = [12000, 9000, 20500, 6500, 1000];
-
-    const barColors = [
-        '#00BFFF',
-        '#C71585',
-        '#FF8C00',
-        '#4169E1',
-        '#DC143C'
-    ];
+const ErrorImpactChart = (props) => {
+    const {
+        width = '100%',
+        minHeight = 200,
+        title = 'Lỗi ảnh hưởng sao phục vụ',
+        labels = ['T1. Tay nghề', 'T2. Thái độ phục vụ', 'T3. Trễ hẹn/chậm thời gian', 'T4. Quy trình', 'T5. Lỗi đặc biệt nghiêm trọng'],
+        colors = ['#00BFFF', '#C71585', '#FF8C00', '#4169E1', '#DC143C'],
+        chartData = [12000, 9000, 20500, 6500, 1000],
+    } = props;
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Số lượng lỗi',
-                data: errorCounts,
-                backgroundColor: barColors,
+                data: chartData,
+                backgroundColor: colors,
                 borderColor: 'transparent',
                 borderWidth: 0,
                 borderRadius: 5,
@@ -103,7 +89,6 @@ const ErrorImpactChart = ({ width = '100%', minHeight = 200, title = 'Lỗi ản
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        // Xử lý tooltip: Ghép các dòng bị chia lại thành một chuỗi
                         const originalLabel = context.label instanceof Array ? context.label.join(' ') : context.label;
                         return `${originalLabel}: ${context.parsed.y.toLocaleString()} lượt`;
                     }
@@ -119,10 +104,8 @@ const ErrorImpactChart = ({ width = '100%', minHeight = 200, title = 'Lỗi ản
                 ticks: {
                     font: { size: 12 },
                     color: '#333',
-                    // *** ÁP DỤNG CALLBACK TỰ ĐỘNG XUỐNG DÒNG ***
                     callback: function (value, index, values) {
                         const label = this.getLabelForValue(value);
-                        // Giới hạn 10 ký tự/dòng. Bạn có thể thay đổi số 10 này.
                         return splitLabel(label, 10);
                     }
                 },
@@ -133,7 +116,6 @@ const ErrorImpactChart = ({ width = '100%', minHeight = 200, title = 'Lỗi ản
                     color: '#e0e0e0'
                 },
                 ticks: {
-                    // Định dạng nhãn trục Y thành dạng "10k", "15k", ...
                     callback: function (value) {
                         return value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value;
                     },

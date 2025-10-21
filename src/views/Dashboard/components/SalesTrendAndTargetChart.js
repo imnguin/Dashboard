@@ -1,0 +1,185 @@
+import React from 'react';
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js';
+import { Col, Row } from 'antd';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+const currentSalesData = [120, 320, 250, 400, 450, 780, 500, 300, 550, 250, 600, 700];
+const pastSalesData = [280, 350, 200, 350, 360, 300, 200, 350, 330, 300, 350, 400];
+
+const targetData = labels.map(() => 350);
+
+const data = {
+    labels,
+    datasets: [
+        {
+            label: 'Hiện tại (Doanh thu)',
+            data: currentSalesData,
+            borderColor: '#448AFF',
+            backgroundColor: '#448AFF',
+            tension: 0.4,
+            borderWidth: 2,
+            pointRadius: 4,
+            // 💡 SỬA: Đặt màu cho điểm, đảm bảo nó KHÔNG trong suốt
+            pointBackgroundColor: '#448AFF',
+            pointBorderColor: '#448AFF',
+            pointHoverBorderColor: 'blue',
+            pointHoverBackgroundColor: 'white',
+        },
+        {
+            label: 'Quá khứ (Năm trước)',
+            data: pastSalesData,
+            borderColor: '#FFC107',
+            backgroundColor: '#FFC107',
+            tension: 0.4,
+            borderWidth: 2,
+            pointRadius: 4,
+            // 💡 SỬA: Đặt màu cho điểm, đảm bảo nó KHÔNG trong suốt
+            pointBackgroundColor: '#FFC107',
+            pointBorderColor: '#FFC107',
+        },
+        {
+            label: 'Mục tiêu',
+            data: targetData,
+            // 💡 LƯU Ý: Vì đây là đường Target (đứt nét), bạn có thể muốn ẩn nó khỏi chú thích.
+            // Nếu muốn hiện, phải có pointBackgroundColor. Hiện tại tôi giữ nguyên cấu hình.
+            borderColor: '#FFC107',
+            backgroundColor: 'transparent',
+            borderDash: [5, 5],
+            borderWidth: 1,
+            pointRadius: 0,
+        },
+    ],
+};
+
+const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+
+    plugins: {
+        legend: {
+            display: true,
+            position: 'bottom',
+            align: 'center',
+            labels: {
+                usePointStyle: true,
+                pointStyle: 'circle',
+                boxWidth: 8,
+                padding: 30,
+                font: { size: 14 }
+            }
+        },
+        title: {
+            display: false,
+        },
+        tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+                title: (context) => context[0].label,
+                label: function (context) {
+                    let label = context.dataset.label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+                    if (context.parsed.y !== null) {
+                        label += context.parsed.y + 'tr';
+                    }
+                    return label;
+                },
+                afterBody: (context) => {
+                    const current = currentSalesData[context[0].dataIndex];
+                    const target = targetData[context[0].dataIndex];
+                    if (target > 0) {
+                        const ratio = ((current / target) * 100).toFixed(0);
+                        return `Tỷ lệ: ${ratio}%`;
+                    }
+                    return '';
+                }
+            }
+        },
+        datalabels: { display: false },
+    },
+
+    scales: {
+        x: {
+            grid: {
+                display: true,
+                color: '#e0e0e0',
+                drawBorder: false, // Ẩn đường viền trục X
+            },
+            ticks: {
+                color: '#333',
+                font: { size: 12 }
+            },
+        },
+        y: {
+            min: 0,
+            max: 800,
+
+            // 💡 Cấu hình chính cho nét đứt
+            grid: {
+                color: '#e0e0e0',
+                borderDash: [5, 5], // Vẫn là [5, 5]
+                drawOnChartArea: true, // Đảm bảo vẽ trong vùng biểu đồ
+                drawTicks: false, // Tắt các dấu gạch nhỏ trên trục Y
+            },
+
+            ticks: {
+                stepSize: 200,
+                color: '#333',
+                font: { size: 12 }
+            },
+
+            // 💡 QUAN TRỌNG: Ẩn hoàn toàn đường viền trục Y
+            border: {
+                display: false
+            }
+        }
+    },
+};
+
+const formatCurrency = (amount) => {
+    if (amount === null || amount === undefined) return '';
+    return amount.toLocaleString('vi-VN');
+};
+
+const SalesTrendAndTargetChart = () => {
+    return (
+        <Row gutter={[10, 10]} style={{ padding: 15 }}>
+            <Col xs={24} xl={5} xxl={4}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    <span style={{ fontSize: 20, fontWeight: 'bold' }}>Doanh thu</span>
+                    <span style={{ fontSize: 20, fontWeight: 'bold' }}>${formatCurrency(1112235246)}</span>
+                    <span>Năm ngoái vs <span style={{ color: '#28a745', fontWeight: 'bold' }}>↑ 1.5%</span></span>
+                </div>
+            </Col>
+            <Col xs={24} xl={17} xxl={20}>
+                <div style={{ height: 300, position: 'relative' }}>
+                    <Line data={data} options={options} />
+                </div>
+            </Col>
+        </Row>
+    );
+};
+
+export default SalesTrendAndTargetChart;
