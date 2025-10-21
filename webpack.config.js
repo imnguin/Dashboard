@@ -52,6 +52,7 @@ module.exports = {
         compress: true,
         port: 8089,
         historyApiFallback: true,
+        host: 'dev.dashboard.vn'
     },
     mode: 'development'
 };
