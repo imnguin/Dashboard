@@ -79,6 +79,7 @@ const verticalLinePlugin = {
     }
 };
 
+const date = new Date();
 const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -86,8 +87,8 @@ const options = {
     plugins: {
         legend: {
             display: true,
-            position: 'bottom',
-            // align: 'end',
+            position: 'top',
+            align: 'end',
             labels: {
                 usePointStyle: true,
                 pointStyle: 'circle',
@@ -98,10 +99,10 @@ const options = {
         },
         title: {
             display: true,
-            text: 'Sao trung bình trong năm 2025 so với năm trước',
+            text: `Sao trung bình trong năm ${date.getFullYear()} so với năm trước`,
             align: 'start',
             font: { size: 20, weight: 'bold' },
-            padding: { top: 10, bottom: 20 }, // <--- ĐIỀU CHỈNH: Tăng padding dưới Title
+            padding: { top: 0, bottom: 20 }, // <--- ĐIỀU CHỈNH: Tăng padding dưới Title
             color: '#000000ff'
         },
         tooltip: {
@@ -158,9 +159,6 @@ const AverageStarTrendChart = () => {
                 width: '100%',
                 height: '450px',
                 padding: '10px',
-                // backgroundColor: 'white',
-                // borderRadius: '10px',
-                // boxShadow: '0 8px 16px rgba(0,0,0,0.1)'
             }}
         >
             <Line

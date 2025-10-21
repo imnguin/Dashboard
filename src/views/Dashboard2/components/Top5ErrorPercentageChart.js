@@ -25,11 +25,11 @@ ChartJS.register(
 // DỮ LIỆU GIẢ ĐỊNH CHO 3 KHO (Tổng số lỗi)
 // Trong thực tế, đây là tổng số lỗi từ 3 kho
 const DUMMY_ERROR_DATA = [
-    { type: 'T3. Trễ hẹn', count: 1550 },
-    { type: 'T1. Tay nghề', count: 980 },
-    { type: 'T4. Quy trình', count: 650 },
-    { type: 'T2. Thái độ', count: 420 },
-    { type: 'T5. Lỗi nghiêm trọng', count: 80 },
+    { type: 'Trễ hẹn', count: 1550 },
+    { type: 'Tay nghề', count: 980 },
+    { type: 'Quy trình', count: 650 },
+    { type: 'Thái độ', count: 420 },
+    { type: 'Nghiêm trọng', count: 80 },
     // Lỗi không hiển thị trong Top 5
     { type: 'T6. Vệ sinh', count: 50 },
     { type: 'T7. Trang phục', count: 30 },
