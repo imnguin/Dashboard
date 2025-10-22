@@ -24,12 +24,18 @@ const serviceOptions = [
 
 const initialCheckedList = ['giaohang'];
 
-const FilterSidebarDrawer = ({ open, onClose }) => {
+const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
     const [checkedList, setCheckedList] = useState(initialCheckedList);
 
+    useEffect(() => {
+        filterData?.(checkedList)
+    }, []);
+
     const onChange = (list) => {
+        filterData?.(list)
         setCheckedList(list);
     };
+
     const renderDrawerHeader = () => (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
@@ -51,6 +57,7 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
             }} />
         </>
     );
+
     const renderFilterSection = (icon, title, content) => (
         <div style={{ marginBottom: 10 }}>
             <Space size="small" style={{ marginBottom: 5 }}>
@@ -64,6 +71,7 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
             }
         </div>
     );
+
     const PADDING = 10;
     const DRAWER_CONTENT_WIDTH = 300;
     const DRAWER_ROOT_WIDTH = DRAWER_CONTENT_WIDTH + PADDING;
@@ -75,7 +83,6 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
             closable={false}
             onClose={onClose}
             open={open}
-            mask={false}
             width={DRAWER_ROOT_WIDTH}
             rootStyle={{
                 top: PADDING,
@@ -86,14 +93,20 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
             style={{
                 borderRadius: '15px',
                 overflow: 'hidden',
+                boxShadow: '0 0 1px 1px rgba(0, 0, 0, 0.05)',
             }}
             styles={{
                 header: { backgroundColor: '#6C757D', borderBottom: 'none', padding: '16px 24px' },
-                body: { backgroundColor: '#6C757D', padding: '0px 35px' },
+                body: {
+                    backgroundColor: '#6C757D', padding: '0px 35px', overflow: 'auto'
+                },
                 footer: {
                     backgroundColor: '#6C757D',
                     borderTop: '1px solid #737373',
                     padding: '16px 24px'
+                },
+                mask: {
+                    backgroundColor: 'transparent'
                 }
             }}
 
@@ -139,7 +152,7 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
     );
 };
 
-const DashboardHeaderWithFilter = () => {
+const DashboardHeaderWithFilter = (props) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600); // Ví dụ: Small screen < 600px
 
@@ -196,11 +209,12 @@ const DashboardHeaderWithFilter = () => {
     );
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', overflowX: 'hidden' }}>
             {renderHeader()}
             <FilterSidebarDrawer
                 open={isDrawerOpen}
                 onClose={handleDrawerClose}
+                filterData={(value) => props.filterData(value)}
             />
         </div>
     );

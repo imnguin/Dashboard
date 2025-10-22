@@ -9,11 +9,11 @@ import Loading from './components/Loading';
 const root = createRoot(document.getElementById('root')); // Tạo root
 root.render(
     <Provider store={store}>
-        <React.StrictMode>
+        {/* <React.StrictMode> */}
             <BrowserRouter>
                 <Loading />
                 <App />
             </BrowserRouter>
-        </React.StrictMode>
+        {/* </React.StrictMode> */}
     </Provider>
 );

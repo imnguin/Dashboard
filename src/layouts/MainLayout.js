@@ -21,6 +21,7 @@ const MainLayout = (props) => {
     const navigate = useNavigate();
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
+    const [filterData, setFilterData] = useState(null);
 
     React.useEffect(() => {
         if (api) {
@@ -37,11 +38,11 @@ const MainLayout = (props) => {
     const childrenWithProps = useMemo(() => {
         if (React.isValidElement(props.children)) {
             return React.cloneElement(props.children, {
-                notification
+                filterData
             });
         }
         return props.children;
-    }, [props.children]);
+    }, [props.children, filterData]);
 
     const Logout = () => {
         localStorage.removeItem('logininfo');
@@ -52,7 +53,7 @@ const MainLayout = (props) => {
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>
                 <Col xs={24} md={12}>
-                    <DashboardHeaderWithFilter />
+                    <DashboardHeaderWithFilter filterData={(filter) => setFilterData(filter)} />
                 </Col>
                 <Col xs={0} md={12} className={`user-col ${!screens.md ? 'hidden' : ''}`}>
                     <div className="user-info">

@@ -17,7 +17,8 @@ import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
 import { NotificationService } from "../../utils/NotificationService";
 
 const { RangePicker } = DatePicker;
-const Dashboard = () => {
+const Dashboard = (props) => {
+    console.log("props", props)
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
     const isMobile = window.matchMedia("(max-width: 576px)").matches;

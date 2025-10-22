@@ -32,7 +32,7 @@ const data = {
     labels,
     datasets: [
         {
-            label: 'Hiện tại (Doanh thu)',
+            label: 'Hiện tại',
             data: currentSalesData,
             borderColor: '#448AFF',
             backgroundColor: '#448AFF',
@@ -46,7 +46,7 @@ const data = {
             pointHoverBackgroundColor: 'white',
         },
         {
-            label: 'Quá khứ (Năm trước)',
+            label: 'Quá khứ',
             data: pastSalesData,
             borderColor: '#FFC107',
             backgroundColor: '#FFC107',
@@ -58,7 +58,7 @@ const data = {
             pointBorderColor: '#FFC107',
         },
         {
-            label: 'Mục tiêu',
+            label: 'Target',
             data: targetData,
             // 💡 LƯU Ý: Vì đây là đường Target (đứt nét), bạn có thể muốn ẩn nó khỏi chú thích.
             // Nếu muốn hiện, phải có pointBackgroundColor. Hiện tại tôi giữ nguyên cấu hình.
@@ -79,13 +79,10 @@ const options = {
         legend: {
             display: true,
             position: 'bottom',
-            align: 'center',
+            align: 'left',
             labels: {
                 usePointStyle: true,
-                pointStyle: 'circle',
-                boxWidth: 8,
-                padding: 30,
-                font: { size: 14 }
+                padding: 20
             }
         },
         title: {
