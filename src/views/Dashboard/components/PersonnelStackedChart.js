@@ -85,7 +85,7 @@ const PersonnelStackedChart = ({
                 text: title,
                 align: 'start',
                 font: {
-                    size: 22,
+                    size: 30,
                     weight: 'bold'
                 },
                 padding: {
@@ -151,11 +151,12 @@ const PersonnelStackedChart = ({
     return (
         <div
             style={{
-                height: 300,
+                height: '100%',
                 width: '100%',
                 position: 'relative',
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                padding: '0px 10px'
             }}
         >
             <div style={{ flexGrow: 1, position: 'relative' }}>

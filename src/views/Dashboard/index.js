@@ -15,6 +15,7 @@ import './css/style.css';
 import WavySparkChart from "./components/WavySparkChart";
 import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
 import { NotificationService } from "../../utils/NotificationService";
+import StarRatingChartD3 from "./components/StarRatingChartD3";
 
 const { RangePicker } = DatePicker;
 const Dashboard = (props) => {
@@ -79,7 +80,7 @@ const Dashboard = (props) => {
         {
             src: chothuchien,
             title: 'Chờ thực hiện',
-            value: '12.345 Đơn',
+            value: '12.34523333 Đơn',
             numericValue: 5678,
             trend: 'up',
             percentage: '5.68%',
@@ -163,9 +164,9 @@ const Dashboard = (props) => {
 
     return (
         <>
-            <Row className="content-row" gutter={[15, 15]}>
+            <Row className="content-row" gutter={[25, 25]}>
                 <Col span={24}>
-                    <Row gutter={[10, 10]}>
+                    <Row gutter={[25, 25]}>
                         <Col xs={24} sm={24} md={14} lg={14} xl={16}>
                             <div className="operation-card">
                                 <Row className="operation-header" gutter={[10, 10]}>
@@ -174,18 +175,7 @@ const Dashboard = (props) => {
                                         <span className="operation-count">323,893 đơn hàng</span>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} className={`operation-date ${!screens.md ? 'mobile' : ''}`}>
-                                        <Typography.Text>
-                                            <span>01/09/2023 - 30/09/2023</span>
-                                            <Button
-                                                className="export-button"
-                                                type="primary"
-                                                size="middle"
-                                                icon={<ExportOutlined />}
-                                                onClick={() => NotificationService.info('Thông báo', 'Tính năng đang phát triển!')}
-                                            >
-                                                Export
-                                            </Button>
-                                        </Typography.Text>
+                                        <span>01/09/2023 - 30/09/2023</span>
                                     </Col>
                                 </Row>
                                 <Row className="operation-stats" gutter={[10, 10]}>
@@ -247,7 +237,7 @@ const Dashboard = (props) => {
                             </div>
                         </Col>
                     </Row>
-                    <Row gutter={[10, 20]} className="bottom-row" style={{ marginTop: 15 }}>
+                    <Row gutter={[25, 25]} className="bottom-row" style={{ marginTop: 25 }}>
                         <Col xs={24} sm={24} md={24} lg={14} xl={8}>
                             <div className="satisfaction-card">
                                 <Row gutter={[10, 10]}>
@@ -266,10 +256,11 @@ const Dashboard = (props) => {
                                     </Col>
                                     <Col span={24}>
                                         <div className={`chart-container ${isMobile ? 'mobile' : ''}`}>
-                                            <StarRatingChart
+                                            {/* <StarRatingChart
                                                 chartData={[8, 10, 12, 15, 25, 30]}
                                                 labels={['1 Sao', '2 Sao', '3 Sao', '4 Sao', '5 Sao', 'Không đánh giá']}
-                                            />
+                                            /> */}
+                                            <StarRatingChartD3 />
                                         </div>
                                     </Col>
                                     <Col span={24}>
@@ -287,7 +278,7 @@ const Dashboard = (props) => {
                             </div>
                         </Col>
                         <Col xs={24} sm={24} md={24} lg={10} xl={16}>
-                            <Row gutter={[10, 10]}>
+                            <Row gutter={[25, 25]}>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={12}>
                                     <div className="personnel-card">
                                         <PersonnelStackedChart />

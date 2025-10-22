@@ -1,13 +1,13 @@
 /* Hàng chứa nội dung chính */
 .content-row {
-  padding: 15px; /* Đệm: 15px xung quanh */
+  padding: 25px; /* Đệm: 15px xung quanh */
 }
 
 /* Thẻ chứa bảng/biểu đồ lớn */
 .operation-card {
   display: flex; /* Bố cục: Flexbox */
   background-color: #ffffff; /* Màu nền: Trắng */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Đổ bóng */
   border-radius: 10px; /* Bo tròn góc */
   flex-direction: column; /* Hướng flex: Xếp chồng theo chiều dọc */
   padding: 10px; /* Đệm */
@@ -25,21 +25,22 @@
 /* Tiêu đề chính của bảng/biểu đồ */
 .operation-title {
   font-weight: bold; /* Độ đậm chữ */
-  font-size: 22px; /* Kích thước chữ */
+  font-size: 30px; /* Kích thước chữ */
   color: black; /* Màu chữ */
 }
 
 /* Số lượng (ví dụ: số đơn hàng) */
 .operation-count {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   color: #0084ff;
-  margin-left: 10px; /* Lề trái */
+  margin-left: 15px; /* Lề trái */
 }
 
 /* Ngày tháng hiển thị */
 .operation-date {
   text-align: right; /* Căn chữ sang phải */
+  padding-top: 15px;
 }
 
 /* Căn trái ngày tháng khi ở chế độ mobile */
@@ -59,8 +60,7 @@
 .operation-stats {
   padding: 10px; /* Đệm */
   flex: 1; /* Mở rộng để chiếm không gian trống */
-  margin-top: 15px; /* Lề trên */
-  margin-bottom: 15px; /* Lề dưới */
+  
 }
 
 /* ================================================= */
@@ -119,12 +119,10 @@
 
 /* Giá trị thống kê */
 .stat-value {
-  font-size: 18px; /* Kích thước chữ */
+  font-size: 20px; /* Kích thước chữ */
   font-weight: bold; /* Độ đậm chữ */
   color: #000000ff; /* Màu chữ */
-  white-space: nowrap; /* Ngăn xuống dòng */
-  overflow: hidden; /* Ẩn nội dung tràn */
-  text-overflow: ellipsis; /* Hiện dấu ... khi tràn */
+  /* Hiện dấu ... khi tràn */
 }
 
 /* Nhãn thống kê */
@@ -176,7 +174,7 @@
 /* Thẻ thông báo */
 .notification-card {
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 5px;
   height: 100%;
@@ -276,7 +274,7 @@
 .satisfaction-card {
   display: flex;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   flex-direction: column;
   padding: 20px;
@@ -293,13 +291,13 @@
 /* Tiêu đề sự hài lòng */
 .satisfaction-title {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 30px;
   color: black;
 }
 
 /* Số lượng đánh giá */
 .satisfaction-count {
-  font-size: 16px;
+  font-size: 20px;
   color: #0195ff;
   font-weight: bold;
 }
@@ -348,12 +346,12 @@
 .chart-container {
   display: flex;
   justify-content: center;
-  min-height: 300px;
+  height: 370px;
 }
 
 /* Giảm chiều cao biểu đồ khi ở chế độ mobile */
 .chart-container.mobile {
-  min-height: 250px;
+  height: 300px;
 }
 
 /* Container biểu đồ lỗi */
@@ -366,7 +364,7 @@
 .personnel-card {
   display: flex;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   flex-direction: column;
   padding: 10px;
@@ -378,7 +376,7 @@
 .table-card {
   display: flex;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   flex-direction: column;
   padding: 10px;
@@ -398,7 +396,7 @@
 /* Tiêu đề bảng */
 .table-title {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 30px;
   color: black;
 }
 

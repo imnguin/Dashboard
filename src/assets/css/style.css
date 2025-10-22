@@ -12,7 +12,7 @@
   display: flex; /* Bố cục: Sử dụng Flexbox */
   align-items: center; /* Căn chỉnh mục: Căn giữa các mục theo chiều dọc */
   padding: 15px 20px; /* Đệm: 15px trên dưới, 20px trái phải */
-  min-height: 64px; /* Chiều cao tối thiểu: Đảm bảo chiều cao nhất định */
+  min-height: 85px; /* Chiều cao tối thiểu: Đảm bảo chiều cao nhất định */
   width: 100%; /* Chiều rộng: Chiếm toàn bộ chiều rộng */
   box-sizing: border-box; /* Tính toán kích thước: Tính padding và border vào tổng kích thước */
 }

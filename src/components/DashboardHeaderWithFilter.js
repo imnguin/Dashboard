@@ -168,14 +168,18 @@ const DashboardHeaderWithFilter = (props) => {
     const renderHeader = () => (
         <div
             style={{
-                display: 'flex',
+                position: 'fixed',
+                top: 10,
+                left: 15,
+                zIndex: 1000,
+                display: !!isDrawerOpen ? 'none' : 'flex',
                 alignItems: 'center',
-                padding: '10px 20px',
+                padding: '10px 30px',
                 minWidth: '335px',
                 maxWidth: '450px',
                 minHeight: '60px',
                 backgroundColor: '#6C757D',
-                borderRadius: '8px',
+                borderRadius: '15px',
                 boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
                 color: 'white',
                 flexDirection: 'row',
@@ -184,10 +188,10 @@ const DashboardHeaderWithFilter = (props) => {
         >
             <div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                    <img src={logotgdd} style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: '50%', border: '1px solid white' }} />
-                    <span style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic' }}>Logistics</span>
+                    <img src={logotgdd} style={{ backgroundColor: 'white', width: 25, height: 25, borderRadius: '50%', border: '1px solid white' }} />
+                    <span style={{ fontSize: 16, fontWeight: 'bold', fontStyle: 'italic' }}>Logistics</span>
                 </div>
-                <span style={{ fontSize: 10, fontStyle: 'italic', whiteSpace: 'nowrap', fontWeight: '500' }}><span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động</span>
+                <span style={{ fontSize: 9, fontStyle: 'italic', whiteSpace: 'nowrap', fontWeight: '400' }}><span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginLeft: 10 }}>
                 <span
