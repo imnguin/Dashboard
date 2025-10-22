@@ -22,7 +22,7 @@ const showNotification = (type, message, description = '', duration = 3) => {
     });
 };
 
-export const notificationService = {
+export const NotificationService = {
     success: (message, description = '', duration) =>
         showNotification('success', message, description, duration),
 

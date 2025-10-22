@@ -12,7 +12,7 @@ import bell from '../assets/images/free-bell-icon-860-thumb.png'
 import dayjs from "dayjs";
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
-import { notificationService } from "../utils/NotificationService";
+import { NotificationService } from "../utils/NotificationService";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -56,7 +56,7 @@ const MainLayout = (props) => {
                 </Col>
                 <Col xs={0} md={12} className={`user-col ${!screens.md ? 'hidden' : ''}`}>
                     <div className="user-info">
-                        <div className="notification-bell-container" onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>
+                        <div className="notification-bell-container" onClick={() => NotificationService.info('Thông báo', 'Tính năng đang phát triển!')}>
                             <img src={bell} alt="Notification Bell" className="bell-icon" />
                             <span className="notification-dot" />
                         </div>

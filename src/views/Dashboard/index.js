@@ -14,7 +14,7 @@ import PersonnelStackedChart from "./components/PersonnelStackedChart";
 import './css/style.css';
 import WavySparkChart from "./components/WavySparkChart";
 import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
-import { notificationService } from "../../utils/notificationService";
+import { NotificationService } from "../../utils/NotificationService";
 
 const { RangePicker } = DatePicker;
 const Dashboard = () => {
@@ -180,7 +180,7 @@ const Dashboard = () => {
                                                 type="primary"
                                                 size="middle"
                                                 icon={<ExportOutlined />}
-                                                onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}
+                                                onClick={() => NotificationService.info('Thông báo', 'Tính năng đang phát triển!')}
                                             >
                                                 Export
                                             </Button>
@@ -202,7 +202,7 @@ const Dashboard = () => {
                                                     <div className="stat-details">
                                                         <span className={`stat-trend ${item.trend}`}>{item.trend === 'down' ? '▼' : '▲'}</span>
                                                         <span className="stat-percentage"> {item.percentage}</span>
-                                                        <span className="stat-link" onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>Xem chi tiết</span>
+                                                        <span className="stat-link" onClick={() => NotificationService.info('Thông báo', 'Tính năng đang phát triển!')}>Xem chi tiết</span>
                                                     </div>
                                                 </div>
                                                 {item.chartData && (
@@ -224,7 +224,7 @@ const Dashboard = () => {
                                 <Row className="notification-row" gutter={[0, 10]} style={{ width: '100%', padding: 10 }}>
                                     {notificationItems.map((item, index) => (
                                         <Col span={24} key={index}>
-                                            <div className={`notification-item ${item.isError ? 'error' : ''}`} onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>
+                                            <div className={`notification-item ${item.isError ? 'error' : ''}`} onClick={() => NotificationService.info('Thông báo', 'Tính năng đang phát triển!')}>
                                                 <div className="notification-content">
                                                     <div className="notification-icon-container" style={{ backgroundColor: item.bgColor }}>
                                                         <img src={item.icon} className="notif-icon" />
@@ -301,7 +301,7 @@ const Dashboard = () => {
                                             <Col xs={24} sm={24} md={12} className={`table-date-col ${!screens.md ? 'mobile' : ''}`}>
                                                 <Typography.Text>
                                                     <span>01/09/2023 - 30/09/2023</span>
-                                                    <span className="table-link" onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>Chi tiết</span>
+                                                    <span className="table-link" onClick={() => NotificationService.info('Thông báo', 'Tính năng đang phát triển!')}>Chi tiết</span>
                                                 </Typography.Text>
                                             </Col>
                                         </Row>
