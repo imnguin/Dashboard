@@ -251,28 +251,8 @@ const Detail2 = () => {
     ];
 
     return (
-        <div className="app-container">
-            <Row className="header-row" gutter={[0, 16]}>
-                <Col xs={24} md={12}>
-                    <DashboardHeaderWithFilter />
-                </Col>
-                <Col xs={0} md={12} className={`user-col ${!screens.md ? 'hidden' : ''}`}>
-                    <div className="user-info">
-                        <div className="notification-bell-container" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
-                            <img src={bell} alt="Notification Bell" className="bell-icon" />
-                            <span className="notification-dot" />
-                        </div>
-                        <div className="user-details">
-                            <span>Nguyễn Nguyên Khang</span>
-                            <span className="user-id">3755 - Trụ sở MWG</span>
-                        </div>
-                        <div>
-                            <img src={avatar} className="avatar-img" />
-                        </div>
-                    </div>
-                </Col>
-            </Row>
-            <Row className="content-row" gutter={[15, 15]}>
+        <>
+        <Row className="content-row" gutter={[15, 15]}>
                 <Col span={24}>
                     <Row gutter={[10, 10]}>
                         <Col span={24}>
@@ -368,7 +348,7 @@ const Detail2 = () => {
                 </Col>
             </Row >
             {contextHolder}
-        </div >
+        </>
     );
 };
 

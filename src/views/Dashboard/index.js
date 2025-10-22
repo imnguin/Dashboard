@@ -1,8 +1,5 @@
 import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip, message, notification } from "antd";
 import React from "react";
-import avatar from "../../assets/images/anh-dai-dien-hai-yodyvn.jpg";
-import bell from "../../assets/images/free-bell-icon-860-thumb.png";
-import logo from "../../assets/images/111.png";
 import chothuchien from "../../assets/images/chothuchien.png";
 import dichuyen from "../../assets/images/dichuyen.png";
 import dangthuchien from "../../assets/images/dangthuchien.png";
@@ -13,28 +10,16 @@ import warningicon from "../../assets/images/warningicon.png";
 import { ExportOutlined, WarningFilled, MoreOutlined, SearchOutlined } from '@ant-design/icons';
 import StarRatingChart from "./components/StarRatingChart";
 import ErrorImpactChart from "./components/ErrorImpactChart";
-import SalesTargetChart from "./components/SalesTargetChart";
 import PersonnelStackedChart from "./components/PersonnelStackedChart";
 import './css/style.css';
 import WavySparkChart from "./components/WavySparkChart";
-import dayjs from "dayjs";
-import weekday from 'dayjs/plugin/weekday';
-import localeData from 'dayjs/plugin/localeData';
 import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
-dayjs.extend(weekday);
-dayjs.extend(localeData);
+import { notificationService } from "../../utils/notificationService";
 
 const { RangePicker } = DatePicker;
 const Dashboard = () => {
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
-    const [api, contextHolder] = notification.useNotification();
-    const openNotificationWithIcon = (type, description) => {
-        api[type]({
-            message: 'Thông báo',
-            description: description
-        });
-    };
     const isMobile = window.matchMedia("(max-width: 576px)").matches;
     const colors = ['#0195FF', '#00E096', '#884EFF', '#FF8F0C'];
     const columns = [
@@ -175,72 +160,8 @@ const Dashboard = () => {
         },
     ];
 
-    const showNotification = () => {
-        notification.info({
-            message: 'Thông báo',
-            description: 'Tính năng đang phát triển!',
-            placement: 'topRight',
-        });
-    };
     return (
-        <div className="app-container">
-            <Row className="header-row" gutter={[0, 16]}>
-                <Col xs={24} md={8} lg={6} xl={5} xxl={4}>
-                    <div className={`logo-container ${isMobile ? 'mobile' : ''}`}>
-                        <div><img src={logo} className="logo-img" /></div>
-                        <div className="logo-text">Hiệu quả vận hành</div>
-                    </div>
-                </Col>
-                <Col xs={24} md={16} lg={12} xl={13} xxl={14} className="form-col">
-                    <Form className="search-form" onFinish={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
-                        <Row className="form-row" gutter={[16, 16]} justify="center" align="middle">
-                            <Col xs={24} sm={12} md={6}>
-                                <Form.Item className="form-item">
-                                    <Select placeholder="Chọn dịch vụ...">
-                                        <Select.Option value="demo">Demo</Select.Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                            <Col xs={24} sm={12} md={6}>
-                                <Form.Item className="form-item">
-                                    <Select placeholder="Chọn cơ cấu tổ chức...">
-                                        <Select.Option value="demo">Demo</Select.Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                            <Col xs={24} sm={12} md={10} lg={8}>
-                                <Form.Item className="form-item">
-                                    <RangePicker
-                                        className="range-picker"
-                                        defaultValue={[dayjs(), dayjs()]}
-                                        format={'DD/MM/YYYY'}
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <Col xs={24} sm={12} md={2}>
-                                <Form.Item className="form-item">
-                                    <Button icon={<SearchOutlined />} type="primary" htmlType="submit" />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Col>
-                <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6} className={`user-col ${!screens.lg ? 'hidden' : ''}`}>
-                    <div className="user-info">
-                        <div className="notification-bell-container" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
-                            <img src={bell} alt="Notification Bell" className="bell-icon" />
-                            <span className="notification-dot" />
-                        </div>
-                        <div className="user-details">
-                            <span>Nguyễn Nguyên Khang</span>
-                            <span className="user-id">3755 - Trụ sở MWG</span>
-                        </div>
-                        <div>
-                            <img src={avatar} className="avatar-img" />
-                        </div>
-                    </div>
-                </Col>
-            </Row>
+        <>
             <Row className="content-row" gutter={[15, 15]}>
                 <Col span={24}>
                     <Row gutter={[10, 10]}>
@@ -259,7 +180,7 @@ const Dashboard = () => {
                                                 type="primary"
                                                 size="middle"
                                                 icon={<ExportOutlined />}
-                                                onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}
+                                                onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}
                                             >
                                                 Export
                                             </Button>
@@ -281,7 +202,7 @@ const Dashboard = () => {
                                                     <div className="stat-details">
                                                         <span className={`stat-trend ${item.trend}`}>{item.trend === 'down' ? '▼' : '▲'}</span>
                                                         <span className="stat-percentage"> {item.percentage}</span>
-                                                        <span className="stat-link" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>Xem chi tiết</span>
+                                                        <span className="stat-link" onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>Xem chi tiết</span>
                                                     </div>
                                                 </div>
                                                 {item.chartData && (
@@ -303,7 +224,7 @@ const Dashboard = () => {
                                 <Row className="notification-row" gutter={[0, 10]} style={{ width: '100%', padding: 10 }}>
                                     {notificationItems.map((item, index) => (
                                         <Col span={24} key={index}>
-                                            <div className={`notification-item ${item.isError ? 'error' : ''}`} onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>
+                                            <div className={`notification-item ${item.isError ? 'error' : ''}`} onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>
                                                 <div className="notification-content">
                                                     <div className="notification-icon-container" style={{ backgroundColor: item.bgColor }}>
                                                         <img src={item.icon} className="notif-icon" />
@@ -366,44 +287,43 @@ const Dashboard = () => {
                         </Col>
                         <Col xs={24} sm={24} md={24} lg={10} xl={16}>
                             <Row gutter={[10, 10]}>
-                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                        <div className="personnel-card">
-                                            <PersonnelStackedChart />
-                                        </div>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                        <div className="table-card">
-                                            <Row className="table-header" gutter={[10, 10]}>
-                                                <Col xs={24} sm={24} md={12}>
-                                                    <span className="table-title" >Tư vấn cài App</span>
-                                                </Col>
-                                                <Col xs={24} sm={24} md={12} className={`table-date-col ${!screens.md ? 'mobile' : ''}`}>
-                                                    <Typography.Text>
-                                                        <span>01/09/2023 - 30/09/2023</span>
-                                                        <span className="table-link" onClick={() => openNotificationWithIcon('info', 'Tính năng đang phát triển!')}>Chi tiết</span>
-                                                    </Typography.Text>
-                                                </Col>
-                                            </Row>
-                                            <Table
-                                                columns={columns}
-                                                dataSource={data}
-                                                size="large"
-                                                pagination={false}
-                                            />
-                                        </div>
-                                    </Col>
-                                    <Col span={24}>
-                                        <div className="sales-card">
-                                            <SalesTrendAndTargetChart />
-                                        </div>
-                                    </Col>
-                                </Row>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <div className="personnel-card">
+                                        <PersonnelStackedChart />
+                                    </div>
+                                </Col>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                    <div className="table-card">
+                                        <Row className="table-header" gutter={[10, 10]}>
+                                            <Col xs={24} sm={24} md={12}>
+                                                <span className="table-title" >Tư vấn cài App</span>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} className={`table-date-col ${!screens.md ? 'mobile' : ''}`}>
+                                                <Typography.Text>
+                                                    <span>01/09/2023 - 30/09/2023</span>
+                                                    <span className="table-link" onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>Chi tiết</span>
+                                                </Typography.Text>
+                                            </Col>
+                                        </Row>
+                                        <Table
+                                            columns={columns}
+                                            dataSource={data}
+                                            size="large"
+                                            pagination={false}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col span={24}>
+                                    <div className="sales-card">
+                                        <SalesTrendAndTargetChart />
+                                    </div>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Col>
             </Row>
-            {contextHolder}
-        </div>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer, Button, Checkbox, Space, Typography, Divider, Row, Col } from 'antd';
 import {
     GlobalOutlined,
@@ -10,6 +10,7 @@ import {
 import logotgdd from '../assets/images/logotgdd.png';
 import proiconsfoldablevertical from '../assets/images/proicons_foldable-vertical.png';
 import logosvg from '../assets/images/logosvg.svg';
+import carbondnsservices from '../assets/images/carbon_dns-services.png';
 const { Text } = Typography;
 
 const serviceOptions = [
@@ -18,7 +19,7 @@ const serviceOptions = [
     { label: 'Bảo dưỡng', value: 'baoduong' },
     { label: 'Bảo hành & sửa chữa', value: 'baohanh' },
     { label: 'Kho vận', value: 'khovan' },
-    { label: 'Xây dựng bác sĩ', value: 'xaydung' },
+    { label: 'Xây dựng bảo trì', value: 'xaydung' },
 ];
 
 const initialCheckedList = ['giaohang'];
@@ -32,7 +33,8 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
     const renderDrawerHeader = () => (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                <span style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
+                <img src={logotgdd} style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: '50%', border: '1px solid white' }} />
+                <span style={{ fontSize: 21, fontWeight: 'bold', color: 'white' }}>
                     Hiệu quả vận hành
                 </span>
                 <img
@@ -45,19 +47,21 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
                 width: '100%',
                 height: '1px',
                 backgroundColor: 'white',
-                marginTop: 10
+                marginTop: 15
             }} />
         </>
     );
     const renderFilterSection = (icon, title, content) => (
-        <div style={{ marginBottom: 20 }}>
-            <Space size="small" style={{ marginBottom: 10 }}>
+        <div style={{ marginBottom: 10 }}>
+            <Space size="small" style={{ marginBottom: 5 }}>
                 {icon}
-                <Text strong style={{ color: 'white', fontSize: '16px' }}>{title}</Text>
+                <Text strong style={{ color: 'white', fontSize: '14px' }}>{title}</Text>
             </Space>
-            <div style={{ paddingLeft: 24 }}>
-                {content}
-            </div>
+            {
+                content && <div style={{ paddingLeft: 24 }}>
+                    {content}
+                </div>
+            }
         </div>
     );
     const PADDING = 10;
@@ -67,7 +71,6 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
     return (
         <Drawer
             title={renderDrawerHeader()}
-
             placement="left"
             closable={false}
             onClose={onClose}
@@ -81,12 +84,12 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
                 height: `calc(100% - ${PADDING * 2}px)`,
             }}
             style={{
-                borderRadius: '8px',
+                borderRadius: '15px',
                 overflow: 'hidden',
             }}
             styles={{
                 header: { backgroundColor: '#6C757D', borderBottom: 'none', padding: '16px 24px' },
-                body: { backgroundColor: '#6C757D', padding: '16px 24px' },
+                body: { backgroundColor: '#6C757D', padding: '0px 35px' },
                 footer: {
                     backgroundColor: '#6C757D',
                     borderTop: '1px solid #737373',
@@ -97,18 +100,56 @@ const FilterSidebarDrawer = ({ open, onClose }) => {
             footer={
                 <Button
                     icon={<ExportOutlined />}
-                    style={{ width: '100%', borderRadius: 6 }}
+                    style={{ width: '40%', borderRadius: 6, backgroundColor: '#16A34A' }}
+                    type='primary'
                 >
                     Export
                 </Button>
             }
         >
+            {renderFilterSection(
+                <GlobalOutlined style={{ color: 'white' }} />,
+                'Dịch vụ',
+                <Checkbox.Group
+                    options={serviceOptions.map(opt => ({
+                        ...opt,
+                        // 💡 V5: Đặt màu cho label của checkbox
+                        style: { color: 'white' }
+                    }))}
+                    value={checkedList}
+                    onChange={onChange}
+                    style={{ display: 'flex', flexDirection: 'column' }}
+                />
+            )}
+
+            {renderFilterSection(
+                <CalendarOutlined style={{ color: 'white' }} />,
+                'Khu vực'
+            )}
+            {renderFilterSection(
+                // <img src={carbondnsservices} style={{ backgroundColor: '#6C757D', width: 25, height: 25, borderRadius: '50%' }} />,
+                <CalendarOutlined style={{ color: 'white' }} />,
+                'Kho điều phối'
+            )}
+            {renderFilterSection(
+                <CalendarOutlined style={{ color: 'white' }} />,
+                'Thời gian'
+            )}
         </Drawer>
     );
 };
+
 const DashboardHeaderWithFilter = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600); // Ví dụ: Small screen < 600px
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 450);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const handleDrawerOpen = () => setIsDrawerOpen(true);
     const handleDrawerClose = () => setIsDrawerOpen(false);
     const renderHeader = () => (
@@ -130,19 +171,19 @@ const DashboardHeaderWithFilter = () => {
         >
             <div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                    <div style={{
-                        height: 25,
-                        width: 25,
-                        backgroundColor: 'white',
-                        borderRadius: '50%'
-                    }}>
-                    </div>
-                    <span style={{ fontSize: 18, fontWeight: 'bold', fontStyle: 'italic' }}>Logistics</span>
+                    <img src={logotgdd} style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: '50%', border: '1px solid white' }} />
+                    <span style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic' }}>Logistics</span>
                 </div>
-                <span style={{ fontSize: 10, fontStyle: 'italic' }}><span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động</span>
+                <span style={{ fontSize: 10, fontStyle: 'italic', whiteSpace: 'nowrap', fontWeight: '500' }}><span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                <span style={{ fontSize: 20, fontWeight: 'bold' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginLeft: 10 }}>
+                <span
+                    style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        display: isSmallScreen ? 'none' : 'block' // ẨN KHI MÀN HÌNH NHỎ
+                    }}
+                >
                     Hiệu quả vận hành
                 </span>
                 <img

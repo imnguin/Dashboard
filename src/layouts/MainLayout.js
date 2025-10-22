@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Avatar, Button, Col, Dropdown, Grid, Layout, Menu, Row, theme } from "antd";
+import React, { useMemo, useState } from "react";
+import { Avatar, Button, Col, Dropdown, Grid, Layout, Menu, notification, Row, theme } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import {
     MenuFoldOutlined,
@@ -7,63 +7,26 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import appMenu from "../constants/appMenu";
+import DashboardHeaderWithFilter from "../components/DashboardHeaderWithFilter";
+import bell from '../assets/images/free-bell-icon-860-thumb.png'
+import dayjs from "dayjs";
+import weekday from 'dayjs/plugin/weekday';
+import localeData from 'dayjs/plugin/localeData';
+import { notificationService } from "../utils/NotificationService";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
 
-const { useBreakpoint } = Grid;
-
-const getItem = (label = null, key = null, icon = null, children = null, path = null, type = null) => {
-    let subMenu, item;
-    if (!!children && children.length > 0) {
-        subMenu = children.map(sub => {
-            return getItem(sub.label, sub.name, sub.icon, sub.subItem, sub.path);
-        });
-    }
-    if (!!subMenu) {
-        item = {
-            label,
-            key,
-            icon: !!icon ? React.createElement(icon) : '',
-            children: subMenu,
-            type
-        }
-    }
-    else {
-        item = {
-            label: <Link to={path}> {label} </Link>,
-            key,
-            icon: !!icon ? React.createElement(icon) : '',
-            children: subMenu,
-            type
-        }
-    }
-
-    return item;
-}
-
-const items = appMenu.map(item => {
-    return getItem(item.label, item.name, item.icon, item.subItem, item.path);
-});
-
-const MainLayout2 = (props) => {
-    const [collapsed, setCollapsed] = useState(false);
-    const [collapsedWidth, setCollapsedWidth] = useState(70);
-    const { token: { colorBgContainer }, } = theme.useToken();
+const MainLayout = (props) => {
+    const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
-    const screens = useBreakpoint()
-    const isMobile = screens.xs;
-    const handleBreakPoint = (broken) => {
-        if (broken) {
-            setCollapsedWidth(0)
-            setCollapsed(true);
-        }
-        else {
-            setCollapsedWidth(70);
-        }
-    }
+    const { useBreakpoint } = Grid;
+    const screens = useBreakpoint();
 
-    const Logout = () => {
-        localStorage.removeItem('logininfo');
-        navigate('/login');
-    }
+    React.useEffect(() => {
+        if (api) {
+            window.globalNotificationApi = api;
+        }
+    }, [api]);
 
     if (props.layout === 'notUse') {
         return (
@@ -71,9 +34,46 @@ const MainLayout2 = (props) => {
         );
     }
 
+    const childrenWithProps = useMemo(() => {
+        if (React.isValidElement(props.children)) {
+            return React.cloneElement(props.children, {
+                notification
+            });
+        }
+        return props.children;
+    }, [props.children]);
+
+    const Logout = () => {
+        localStorage.removeItem('logininfo');
+        navigate('/login');
+    }
+
     return (
-        // Thiết kế layout cho toàn bộ web ở đây
-        props.children
+        <div className="app-container">
+            <Row className="header-row" gutter={[0, 16]}>
+                <Col xs={24} md={12}>
+                    <DashboardHeaderWithFilter />
+                </Col>
+                <Col xs={0} md={12} className={`user-col ${!screens.md ? 'hidden' : ''}`}>
+                    <div className="user-info">
+                        <div className="notification-bell-container" onClick={() => notificationService.info('Thông báo', 'Tính năng đang phát triển!')}>
+                            <img src={bell} alt="Notification Bell" className="bell-icon" />
+                            <span className="notification-dot" />
+                        </div>
+                        <div className="user-details">
+                            <span>162779 - Nguyễn Nguyên Khang</span>
+                            <span className="user-id">3755 - Trụ sở MWG</span>
+                        </div>
+                        <div>
+                            <img src={'https://insite.thegioididong.com/cdninsite/UserImages/reviewed/162779_thumb.jpg'} className="avatar-img" />
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+            {childrenWithProps}
+            {contextHolder}
+        </div >
     );
 }
-export default MainLayout2;
+
+export default MainLayout;
