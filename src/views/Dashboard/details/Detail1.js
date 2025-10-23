@@ -1,8 +1,5 @@
 import { Col, Row, Grid, Form, Select, DatePicker, Typography, Button, Rate, Table, Progress, Tooltip, message, notification } from "antd";
 import React from "react";
-import avatar from "../../../assets/images/anh-dai-dien-hai-yodyvn.jpg";
-import bell from "../../../assets/images/free-bell-icon-860-thumb.png";
-import logo from "../../../assets/images/111.png";
 import chothuchien from "../../../assets/images/chothuchien.png";
 import dichuyen from "../../../assets/images/dichuyen.png";
 import dangthuchien from "../../../assets/images/dangthuchien.png";
