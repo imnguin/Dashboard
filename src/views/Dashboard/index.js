@@ -16,6 +16,7 @@ import WavySparkChart from "./components/WavySparkChart";
 import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
 import { NotificationService } from "../../utils/NotificationService";
 import StarRatingChartD3 from "./components/StarRatingChartD3";
+import StackedBarChartD3 from "./components/StackedBarChartD3";
 
 const { RangePicker } = DatePicker;
 const Dashboard = (props) => {
@@ -162,11 +163,37 @@ const Dashboard = (props) => {
         },
     ];
 
+    // 1. Dữ liệu MẪU
+    const chartData = [
+        { level: 'LV1', 'Đang trống': 55, 'Chờ thực hiện': 650, 'Đang thực hiện': 450, total: 1155 },
+        { level: 'LV2', 'Đang trống': 55, 'Chờ thực hiện': 550, 'Đang thực hiện': 42, total: 647 },
+        { level: 'LV3', 'Đang trống': 75, 'Chờ thực hiện': 25, 'Đang thực hiện': 235, total: 335 },
+        { level: 'LV4', 'Đang trống': 12, 'Chờ thực hiện': 101, 'Đang thực hiện': 59, total: 172 },
+    ];
+
+    // 2. MÀU SẮC (Ánh xạ Key và Mã màu)
+    const colorMapping = {
+        'Đang thực hiện': '#154df5ff', // Xanh dương
+        'Chờ thực hiện': '#fcbb18ff',     // Vàng
+        'Đang trống': '#16925cff'             // Xanh lá
+    };
+
+    // 3. THỨ TỰ KEYS (Đảo ngược: Xanh lá (Đang trống) ở bên trái -> Xanh dương (Đang đang thực hiện) ở bên phải)
+    const stackingOrder = ['Đang trống', 'Chờ thực hiện', 'Đang thực hiện'];
+    const starRatingData = [
+        { value: 12, label: '1 Sao', color: '#FF6347' },       // Đỏ
+        { value: 10, label: '2 Sao', color: '#FFD700' },       // Vàng
+        { value: 15, label: '3 Sao', color: '#00BFFF' },       // Xanh da trời
+        { value: 25, label: '4 Sao', color: '#20B2AA' },       // Xanh mòng két
+        { value: 30, label: '5 Sao', color: '#0000FF' },       // Xanh dương đậm
+        { value: 8, label: 'Không đánh giá', color: '#138a49ff' }, // Xanh lục
+    ];
+
     return (
         <>
-            <Row className="content-row" gutter={[25, 25]}>
+            <Row className="content-row" gutter={[15, 15]}>
                 <Col span={24}>
-                    <Row gutter={[25, 25]}>
+                    <Row gutter={[15, 15]}>
                         <Col xs={24} sm={24} md={14} lg={14} xl={16}>
                             <div className="operation-card">
                                 <Row className="operation-header" gutter={[10, 10]}>
@@ -237,9 +264,9 @@ const Dashboard = (props) => {
                             </div>
                         </Col>
                     </Row>
-                    <Row gutter={[25, 25]} className="bottom-row" style={{ marginTop: 25 }}>
+                    <Row gutter={[15, 15]} className="bottom-row" style={{ marginTop: 15 }}>
                         <Col xs={24} sm={24} md={24} lg={14} xl={8}>
-                            <div className="satisfaction-card">
+                            <div className="satisfaction-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click hiệu quả hài lòng')}>
                                 <Row gutter={[10, 10]}>
                                     <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                                         <div className="satisfaction-header">
@@ -260,17 +287,18 @@ const Dashboard = (props) => {
                                                 chartData={[8, 10, 12, 15, 25, 30]}
                                                 labels={['1 Sao', '2 Sao', '3 Sao', '4 Sao', '5 Sao', 'Không đánh giá']}
                                             /> */}
-                                            <StarRatingChartD3 />
+                                            <StarRatingChartD3 data={starRatingData} />
                                         </div>
                                     </Col>
                                     <Col span={24}>
                                         <div className="error-chart-container">
                                             <ErrorImpactChart
-                                                minHeight={isMobile ? 400 : 200}
+                                                minHeight={isMobile ? 400 : 320}
                                                 width='100%'
                                                 title="Lỗi ảnh hưởng sao phục vụ"
                                                 labels={['T1. Tay nghề', 'T2. Thái độ phục vụ', 'T3. Trễ hẹn/chậm thời gian', 'T4. Quy trình', 'T5. Lỗi đặc biệt nghiêm trọng']}
                                                 chartData={[12000, 9000, 20500, 6500, 1000]}
+                                                isMobile={!screens.md}
                                             />
                                         </div>
                                     </Col>
@@ -278,14 +306,25 @@ const Dashboard = (props) => {
                             </div>
                         </Col>
                         <Col xs={24} sm={24} md={24} lg={10} xl={16}>
-                            <Row gutter={[25, 25]}>
+                            <Row gutter={[15, 15]}>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div className="personnel-card">
-                                        <PersonnelStackedChart />
+                                    <div className="personnel-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click nhân sự')}>
+                                        <span style={{
+                                            fontSize: 30,
+                                            color: 'black',
+                                            fontWeight: 'bold',
+                                            padding: 10
+                                        }}>Nhân sự</span>
+                                        {/* <PersonnelStackedChart /> */}
+                                        <StackedBarChartD3
+                                            data={chartData}
+                                            colorMapProps={colorMapping}
+                                            keysOrder={stackingOrder}
+                                        />
                                     </div>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-                                    <div className="table-card">
+                                    <div className="table-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click tư vấn cài app')}>
                                         <Row className="table-header" gutter={[10, 10]}>
                                             <Col xs={24} sm={24} md={12}>
                                                 <span className="table-title" >Tư vấn cài App</span>
@@ -305,13 +344,23 @@ const Dashboard = (props) => {
                                         />
                                     </div>
                                 </Col>
-                                <Col span={24}>
-                                    <div className="sales-card">
-                                        <SalesTrendAndTargetChart />
-                                    </div>
-                                </Col>
+                                {screens.xl && (
+                                    <Col span={24}>
+                                        <div className="sales-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click doanh thu')}>
+                                            <SalesTrendAndTargetChart />
+                                        </div>
+                                    </Col>
+                                )}
                             </Row>
                         </Col>
+
+                        {!screens.xl && (
+                            <Col span={24}>
+                                <div className="sales-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click doanh thu')}>
+                                    <SalesTrendAndTargetChart />
+                                </div>
+                            </Col>
+                        )}
                     </Row>
                 </Col>
             </Row>

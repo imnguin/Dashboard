@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Drawer, Button, Checkbox, Space, Typography, Divider, Row, Col } from 'antd';
+import React, { lazy, useEffect, useState } from 'react';
+import { Drawer, Button, Checkbox, Space, Typography, Divider, Row, Col, Select } from 'antd';
 import {
     GlobalOutlined,
     CalendarOutlined,
     ExportOutlined,
     BookOutlined,
-    CloseOutlined
+    CloseOutlined,
+    SearchOutlined
 } from '@ant-design/icons';
 import logotgdd from '../assets/images/logotgdd.png';
+import logotgdd2 from '../assets/images/logotgdd2.png';
 import proiconsfoldablevertical from '../assets/images/proicons_foldable-vertical.png';
 import logosvg from '../assets/images/logosvg.svg';
 import carbondnsservices from '../assets/images/carbon_dns-services.png';
+import { NotificationService } from '../utils/NotificationService';
 const { Text } = Typography;
 
 const serviceOptions = [
@@ -22,24 +25,64 @@ const serviceOptions = [
     { label: 'Xây dựng bảo trì', value: 'xaydung' },
 ];
 
-const initialCheckedList = ['giaohang'];
+const date = new Date();
+const currMonth = date.getMonth();
+
+let monthOptions = [];
+
+for (let i = 1; i <= currMonth; i++) {
+    monthOptions.push({
+        label: `Tháng ${i}`,
+        value: i
+    });
+}
+
+const initialServices = ['giaohang'];
+const storeOptions = [
+    {
+        value: '1',
+        label: 'Kho số 1',
+    },
+    {
+        value: '2',
+        label: 'Kho số 2',
+    },
+    {
+        value: '3',
+        label: 'Kho số 3',
+    },
+    {
+        value: '4',
+        label: 'Kho số 4',
+    },
+    {
+        value: '5',
+        label: 'Kho số 5',
+    },
+    {
+        value: '6',
+        label: 'Kho số 6',
+    },
+]
 
 const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
-    const [checkedList, setCheckedList] = useState(initialCheckedList);
+    const [services, setServices] = useState(initialServices);
+    const [months, setMonths] = useState([currMonth]);
+    const [coordinatorStores, setCoordinatorStores] = useState([]);
+    const [stores, setStores] = useState([]);
 
     useEffect(() => {
-        filterData?.(checkedList)
+        filterData?.({ services, months })
     }, []);
 
-    const onChange = (list) => {
-        filterData?.(list)
-        setCheckedList(list);
+    const onChangeService = (list) => {
+        setServices(list);
     };
 
     const renderDrawerHeader = () => (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                <img src={logotgdd} style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: '50%', border: '1px solid white' }} />
+                <img src={logotgdd2} style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: '50%', border: '1px solid white' }} />
                 <span style={{ fontSize: 21, fontWeight: 'bold', color: 'white' }}>
                     Hiệu quả vận hành
                 </span>
@@ -76,6 +119,21 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
     const DRAWER_CONTENT_WIDTH = 300;
     const DRAWER_ROOT_WIDTH = DRAWER_CONTENT_WIDTH + PADDING;
 
+    const onSearch = () => {
+        filterData?.({ services, months, stores })
+        NotificationService.info('Dữ liệu bạn chọn', `${JSON.stringify({ services, months, stores })}}`);
+    }
+
+    const onSelectStore = (value) => {
+        const selectItem = storeOptions.find(x => x.value == value);
+        if (!!selectItem) {
+            if (!coordinatorStores.find(x => x.value == value)) {
+                setCoordinatorStores([...coordinatorStores, selectItem]);
+            }
+            setStores([...stores, value]);
+        }
+    }
+
     return (
         <Drawer
             title={renderDrawerHeader()}
@@ -88,7 +146,7 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 top: PADDING,
                 bottom: PADDING,
                 left: PADDING,
-                height: `calc(100% - ${PADDING * 2}px)`,
+                height: `calc(100 % - ${PADDING * 2}px)`,
             }}
             style={{
                 borderRadius: '15px',
@@ -111,13 +169,23 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
             }}
 
             footer={
-                <Button
-                    icon={<ExportOutlined />}
-                    style={{ width: '40%', borderRadius: 6, backgroundColor: '#16A34A' }}
-                    type='primary'
-                >
-                    Export
-                </Button>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Button
+                        icon={<ExportOutlined />}
+                        style={{ width: '40%', borderRadius: 6, backgroundColor: '#16A34A' }}
+                        type='primary'
+                    >
+                        Export
+                    </Button>
+                    <Button
+                        icon={<SearchOutlined />}
+                        style={{ width: '40%', borderRadius: 6 }}
+                        type='primary'
+                        onClick={onSearch}
+                    >
+                        Tìm kiếm
+                    </Button>
+                </div>
             }
         >
             {renderFilterSection(
@@ -129,8 +197,8 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                         // 💡 V5: Đặt màu cho label của checkbox
                         style: { color: 'white' }
                     }))}
-                    value={checkedList}
-                    onChange={onChange}
+                    value={services}
+                    onChange={onChangeService}
                     style={{ display: 'flex', flexDirection: 'column' }}
                 />
             )}
@@ -142,11 +210,44 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
             {renderFilterSection(
                 // <img src={carbondnsservices} style={{ backgroundColor: '#6C757D', width: 25, height: 25, borderRadius: '50%' }} />,
                 <CalendarOutlined style={{ color: 'white' }} />,
-                'Kho điều phối'
+                'Kho điều phối',
+                <div>
+                    <Select
+                        onChange={onSelectStore}
+                        showSearch
+                        style={{ width: 200, marginBottom: 5 }}
+                        placeholder="Nhập để tìm..."
+                        optionFilterProp="label"
+                        filterSort={(optionA, optionB) =>
+                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                        }
+                        options={storeOptions}
+                    />
+                    <Checkbox.Group
+                        options={coordinatorStores.map(opt => ({
+                            ...opt,
+                            // 💡 V5: Đặt màu cho label của checkbox
+                            style: { color: 'white' }
+                        }))}
+                        value={stores}
+                        onChange={(list) => { setStores(list) }}
+                        style={{ display: 'flex', flexDirection: 'column' }}
+                    />
+                </div>
             )}
             {renderFilterSection(
                 <CalendarOutlined style={{ color: 'white' }} />,
-                'Thời gian'
+                'Thời gian',
+                <Checkbox.Group
+                    options={monthOptions.map(opt => ({
+                        ...opt,
+                        // 💡 V5: Đặt màu cho label của checkbox
+                        style: { color: 'white' }
+                    }))}
+                    value={months}
+                    onChange={(list) => { setMonths(list) }}
+                    style={{ display: 'flex', flexDirection: 'column' }}
+                />
             )}
         </Drawer>
     );
@@ -188,7 +289,7 @@ const DashboardHeaderWithFilter = (props) => {
         >
             <div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                    <img src={logotgdd} style={{ backgroundColor: 'white', width: 25, height: 25, borderRadius: '50%', border: '1px solid white' }} />
+                    <img src={logotgdd2} style={{ backgroundColor: 'white', width: 25, height: 25, borderRadius: '50%', border: '1px solid white' }} />
                     <span style={{ fontSize: 16, fontWeight: 'bold', fontStyle: 'italic' }}>Logistics</span>
                 </div>
                 <span style={{ fontSize: 9, fontStyle: 'italic', whiteSpace: 'nowrap', fontWeight: '400' }}><span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động</span>

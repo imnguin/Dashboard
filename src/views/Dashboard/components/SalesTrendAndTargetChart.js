@@ -160,18 +160,36 @@ const formatCurrency = (amount) => {
     return amount.toLocaleString('vi-VN');
 };
 
-const SalesTrendAndTargetChart = () => {
+const SalesTrendAndTargetChart = (props) => {
+    const { } = props;
     return (
-        <Row gutter={[10, 10]} style={{ padding: 15 }}>
-            <Col xs={24} xl={5} xxl={4}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    <span style={{ fontSize: 20, fontWeight: 'bold' }}>Doanh thu</span>
-                    <span style={{ fontSize: 20, fontWeight: 'bold' }}>${formatCurrency(1112235246)}</span>
-                    <span>Năm ngoái vs <span style={{ color: '#28a745', fontWeight: 'bold' }}>↑ 1.5%</span></span>
-                </div>
+        <Row gutter={[10, 20]} style={{ padding: 15 }}>
+            <Col span={24}>
+                <Row gutter={[10, 10]} style={{ display: 'flex', alignItems: 'center' }}>
+                    <Col xs={24} md={12}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+                            <span style={{
+                                fontSize: 20,
+                                fontWeight: 'bold',
+                                marginRight: 15
+                            }}>
+                                Doanh thu
+                            </span>
+                            <span style={{
+                                fontSize: 20,
+                                fontWeight: 'bold',
+                            }}>
+                                ${formatCurrency(11122352411111111116)}
+                            </span>
+                        </div>
+                    </Col>
+                    <Col xs={24} md={12} style={{ textAlign: 'right' }}>
+                        <span>Năm ngoái vs <span style={{ color: '#28a745', fontWeight: 'bold' }}>↑ 1.5%</span></span>
+                    </Col>
+                </Row>
             </Col>
-            <Col xs={24} xl={17} xxl={20}>
-                <div style={{ height: 300, position: 'relative' }}>
+            <Col span={24}>
+                <div style={{ height: 320, position: 'relative' }}>
                     <Line data={data} options={options} />
                 </div>
             </Col>

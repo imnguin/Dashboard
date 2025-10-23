@@ -1,6 +1,6 @@
 /* Hàng chứa nội dung chính */
 .content-row {
-  padding: 25px; /* Đệm: 15px xung quanh */
+  padding: 15px; /* Đệm: 15px xung quanh */
 }
 
 /* Thẻ chứa bảng/biểu đồ lớn */
@@ -279,6 +279,7 @@
   flex-direction: column;
   padding: 20px;
   height: 100%;
+  cursor: pointer;
 }
 
 /* Header đánh giá sự hài lòng */
@@ -370,6 +371,7 @@
   padding: 10px;
   min-height: 300px;
   height: 100%;
+  cursor: pointer;
 }
 
 /* Thẻ bảng dữ liệu */
@@ -382,6 +384,7 @@
   padding: 10px;
   min-height: 300px;
   gap: 20px;
+  cursor: pointer;
 }
 
 /* Header của bảng */
@@ -431,6 +434,7 @@
   border-radius: 10px;
   flex-direction: column;
   padding: 10px;
+  cursor: pointer;
 }
 
 /* Container biểu đồ sales */
