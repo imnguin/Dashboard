@@ -87,8 +87,8 @@ const Dashboard = (props) => {
             percentage: '5.68%',
             bgColor: '#FFEBED',
             chartData: [20, 30, 25, 35, 30, 40, 35, 45, 40, 50, 45, 55],
-            chartLineColor: '#FF6F6F', // Màu đường biểu đồ
-            chartFillColor: 'rgba(255, 111, 111, 0.2)', // Màu fill biểu đồ
+            chartLineColor: '#FF6F6F',
+            chartFillColor: 'rgba(255, 111, 111, 0.2)',
         },
         {
             src: dichuyen,
@@ -98,9 +98,9 @@ const Dashboard = (props) => {
             trend: 'down',
             percentage: '2.3%',
             bgColor: '#FFF4ED',
-            chartData: [60, 50, 55, 45, 40, 35, 40, 30, 25, 20, 15], // Dữ liệu giảm
-            chartLineColor: '#FFB870', // Màu đường biểu đồ
-            chartFillColor: 'rgba(255, 184, 112, 0.2)', // Màu fill biểu đồ
+            chartData: [60, 50, 55, 45, 40, 35, 40, 30, 25, 20, 15],
+            chartLineColor: '#FFB870',
+            chartFillColor: 'rgba(255, 184, 112, 0.2)', 
         },
         {
             src: dangthuchien,
@@ -144,7 +144,7 @@ const Dashboard = (props) => {
         },
         {
             icon: bagicon,
-            title: null, // No title, as per original
+            title: null,
             text: (
                 <div className="error-content">
                     <div className="error-item">
@@ -163,7 +163,6 @@ const Dashboard = (props) => {
         },
     ];
 
-    // 1. Dữ liệu MẪU
     const chartData = [
         { level: 'LV1', 'Đang trống': 55, 'Chờ thực hiện': 650, 'Đang thực hiện': 450, total: 1155 },
         { level: 'LV2', 'Đang trống': 55, 'Chờ thực hiện': 550, 'Đang thực hiện': 42, total: 647 },
@@ -171,22 +170,19 @@ const Dashboard = (props) => {
         { level: 'LV4', 'Đang trống': 12, 'Chờ thực hiện': 101, 'Đang thực hiện': 59, total: 172 },
     ];
 
-    // 2. MÀU SẮC (Ánh xạ Key và Mã màu)
     const colorMapping = {
-        'Đang thực hiện': '#154df5ff', // Xanh dương
-        'Chờ thực hiện': '#fcbb18ff',     // Vàng
-        'Đang trống': '#16925cff'             // Xanh lá
-    };
-
-    // 3. THỨ TỰ KEYS (Đảo ngược: Xanh lá (Đang trống) ở bên trái -> Xanh dương (Đang đang thực hiện) ở bên phải)
+        'Đang thực hiện': '#154df5ff',
+        'Chờ thực hiện': '#fcbb18ff',
+        'Đang trống': '#16925cff'
+    }
     const stackingOrder = ['Đang trống', 'Chờ thực hiện', 'Đang thực hiện'];
     const starRatingData = [
-        { value: 12, label: '1 Sao', color: '#FF6347' },       // Đỏ
-        { value: 10, label: '2 Sao', color: '#FFD700' },       // Vàng
-        { value: 15, label: '3 Sao', color: '#00BFFF' },       // Xanh da trời
-        { value: 25, label: '4 Sao', color: '#20B2AA' },       // Xanh mòng két
-        { value: 30, label: '5 Sao', color: '#0000FF' },       // Xanh dương đậm
-        { value: 8, label: 'Không đánh giá', color: '#138a49ff' }, // Xanh lục
+        { value: 12, label: '1 Sao', color: '#FF6347' },
+        { value: 10, label: '2 Sao', color: '#FFD700' },
+        { value: 15, label: '3 Sao', color: '#00BFFF' },
+        { value: 25, label: '4 Sao', color: '#20B2AA' },
+        { value: 30, label: '5 Sao', color: '#0000FF' },
+        { value: 8, label: 'Không đánh giá', color: '#138a49ff' },
     ];
 
     return (

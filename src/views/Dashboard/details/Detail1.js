@@ -17,6 +17,7 @@ import RatingGroupedBarChart from "../components/RatingGroupedBarChart";
 import Top5ErrorPercentageChart from "../components/Top5ErrorPercentageChart";
 import AverageStarTrendChart from "../components/AverageStarTrendChart";
 import pajamastimeout from '../../../assets/images/pajamas_time-out.png'
+import StarRatingChartD3 from "../components/StarRatingChartD3";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
@@ -244,6 +245,15 @@ const Detail1 = () => {
             bgColor: 'linear-gradient(90deg, #FDF6F5 0%, #104086 100%)',
             crossColor: '#D32F2F'
         },
+    ];
+
+    const starRatingData = [
+        { value: 12, label: '1 Sao', color: '#FF6347' },
+        { value: 10, label: '2 Sao', color: '#FFD700' },
+        { value: 15, label: '3 Sao', color: '#00BFFF' },
+        { value: 25, label: '4 Sao', color: '#20B2AA' },
+        { value: 30, label: '5 Sao', color: '#0000FF' },
+        { value: 8, label: 'Không đánh giá', color: '#138a49ff' },
     ];
 
     return (
@@ -494,7 +504,10 @@ const Detail1 = () => {
                         <Col xs={24} md={12} xl={9}>
                             <div className="operation-card">
                                 <span style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Tỷ trọng sao - Khiếu nại theo khu vực</span>
-                                <StarRatingChart />
+                                {/* <StarRatingChart /> */}
+                                <div className={`chart-container ${isMobile ? 'mobile' : ''}`}>
+                                    <StarRatingChartD3 data={starRatingData} />
+                                </div>
                             </div>
                         </Col>
                         <Col xs={24} md={12} xl={6}>
