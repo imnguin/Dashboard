@@ -6,7 +6,9 @@ import {
     ExportOutlined,
     BookOutlined,
     CloseOutlined,
-    SearchOutlined
+    SearchOutlined,
+    ApartmentOutlined,
+    EnvironmentOutlined
 } from '@ant-design/icons';
 import logotgdd from '../assets/images/logotgdd.png';
 import logotgdd2 from '../assets/images/logotgdd2.png';
@@ -204,12 +206,12 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
             )}
 
             {renderFilterSection(
-                <CalendarOutlined style={{ color: 'white' }} />,
+                <EnvironmentOutlined style={{ color: 'white' }} />,
                 'Khu vực'
             )}
             {renderFilterSection(
                 // <img src={carbondnsservices} style={{ backgroundColor: '#6C757D', width: 25, height: 25, borderRadius: '50%' }} />,
-                <CalendarOutlined style={{ color: 'white' }} />,
+                <ApartmentOutlined style={{ color: 'white' }} />,
                 'Kho điều phối',
                 <div>
                     <Select
