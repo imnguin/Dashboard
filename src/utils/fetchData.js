@@ -1,4 +1,4 @@
-import { HOST_LIST } from "../constants/systemVars";
+import { HOST_LIST } from '@system-vars';
 import { hideLoading, showLoading } from "../redux/reducers/loadingSlice";
 
 const headerDefautl = { 'user-agent': 'Mozilla/4.0 MDN Example', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
