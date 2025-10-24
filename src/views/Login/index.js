@@ -24,16 +24,6 @@ const ThemedLogin = ({ isDark, toggleDark }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-
-    const [loginType, setLoginType] = useState('account');
-
-    const iconStyles = {
-        marginInlineStart: '16px',
-        color: setAlpha(token.colorTextBase, 0.2),
-        fontSize: '24px',
-        verticalAlign: 'middle',
-        cursor: 'pointer',
-    };
     const { notification } = App.useApp();
 
     const onFinish = async (values) => {
@@ -74,31 +64,10 @@ const ThemedLogin = ({ isDark, toggleDark }) => {
                 }}
             >
                 <LoginForm
-                    // logo="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                    // title="Hệ thống"
-                    // subTitle={
-                    //     <div style={{ color: token.colorText }}>
-                    //         Nền tảng quản lý hiện đại
-                    //     </div>
-                    // }
-                    // actions={
-                    //     <Space style={{ justifyContent: 'space-between', width: '100%' }}>
-                    //         <span style={{ color: token.colorText }}>Đăng nhập với</span>
-                    //         <GithubOutlined style={iconStyles} />
-                    //         <Button
-                    //             type="text"
-                    //             icon={isDark ? <BulbFilled /> : <BulbOutlined />}
-                    //             onClick={toggleDark}
-                    //             style={{ marginLeft: 'auto' }}
-                    //         >
-                    //             {isDark ? 'Sáng' : 'Tối'}
-                    //         </Button>
-                    //     </Space>
-                    // }
                     onFinish={onFinish}
                     submitter={{
                         searchConfig: {
-                            submitText: 'Đăng nhập', // ✅ Đã đổi ngôn ngữ nút
+                            submitText: 'Đăng nhập',
                         },
                     }}
                     contentStyle={{ paddingTop: 0 }}
@@ -145,11 +114,7 @@ const Login = () => {
     const [isDark, setIsDark] = useState(false);
 
     return (
-        <ConfigProvider
-            theme={{
-                algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-            }}
-        >
+        <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm, }}>
             <App><ThemedLogin isDark={isDark} toggleDark={() => setIsDark(!isDark)} /></App>
         </ConfigProvider>
     );
