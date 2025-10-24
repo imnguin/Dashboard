@@ -19,7 +19,6 @@ ChartJS.register(
     Legend
 );
 
-// Hàm này giữ nguyên, dùng để tách nhãn dài thành nhiều dòng
 function splitLabel(label, maxLineLength = 10) {
     if (label.length <= maxLineLength) {
         return label;
@@ -48,13 +47,12 @@ const ErrorImpactChart = (props) => {
         labels = ['T1. Tay nghề', 'T2. Thái độ phục vụ', 'T3. Trễ hẹn/chậm thời gian', 'T4. Quy trình', 'T5. Lỗi đặc biệt nghiêm trọng'],
         colors = ['#00BFFF', '#C71585', '#FF8C00', '#4169E1', '#DC143C'],
         chartData = [12000, 9000, 20500, 6500, 1000],
-        isMobile = false, // 🌟 THÊM PROP NÀY ĐỂ XÁC ĐỊNH THIẾT BỊ
+        isMobile = false,
     } = props;
 
-    // 🌟 ĐIỀU CHỈNH KÍCH THƯỚC FONT VÀ NHÃN DỰA TRÊN THIẾT BỊ
     const baseFontSize = isMobile ? 10 : 12;
     const titleFontSize = isMobile ? 18 : 22;
-    const maxLabelLength = isMobile ? 8 : 10; // Giới hạn ký tự tối đa cho nhãn
+    const maxLabelLength = isMobile ? 8 : 10;
 
     const data = {
         labels,
@@ -74,19 +72,19 @@ const ErrorImpactChart = (props) => {
 
     const options = {
         responsive: true,
-        maintainAspectRatio: false, // Quan trọng để điều chỉnh chiều cao
+        maintainAspectRatio: false,
         plugins: {
             title: {
                 display: true,
                 text: title,
                 align: 'start',
                 font: {
-                    size: titleFontSize, // Sử dụng font size động
+                    size: titleFontSize,
                     weight: 'bold'
                 },
                 padding: {
                     top: 10,
-                    bottom: isMobile ? 15 : 30 // Giảm padding trên mobile
+                    bottom: isMobile ? 15 : 30
                 },
                 color: 'black'
             },
@@ -109,11 +107,11 @@ const ErrorImpactChart = (props) => {
                     display: false
                 },
                 ticks: {
-                    font: { size: baseFontSize }, // Sử dụng font size động
+                    font: { size: baseFontSize },
                     color: '#333',
                     callback: function (value, index, values) {
                         const label = this.getLabelForValue(value);
-                        return splitLabel(label, maxLabelLength); // Sử dụng giới hạn ký tự động
+                        return splitLabel(label, maxLabelLength);
                     }
                 },
             },
@@ -126,7 +124,7 @@ const ErrorImpactChart = (props) => {
                     callback: function (value) {
                         return value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value;
                     },
-                    font: { size: baseFontSize }, // Sử dụng font size động
+                    font: { size: baseFontSize },
                     color: '#333'
                 }
             }
@@ -136,7 +134,7 @@ const ErrorImpactChart = (props) => {
     return (
         <div
             style={{
-                minHeight: minHeight, // minHeight được truyền từ component cha (đã responsive)
+                minHeight: minHeight,
                 width: width,
                 position: 'relative',
                 backgroundColor: 'white',

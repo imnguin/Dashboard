@@ -527,14 +527,13 @@ const Detail1 = () => {
                                                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                                                         position: 'relative',
                                                         width: '100%',
-                                                        background: item.bgColor, // Sử dụng biến gradient
+                                                        background: item.bgColor,
                                                         color: 'white',
                                                         marginTop: '5px'
-                                                        // fontFamily: 'Arial, sans-serif'
+                                                      
                                                     }}
                                                 >
 
-                                                    {/* ICON CIRCLE */}
                                                     <div
                                                         style={{
                                                             width: '40px',

@@ -10,7 +10,6 @@ import {
     Legend
 } from 'chart.js';
 
-// Đăng ký các thành phần cần thiết của Chart.js
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,17 +25,14 @@ const PersonnelStackedChart = ({
     title = 'Nhân sự'
 }) => {
 
-    // Dữ liệu giả định
     const labels = ['LV1', 'LV2', 'LV3', 'LV4'];
-    const dataOnHold = [55, 55, 75, 12];      // Đang trồng
-    const dataPending = [650, 550, 25, 101];    // Đang chờ thực hiện
-    const dataInProgress = [450, 42, 235, 59];  // Đang thực hiện
+    const dataOnHold = [55, 55, 75, 12];     
+    const dataPending = [650, 550, 25, 101];
+    const dataInProgress = [450, 42, 235, 59]; 
 
-    // *** TÍNH TOÁN TỔNG SỐ LƯỢNG CHO MỖI LV ***
     const totalCounts = dataOnHold.map((val, i) =>
         val + dataPending[i] + dataInProgress[i]
     );
-    // *****************************************
 
     const data = {
         labels,
@@ -56,7 +52,6 @@ const PersonnelStackedChart = ({
                 data: dataPending,
                 backgroundColor: '#f6c23e',
                 stack: 'Stack 0',
-                // STYLE: Không bo góc, Border trắng
                 borderWidth: 0,
                 borderRadius: 5,
                 barPercentage: 0.6,
@@ -76,7 +71,7 @@ const PersonnelStackedChart = ({
     };
 
     const options = {
-        indexAxis: 'y', // Biểu đồ thanh ngang
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -107,23 +102,18 @@ const PersonnelStackedChart = ({
             tooltip: {
                 mode: 'index',
                 intersect: false,
-                // *** HIỂN THỊ TỔNG SỐ LƯỢNG TRONG TOOLTIP ***
                 callbacks: {
                     footer: (tooltipItems) => {
-                        // Lấy index của thanh đang hover
                         const dataIndex = tooltipItems[0].dataIndex;
-                        // Lấy giá trị tổng đã tính toán
                         const total = totalCounts[dataIndex];
-                        // Định dạng và trả về chuỗi footer
                         return `Tổng cộng: ${total.toLocaleString('vi-VN')}`;
                     }
                 }
-                // ***************************************
             },
         },
         scales: {
             x: {
-                stacked: true, // Xếp chồng theo trục X (giá trị)
+                stacked: true,
                 grid: {
                     display: true,
                     drawBorder: false,
@@ -136,9 +126,9 @@ const PersonnelStackedChart = ({
                 title: { display: false }
             },
             y: {
-                stacked: true, // Xếp chồng theo trục Y (danh mục)
+                stacked: true,
                 grid: {
-                    display: false // Ẩn lưới trục Y
+                    display: false
                 },
                 ticks: {
                     font: { size: 14, weight: 'bold' },

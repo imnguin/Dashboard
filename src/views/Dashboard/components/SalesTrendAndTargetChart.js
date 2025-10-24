@@ -39,7 +39,7 @@ const data = {
             tension: 0.4,
             borderWidth: 2,
             pointRadius: 4,
-            // 💡 SỬA: Đặt màu cho điểm, đảm bảo nó KHÔNG trong suốt
+
             pointBackgroundColor: '#448AFF',
             pointBorderColor: '#448AFF',
             pointHoverBorderColor: 'blue',
@@ -53,15 +53,14 @@ const data = {
             tension: 0.4,
             borderWidth: 2,
             pointRadius: 4,
-            // 💡 SỬA: Đặt màu cho điểm, đảm bảo nó KHÔNG trong suốt
+
             pointBackgroundColor: '#FFC107',
             pointBorderColor: '#FFC107',
         },
         {
             label: 'Target',
             data: targetData,
-            // 💡 LƯU Ý: Vì đây là đường Target (đứt nét), bạn có thể muốn ẩn nó khỏi chú thích.
-            // Nếu muốn hiện, phải có pointBackgroundColor. Hiện tại tôi giữ nguyên cấu hình.
+
             borderColor: '#FFC107',
             backgroundColor: 'transparent',
             borderDash: [5, 5],
@@ -122,7 +121,7 @@ const options = {
             grid: {
                 display: true,
                 color: '#e0e0e0',
-                drawBorder: false, // Ẩn đường viền trục X
+                drawBorder: false,
             },
             ticks: {
                 color: '#333',
@@ -133,12 +132,11 @@ const options = {
             min: 0,
             max: 800,
 
-            // 💡 Cấu hình chính cho nét đứt
             grid: {
                 color: '#e0e0e0',
-                borderDash: [5, 5], // Vẫn là [5, 5]
-                drawOnChartArea: true, // Đảm bảo vẽ trong vùng biểu đồ
-                drawTicks: false, // Tắt các dấu gạch nhỏ trên trục Y
+                borderDash: [5, 5], 
+                drawOnChartArea: true,
+                drawTicks: false,
             },
 
             ticks: {
@@ -147,7 +145,6 @@ const options = {
                 font: { size: 12 }
             },
 
-            // 💡 QUAN TRỌNG: Ẩn hoàn toàn đường viền trục Y
             border: {
                 display: false
             }

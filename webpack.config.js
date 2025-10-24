@@ -2,15 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-// 1. Đọc biến môi trường
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const APP_ENV = process.env.APP_ENV || 'dev';
 
-// 2. Xác định tên file cấu hình động
+const HOST_NAME = process.env.HOST_NAME || 'localhost';
+
 const CONFIG_FILE_NAME = `systemVar${APP_ENV.charAt(0).toUpperCase() + APP_ENV.slice(1)}`;
 
 module.exports = {
-    // Thiết lập Webpack mode
     mode: NODE_ENV,
 
     entry: './src/index.js',
@@ -21,10 +20,8 @@ module.exports = {
         publicPath: '/',
     },
 
-    // ⭐️ Cấu hình Alias động
     resolve: {
         alias: {
-            // Khi import '@system-vars', Webpack sẽ trỏ đến file tương ứng
             '@system-vars': path.resolve(__dirname, `src/constants/${CONFIG_FILE_NAME}.js`),
         },
         extensions: ['.js', '.json'],
@@ -68,7 +65,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
-        // Định nghĩa biến môi trường cho mã nguồn (tùy chọn)
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
             'process.env.APP_ENV': JSON.stringify(APP_ENV),
@@ -80,6 +76,6 @@ module.exports = {
         compress: true,
         port: 8089,
         historyApiFallback: true,
-        // host: 'dev.dashboard.vn'
+        host: HOST_NAME,
     },
 };

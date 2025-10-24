@@ -7,7 +7,7 @@ import {
     PointElement,
     LineElement,
     Tooltip,
-    Filler, // Quan trọng: Để đổ màu bên dưới đường
+    Filler,
 } from 'chart.js';
 
 ChartJS.register(
@@ -16,25 +16,24 @@ ChartJS.register(
     PointElement,
     LineElement,
     Tooltip,
-    Filler // Đăng ký Filler plugin
+    Filler
 );
 
 const WavySparkChart = ({ data, trend, lineColor, fillColor }) => {
-    // Mặc định màu nếu không được truyền vào
     const defaultLineColor = trend === 'down' ? '#FF4D4F' : '#52C41A';
     const defaultFillColor = trend === 'down' ? 'rgba(255, 77, 79, 0.1)' : 'rgba(82, 196, 26, 0.1)';
 
     const chartData = {
-        labels: data.map((_, i) => ''), // Ẩn nhãn X
+        labels: data.map((_, i) => ''),
         datasets: [
             {
                 data: data,
                 borderColor: lineColor || defaultLineColor,
                 borderWidth: 4,
                 pointRadius: 0,
-                tension: 0.4, // Tạo đường cong gợn sóng
-                fill: true, // Quan trọng: Đổ màu bên dưới đường
-                backgroundColor: fillColor || defaultFillColor, // Màu nền đổ
+                tension: 0.4,
+                fill: true, 
+                backgroundColor: fillColor || defaultFillColor,
             },
         ],
     };
@@ -65,7 +64,6 @@ const WavySparkChart = ({ data, trend, lineColor, fillColor }) => {
     };
 
     return (
-        // Biểu đồ sẽ chiếm toàn bộ chiều rộng của thẻ cha (stat-card)
         <div style={{ height: '80px', marginLeft : -15}}>
             <Line data={chartData} options={options} />
         </div>

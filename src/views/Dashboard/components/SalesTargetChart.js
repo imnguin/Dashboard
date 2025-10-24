@@ -10,7 +10,6 @@ import {
     Legend
 } from 'chart.js';
 
-// Đăng ký các thành phần cần thiết của Chart.js
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -20,7 +19,6 @@ ChartJS.register(
     Legend
 );
 
-// Hàm tiện ích để định dạng tiền tệ
 const formatCurrency = (amount) => {
     if (amount === null || amount === undefined) return '';
     return amount.toLocaleString('vi-VN');
@@ -45,7 +43,6 @@ const SalesTargetChart = (props) => {
         backgroundColor2 = 'rgb(255, 140, 0)',
     } = props;
 
-    // Tính toán phần Target Cần Đạt (để tạo hiệu ứng cột chồng)
     const dataRemainingTarget = dataSales.map((sales, index) => {
         const target = dataTarget[index];
         return Math.max(0, target - sales);
@@ -84,7 +81,7 @@ const SalesTargetChart = (props) => {
         plugins: {
             title: { display: false },
             legend: {
-                display: true, // Hiển thị Legend của Chart.js
+                display: true,
                 position: 'top',
                 align: 'start',
                 labels: {
@@ -134,14 +131,13 @@ const SalesTargetChart = (props) => {
         },
         elements: {
             bar: {
-                barPercentage: 0.25, // Độ rộng cột
+                barPercentage: 0.25, 
                 categoryPercentage: 0.8
             }
         }
     };
 
-    // Giá trị tổng hợp cho phần header (KPI chính)
-    const totalRevenue = 1112235264; // Giữ nguyên giá trị demo
+    const totalRevenue = 1112235264;
 
     return (
         <div
@@ -156,7 +152,6 @@ const SalesTargetChart = (props) => {
                 flexDirection: 'column'
             }}
         >
-            {/* --- PHẦN HEADER VÀ CHỈ SỐ KPI CHÍNH (Đã loại bỏ Custom Legend) --- */}
             <div style={{ position: 'relative', marginBottom: '20px' }}>
                 <p style={{ marginBottom: 5, fontSize: '1em', color: '#666', fontWeight: 'bold' }}>
                     {title}
@@ -167,11 +162,8 @@ const SalesTargetChart = (props) => {
                 <div style={{ fontSize: '0.9em', color: '#666', marginTop: '5px' }}>
                     Năm ngoái vs <span style={{ color: '#28a745', fontWeight: 'bold' }}>↑ 1.5%</span>
                 </div>
-                {/* Custom Legend đã được loại bỏ ở đây */}
             </div>
-            {/* --- KẾT THÚC PHẦN HEADER --- */}
 
-            {/* Vùng chứa biểu đồ */}
             <div style={{ flexGrow: 1 }}>
                 <Bar data={data} options={options} />
             </div>

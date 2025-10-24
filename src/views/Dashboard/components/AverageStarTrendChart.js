@@ -11,7 +11,6 @@ import {
     Legend
 } from 'chart.js';
 
-// Đăng ký các thành phần cần thiết
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -22,7 +21,6 @@ ChartJS.register(
     Legend
 );
 
-// Dữ liệu mẫu (giữ nguyên)
 const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov'];
 
 const data = {
@@ -55,7 +53,6 @@ const data = {
     ],
 };
 
-// Plugin mô phỏng đường tham chiếu đứng (giữ nguyên)
 const verticalLinePlugin = {
     id: 'verticalLinePlugin',
     beforeDraw: (chart) => {
@@ -93,7 +90,7 @@ const options = {
                 usePointStyle: true,
                 pointStyle: 'circle',
                 boxWidth: 8,
-                padding: 30, // Khoảng cách giữa các mục chú thích
+                padding: 30,
                 font: { size: 14 }
             }
         },
@@ -102,7 +99,7 @@ const options = {
             text: `Sao trung bình trong năm ${date.getFullYear()} so với năm trước`,
             align: 'start',
             font: { size: 20, weight: 'bold' },
-            padding: { top: 0, bottom: 20 }, // <--- ĐIỀU CHỈNH: Tăng padding dưới Title
+            padding: { top: 0, bottom: 20 },
             color: '#000000ff'
         },
         tooltip: {
@@ -119,7 +116,7 @@ const options = {
 
     layout: {
         padding: {
-            top: 10, // <--- ĐIỀU CHỈNH: Tăng mạnh padding trên để đẩy khu vực vẽ xuống
+            top: 10,
             bottom: 20
         }
     },

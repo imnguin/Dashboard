@@ -196,7 +196,6 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 <Checkbox.Group
                     options={serviceOptions.map(opt => ({
                         ...opt,
-                        // 💡 V5: Đặt màu cho label của checkbox
                         style: { color: 'white' }
                     }))}
                     value={services}
@@ -210,7 +209,6 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 'Khu vực'
             )}
             {renderFilterSection(
-                // <img src={carbondnsservices} style={{ backgroundColor: '#6C757D', width: 25, height: 25, borderRadius: '50%' }} />,
                 <ApartmentOutlined style={{ color: 'white' }} />,
                 'Kho điều phối',
                 <div>
@@ -228,7 +226,6 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                     <Checkbox.Group
                         options={coordinatorStores.map(opt => ({
                             ...opt,
-                            // 💡 V5: Đặt màu cho label của checkbox
                             style: { color: 'white' }
                         }))}
                         value={stores}
@@ -243,7 +240,6 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 <Checkbox.Group
                     options={monthOptions.map(opt => ({
                         ...opt,
-                        // 💡 V5: Đặt màu cho label của checkbox
                         style: { color: 'white' }
                     }))}
                     value={months}
@@ -257,7 +253,7 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
 
 const DashboardHeaderWithFilter = (props) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600); // Ví dụ: Small screen < 600px
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
 
     useEffect(() => {
         const handleResize = () => {
@@ -301,7 +297,7 @@ const DashboardHeaderWithFilter = (props) => {
                     style={{
                         fontSize: 20,
                         fontWeight: 'bold',
-                        display: isSmallScreen ? 'none' : 'block' // ẨN KHI MÀN HÌNH NHỎ
+                        display: isSmallScreen ? 'none' : 'block'
                     }}
                 >
                     {props?.title}

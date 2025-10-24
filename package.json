@@ -36,8 +36,8 @@
         "webpack-dev-server": "^5.2.1"
     },
     "scripts": {
-        "start": "cross-env NODE_ENV=development APP_ENV=dev webpack serve --open",
-        "start:beta": "cross-env NODE_ENV=development APP_ENV=beta webpack serve --open",
+        "start": "cross-env NODE_ENV=development APP_ENV=dev HOST_NAME=dev.dashboard.vn webpack serve --open",
+        "start:beta": "cross-env NODE_ENV=development APP_ENV=beta HOST_NAME=beta.dashboard.vn webpack serve --open",
         "build:dev": "cross-env NODE_ENV=development APP_ENV=dev webpack",
         "build:beta": "cross-env NODE_ENV=production APP_ENV=beta webpack",
         "build:product": "cross-env NODE_ENV=production APP_ENV=product webpack"

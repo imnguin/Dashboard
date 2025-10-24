@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
-// Định nghĩa các Props nhận vào và gán giá trị mặc định để tránh lỗi 'undefined'
 const StackedBarChartD3 = ({
     data = [],
     colorMapProps = {},
@@ -9,9 +8,8 @@ const StackedBarChartD3 = ({
 }) => {
     const svgRef = useRef();
     const tooltipRef = useRef();
-    const containerRef = useRef(); 
+    const containerRef = useRef();
 
-    // Khai báo biến chính từ Props
     const rawData = data;
     const keys = keysOrder;
     const colorMap = colorMapProps;
@@ -24,25 +22,20 @@ const StackedBarChartD3 = ({
         );
     }
 
-    // Tạo scale màu dựa trên keysOrder và colorMap
     const baseColors = keys.map(key => colorMap[key]);
     const color = d3.scaleOrdinal().domain(keys).range(baseColors);
 
-    // Thông số cố định
     const overlapPixel = 8;
     const minBarWidth = 15;
     const borderRadius = 5;
 
-    // Kích thước và Margin cố định
-    const margin = { top: 20, right: 100, bottom: 70, left: 60 }; 
-    // ⭐ ĐIỀU CHỈNH 1: GIẢM KÍCH THƯỚC VIEWBOX (Gọn gàng hơn)
-    const totalWidth = 600; 
-    const totalHeight = 340; 
-    
-    const width = totalWidth - margin.left - margin.right; 
+    const margin = { top: 20, right: 100, bottom: 70, left: 60 };
+    const totalWidth = 600;
+    const totalHeight = 340;
+
+    const width = totalWidth - margin.left - margin.right;
     const height = totalHeight - margin.top - margin.bottom;
 
-    // BƯỚC 1: CHUẨN HÓA DỮ LIỆU
     const normalizedData = rawData.map(d => {
         const total = d.total;
         const normalized = { level: d.level, total: total };
@@ -54,14 +47,11 @@ const StackedBarChartD3 = ({
 
     const drawChart = () => {
         const svg = d3.select(svgRef.current)
-            // Cập nhật VIEWBOX
-            .attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`) 
-            // ⭐ ĐIỀU CHỈNH CHÍNH: KHÔI PHỤC GIỮ TỶ LỆ để KHÔNG BỊ BÓP MÉO
-            .attr("preserveAspectRatio", "xMidYMid meet"); 
+            .attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`)
+            .attr("preserveAspectRatio", "xMidYMid meet");
 
         svg.selectAll('*').remove();
 
-        // 1. TẠO GRADIENT (Giữ nguyên)
         const defs = svg.append("defs");
         keys.forEach((key, i) => {
             const baseColor = colorMap[key];
@@ -90,11 +80,9 @@ const StackedBarChartD3 = ({
 
         const tooltip = d3.select(tooltipRef.current);
 
-        // D3 Stack 
         const stack = d3.stack().keys(keys).order(d3.stackOrderNone).offset(d3.stackOffsetNone);
         const series = stack(normalizedData);
 
-        // Scales (Giữ nguyên)
         const yScale = d3.scaleBand()
             .domain(normalizedData.map(d => d.level))
             .range([0, height])
@@ -125,7 +113,6 @@ const StackedBarChartD3 = ({
             return { x: finalStartX, width: finalSegmentWidth, value: valueRatio };
         };
 
-        // Hàm Tooltip... (Giữ nguyên)
         const handleMouseOver = (event, d) => {
             const segmentKey = keys[series.findIndex(s => s.includes(d))];
             const originalData = rawData.find(r => r.level === d.data.level);
@@ -170,8 +157,6 @@ const StackedBarChartD3 = ({
                 .style("filter", "none");
         };
 
-
-        // 3. Vẽ các Thanh (Giữ nguyên)
         const levelGroup = g.selectAll(".level-group")
             .data(series)
             .enter()
@@ -194,7 +179,6 @@ const StackedBarChartD3 = ({
             .on("mousemove", handleMouseMove)
             .on("mouseout", handleMouseOut);
 
-        // 4. Nhãn Giá trị trên Thanh 
         levelGroup.selectAll(".bar-label")
             .data(d => d)
             .enter()
@@ -207,7 +191,7 @@ const StackedBarChartD3 = ({
             .attr("y", d => yScale(d.data.level) + yScale.bandwidth() / 2)
             .attr("dy", "0.35em")
             .attr("text-anchor", "middle")
-            .style("font-size", "0.9em") 
+            .style("font-size", "0.9em")
             .style("fill", "white")
             .style("font-weight", "bold")
             .text(d => {
@@ -222,7 +206,6 @@ const StackedBarChartD3 = ({
                 return '';
             });
 
-        // 5. Nhãn Tổng 
         g.selectAll(".total-label")
             .data(rawData)
             .enter()
@@ -231,12 +214,11 @@ const StackedBarChartD3 = ({
             .attr("x", width + 20)
             .attr("y", d => yScale(d.level) + yScale.bandwidth() / 2)
             .attr("dy", "0.35em")
-            .style("font-size", "1.1em") 
+            .style("font-size", "1.1em")
             .style("font-weight", "bold")
             .style("fill", "#333")
             .text(d => d.total);
 
-        // 6. Trục X (Giữ nguyên)
         const xAxis = d3.axisBottom(xScale)
             .tickValues([0, 0.5, 1])
             .tickFormat(d3.format(".0%"))
@@ -249,7 +231,6 @@ const StackedBarChartD3 = ({
             .style("font-size", "1.1em")
             .select(".domain").remove();
 
-        // 7. Trục Y (Giữ nguyên)
         g.append("g")
             .attr("class", "y-axis")
             .call(d3.axisLeft(yScale).tickSize(0).tickPadding(10))
@@ -257,12 +238,11 @@ const StackedBarChartD3 = ({
             .style("font-weight", "bold")
             .select(".domain").remove();
 
-        // 8. Chú thích (Legend)
-        const legendKeysOrder = ['Đang trống', 'Đang thực hiện', 'Chờ thực hiện']; 
+        const legendKeysOrder = ['Đang trống', 'Đang thực hiện', 'Chờ thực hiện'];
 
         const legend = g.append("g")
             .attr("class", "legend")
-            .attr("transform", `translate(0, ${height + 40})`); 
+            .attr("transform", `translate(0, ${height + 40})`);
 
         const legendItem = legend.selectAll(".legend-item")
             .data(legendKeysOrder)
@@ -272,23 +252,22 @@ const StackedBarChartD3 = ({
             .attr("transform", (d, i) => `translate(${i * 180}, 0)`);
 
         legendItem.append("rect")
-            .attr("width", 18) 
+            .attr("width", 18)
             .attr("height", 18)
             .attr("rx", 3)
             .attr("ry", 3)
             .attr("fill", d => colorMap[d]);
 
         legendItem.append("text")
-            .attr("x", 24) 
+            .attr("x", 24)
             .attr("y", 9)
             .attr("dy", "0.35em")
-            .style("font-size", "1.1em") 
+            .style("font-size", "1.1em")
             .style("fill", "#333")
             .text(d => d);
 
     };
 
-    // Chạy lại chart khi props thay đổi
     useEffect(() => {
         if (data && data.length > 0) {
             drawChart();
@@ -298,18 +277,17 @@ const StackedBarChartD3 = ({
     return (
         <div
             ref={containerRef}
-            style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
                 position: 'relative',
-                width: '100%', 
-                // ⭐ ĐIỀU CHỈNH 2: GIẢM CHIỀU CAO CONTAINER
-                height: '300px', 
+                width: '100%',
+                height: '300px',
             }}
         >
-            <svg 
+            <svg
                 ref={svgRef}
-                style={{ width: '100%', height: '100%' }} 
+                style={{ width: '100%', height: '100%' }}
             ></svg>
             <div
                 ref={tooltipRef}

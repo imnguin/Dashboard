@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-// Đăng ký các thành phần cần thiết
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -19,7 +18,7 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    ChartDataLabels // Đăng ký plugin DataLabels
+    ChartDataLabels
 );
 
 const RatingGroupedBarChart = (props) => {
@@ -50,7 +49,7 @@ const RatingGroupedBarChart = (props) => {
             legend: {
                 display: true,
                 position: 'top',
-                align: 'end', // Chú thích nằm phía trên bên phải
+                align: 'end',
                 labels: {
                     usePointStyle: true,
                     pointStyle: 'rectRounded',
@@ -64,26 +63,20 @@ const RatingGroupedBarChart = (props) => {
                 text: title,
                 align: 'start',
                 font: { size: 20, weight: 'bold' },
-                padding: { top: 0, bottom: 0 }, // Giúp Title và Legend nằm ngang hàng,
+                padding: { top: 0, bottom: 0 },
                 color: '#000000ff'
             },
             tooltip: {
                 mode: 'index',
                 intersect: false,
                 callbacks: {
-                    // Tooltip hiển thị toàn bộ tên kho
+                   
                     title: function (context) {
                         return labels[context[0].dataIndex];
                     }
                 }
             },
-            datalabels: { display: false } // Vô hiệu hóa datalabels (nếu đã cài)
-        },
-
-        layout: {
-            padding: {
-                // top: 40 // Đẩy biểu đồ xuống để Legend và Title có không gian
-            }
+            datalabels: { display: false }
         },
 
         scales: {
@@ -93,7 +86,6 @@ const RatingGroupedBarChart = (props) => {
                 ticks: {
                     color: '#333',
                     font: { size: 12 },
-                    // Hàm callback để rút gọn nhãn 2 dòng và thêm ...
                     callback: function (val, index) {
                         const originalLabel = labels[index];
                         const words = originalLabel.split(' ');
@@ -115,8 +107,8 @@ const RatingGroupedBarChart = (props) => {
                         }
                     }
                 },
-                categoryPercentage: 0.7, // Khoảng cách giữa các nhóm kho
-                barPercentage: 0.4, // Khoảng cách giữa các cột sao trong 1 nhóm
+                categoryPercentage: 0.7, 
+                barPercentage: 0.4,
             },
             y: {
                 min: 0,

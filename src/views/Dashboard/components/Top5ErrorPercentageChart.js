@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-// Đăng ký các thành phần cần thiết
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -22,8 +21,6 @@ ChartJS.register(
     ChartDataLabels
 );
 
-// DỮ LIỆU GIẢ ĐỊNH CHO 3 KHO (Tổng số lỗi)
-// Trong thực tế, đây là tổng số lỗi từ 3 kho
 const DUMMY_ERROR_DATA = [
     { type: 'Trễ hẹn', count: 1550 },
     { type: 'Tay nghề', count: 980 },
@@ -35,14 +32,10 @@ const DUMMY_ERROR_DATA = [
     { type: 'T7. Trang phục', count: 30 },
 ];
 
-// Hàm tính toán và chuẩn bị dữ liệu cho biểu đồ (Sắp xếp theo Count)
 function prepareChartData(errorData) {
-    // 1. Sắp xếp giảm dần theo Count và lấy Top 5
     const top5Data = errorData
         .sort((a, b) => b.count - a.count)
         .slice(0, 5);
-
-    // 2. Chuẩn bị cấu trúc cho Chart.js (sắp xếp tăng dần cho biểu đồ ngang)
     return {
         labels: top5Data.map(item => item.type).reverse(),
         counts: top5Data.map(item => item.count).reverse()
@@ -50,7 +43,7 @@ function prepareChartData(errorData) {
 }
 
 const preparedData = prepareChartData(DUMMY_ERROR_DATA);
-const mainColor = '#5B7DFA'; // Màu đỏ nổi bật cho lỗi
+const mainColor = '#5B7DFA';
 
 const data = {
     labels: preparedData.labels,
@@ -68,7 +61,7 @@ const data = {
 };
 
 const options = {
-    indexAxis: 'y', // Biểu đồ Thanh Ngang
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
 
@@ -76,8 +69,6 @@ const options = {
         legend: { display: false },
         title: {
             display: false,
-            // Cập nhật tiêu đề
-            // text: 'Số lượng lỗi khiếu nại theo khu vực', 
             align: 'start',
             font: { size: 20, weight: 'bold' },
             padding: { top: 10, bottom: 20 },
@@ -86,40 +77,38 @@ const options = {
         tooltip: {
             callbacks: {
                 label: function (context) {
-                    // Hiển thị giá trị số nguyên
                     return `${context.dataset.label}: ${context.parsed.x.toLocaleString()}`;
                 }
             }
         },
-        datalabels: { // Hiển thị giá trị số trên thanh
+        datalabels: {
             display: true,
             anchor: 'end',
-            align: 'right', // Đặt nhãn ở cuối thanh
+            align: 'right', 
             color: '#333',
             font: { size: 13, weight: 'bold' },
             formatter: function (value) {
-                return value.toLocaleString(); // Định dạng số (ví dụ: 1,550)
+                return value.toLocaleString();
             }
         }
     },
 
     layout: {
         padding: {
-            right: 50 // Thêm không gian cho DataLabels
+            right: 50 
         }
     },
 
     scales: {
         x: {
             min: 0,
-            // Tự động điều chỉnh max X-axis cho phù hợp với tổng số lớn nhất
+
             max: Math.ceil(Math.max(...preparedData.counts) / 500) * 500,
             grid: {
                 color: '#e0e0e0',
                 borderDash: [5, 5]
             },
             ticks: {
-                // Không hiển thị dấu %
                 callback: (value) => value.toLocaleString(),
                 color: '#333',
                 font: { size: 12 }
