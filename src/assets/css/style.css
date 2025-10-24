@@ -113,4 +113,5 @@
   width: 40px; /* Chiều rộng ảnh */
   border-radius: 50%; /* Bo tròn: Hình tròn */
   object-fit: cover; /* Điều chỉnh ảnh: Cắt ảnh để vừa với kích thước */
+  cursor: pointer;
 }

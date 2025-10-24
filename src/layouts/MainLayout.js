@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
+    SettingOutlined,
     UserOutlined
 } from '@ant-design/icons';
 import appMenu from "../constants/appMenu";
@@ -49,6 +50,37 @@ const MainLayout = (props) => {
         navigate('/login');
     }
 
+    const items = [
+        {
+            key: '1',
+            label: 'Tài khoản',
+            disabled: true,
+        },
+        {
+            type: 'divider',
+        },
+        {
+            key: '2',
+            label: 'Thông tin',
+            extra: '⌘T',
+        },
+        {
+            key: '3',
+            label: (
+                <span onClick={Logout}>
+                    Đăng xuất
+                </span>
+            ),
+            extra: '⌘Đ',
+        },
+        {
+            key: '4',
+            label: 'Cài đặt',
+            icon: <SettingOutlined />,
+            extra: '⌘C',
+        },
+    ];
+
     return (
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>
@@ -68,9 +100,9 @@ const MainLayout = (props) => {
                             <span>162779 - Nguyễn Nguyên Khang</span>
                             <span className="user-id">3755 - Trụ sở MWG</span>
                         </div>
-                        <div>
+                        <Dropdown menu={{ items }}>
                             <img src={'https://insite.thegioididong.com/cdninsite/UserImages/reviewed/162779_thumb.jpg'} className="avatar-img" />
-                        </div>
+                        </Dropdown>
                     </div>
                 </Col>
             </Row>
