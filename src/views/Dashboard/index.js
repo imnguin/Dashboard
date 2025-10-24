@@ -17,10 +17,12 @@ import SalesTrendAndTargetChart from "./components/SalesTrendAndTargetChart";
 import { NotificationService } from "../../utils/NotificationService";
 import StarRatingChartD3 from "./components/StarRatingChartD3";
 import StackedBarChartD3 from "./components/StackedBarChartD3";
+import { useNavigate } from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 const Dashboard = (props) => {
     console.log("props", props)
+    const navigate = useNavigate();
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
     const isMobile = window.matchMedia("(max-width: 576px)").matches;
@@ -100,7 +102,7 @@ const Dashboard = (props) => {
             bgColor: '#FFF4ED',
             chartData: [60, 50, 55, 45, 40, 35, 40, 30, 25, 20, 15],
             chartLineColor: '#FFB870',
-            chartFillColor: 'rgba(255, 184, 112, 0.2)', 
+            chartFillColor: 'rgba(255, 184, 112, 0.2)',
         },
         {
             src: dangthuchien,
@@ -262,7 +264,7 @@ const Dashboard = (props) => {
                     </Row>
                     <Row gutter={[15, 15]} className="bottom-row" style={{ marginTop: 15 }}>
                         <Col xs={24} sm={24} md={24} lg={14} xl={8}>
-                            <div className="satisfaction-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click hiệu quả hài lòng')}>
+                            <div className="satisfaction-card" onClick={() => { NotificationService.info('Thông báo', 'Bạn vừa click hiệu quả hài lòng'); navigate('/detail1') }}>
                                 <Row gutter={[10, 10]}>
                                     <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                                         <div className="satisfaction-header">
@@ -342,7 +344,7 @@ const Dashboard = (props) => {
                                 </Col>
                                 {screens.xl && (
                                     <Col span={24}>
-                                        <div className="sales-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click doanh thu')}>
+                                        <div className="sales-card" onClick={() => { NotificationService.info('Thông báo', 'Bạn vừa click doanh thu'); navigate('/detail2') }}>
                                             <SalesTrendAndTargetChart />
                                         </div>
                                     </Col>
@@ -352,7 +354,7 @@ const Dashboard = (props) => {
 
                         {!screens.xl && (
                             <Col span={24}>
-                                <div className="sales-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click doanh thu')}>
+                                <div className="sales-card" onClick={() => { NotificationService.info('Thông báo', 'Bạn vừa click doanh thu'); navigate('/detail2') }}>
                                     <SalesTrendAndTargetChart />
                                 </div>
                             </Col>

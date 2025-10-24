@@ -16,6 +16,7 @@ import proiconsfoldablevertical from '../assets/images/proicons_foldable-vertica
 import logosvg from '../assets/images/logosvg.svg';
 import carbondnsservices from '../assets/images/carbon_dns-services.png';
 import { NotificationService } from '../utils/NotificationService';
+
 const { Text } = Typography;
 
 const serviceOptions = [
@@ -31,7 +32,6 @@ const date = new Date();
 const currMonth = date.getMonth();
 
 let monthOptions = [];
-
 for (let i = 1; i <= currMonth; i++) {
     monthOptions.push({
         label: `Tháng ${i}`,
@@ -41,40 +41,23 @@ for (let i = 1; i <= currMonth; i++) {
 
 const initialServices = ['giaohang'];
 const storeOptions = [
-    {
-        value: '1',
-        label: 'Kho số 1',
-    },
-    {
-        value: '2',
-        label: 'Kho số 2',
-    },
-    {
-        value: '3',
-        label: 'Kho số 3',
-    },
-    {
-        value: '4',
-        label: 'Kho số 4',
-    },
-    {
-        value: '5',
-        label: 'Kho số 5',
-    },
-    {
-        value: '6',
-        label: 'Kho số 6',
-    },
-]
+    { value: '1', label: 'Kho số 1' },
+    { value: '2', label: 'Kho số 2' },
+    { value: '3', label: 'Kho số 3' },
+    { value: '4', label: 'Kho số 4' },
+    { value: '5', label: 'Kho số 5' },
+    { value: '6', label: 'Kho số 6' },
+];
 
-const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
+const FilterSidebarDrawer = (props) => {
+    const { open, onClose, filterData, title } = props;
     const [services, setServices] = useState(initialServices);
     const [months, setMonths] = useState([currMonth]);
     const [coordinatorStores, setCoordinatorStores] = useState([]);
     const [stores, setStores] = useState([]);
 
     useEffect(() => {
-        filterData?.({ services, months })
+        filterData?.({ services, months });
     }, []);
 
     const onChangeService = (list) => {
@@ -86,7 +69,7 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
                 <img src={logotgdd2} style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: '50%', border: '1px solid white' }} />
                 <span style={{ fontSize: 21, fontWeight: 'bold', color: 'white' }}>
-                    Hiệu quả vận hành
+                    {title}
                 </span>
                 <img
                     src={proiconsfoldablevertical}
@@ -109,11 +92,18 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 {icon}
                 <Text strong style={{ color: 'white', fontSize: '14px' }}>{title}</Text>
             </Space>
-            {
-                content && <div style={{ paddingLeft: 24 }}>
+            {content && (
+                <div style={{
+                    paddingLeft: 24,
+                    maxHeight: '270px',
+                    overflowY: 'auto',
+                    '::-webkit-scrollbar': { display: 'none' },
+                    scrollbarWidth: 'none',
+                    '-ms-overflow-style': 'none',
+                }}>
                     {content}
                 </div>
-            }
+            )}
         </div>
     );
 
@@ -122,19 +112,19 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
     const DRAWER_ROOT_WIDTH = DRAWER_CONTENT_WIDTH + PADDING;
 
     const onSearch = () => {
-        filterData?.({ services, months, stores })
-        NotificationService.info('Dữ liệu bạn chọn', `${JSON.stringify({ services, months, stores })}}`);
-    }
+        filterData?.({ services, months, stores });
+        NotificationService.info('Dữ liệu bạn chọn', `${JSON.stringify({ services, months, stores })}`);
+    };
 
     const onSelectStore = (value) => {
         const selectItem = storeOptions.find(x => x.value == value);
-        if (!!selectItem) {
+        if (selectItem) {
             if (!coordinatorStores.find(x => x.value == value)) {
                 setCoordinatorStores([...coordinatorStores, selectItem]);
             }
             setStores([...stores, value]);
         }
-    }
+    };
 
     return (
         <Drawer
@@ -148,7 +138,7 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 top: PADDING,
                 bottom: PADDING,
                 left: PADDING,
-                height: `calc(100 % - ${PADDING * 2}px)`,
+                height: `calc(100% - ${PADDING * 2}px)`,
             }}
             style={{
                 borderRadius: '15px',
@@ -158,31 +148,35 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
             styles={{
                 header: { backgroundColor: '#6C757D', borderBottom: 'none', padding: '16px 24px' },
                 body: {
-                    backgroundColor: '#6C757D', padding: '0px 35px', overflow: 'auto'
+                    backgroundColor: '#6C757D',
+                    padding: '0px 35px',
+                    overflowY: 'auto',
+                    '::-webkit-scrollbar': { display: 'none' },
+                    scrollbarWidth: 'none',
+                    '-ms-overflow-style': 'none',
                 },
                 footer: {
                     backgroundColor: '#6C757D',
                     borderTop: '1px solid #737373',
-                    padding: '16px 24px'
+                    padding: '16px 24px',
                 },
                 mask: {
-                    backgroundColor: 'transparent'
-                }
+                    backgroundColor: 'transparent',
+                },
             }}
-
             footer={
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button
                         icon={<ExportOutlined />}
                         style={{ width: '40%', borderRadius: 6, backgroundColor: '#16A34A' }}
-                        type='primary'
+                        type="primary"
                     >
                         Export
                     </Button>
                     <Button
                         icon={<SearchOutlined />}
                         style={{ width: '40%', borderRadius: 6 }}
-                        type='primary'
+                        type="primary"
                         onClick={onSearch}
                     >
                         Tìm kiếm
@@ -196,14 +190,13 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 <Checkbox.Group
                     options={serviceOptions.map(opt => ({
                         ...opt,
-                        style: { color: 'white' }
+                        style: { color: 'white' },
                     }))}
                     value={services}
                     onChange={onChangeService}
                     style={{ display: 'flex', flexDirection: 'column' }}
                 />
             )}
-
             {renderFilterSection(
                 <EnvironmentOutlined style={{ color: 'white' }} />,
                 'Khu vực'
@@ -226,10 +219,10 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                     <Checkbox.Group
                         options={coordinatorStores.map(opt => ({
                             ...opt,
-                            style: { color: 'white' }
+                            style: { color: 'white' },
                         }))}
                         value={stores}
-                        onChange={(list) => { setStores(list) }}
+                        onChange={(list) => setStores(list)}
                         style={{ display: 'flex', flexDirection: 'column' }}
                     />
                 </div>
@@ -240,10 +233,10 @@ const FilterSidebarDrawer = ({ open, onClose, filterData }) => {
                 <Checkbox.Group
                     options={monthOptions.map(opt => ({
                         ...opt,
-                        style: { color: 'white' }
+                        style: { color: 'white' },
                     }))}
                     value={months}
-                    onChange={(list) => { setMonths(list) }}
+                    onChange={(list) => setMonths(list)}
                     style={{ display: 'flex', flexDirection: 'column' }}
                 />
             )}
@@ -262,8 +255,10 @@ const DashboardHeaderWithFilter = (props) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
     const handleDrawerOpen = () => setIsDrawerOpen(true);
     const handleDrawerClose = () => setIsDrawerOpen(false);
+
     const renderHeader = () => (
         <div
             style={{
@@ -271,7 +266,7 @@ const DashboardHeaderWithFilter = (props) => {
                 top: 10,
                 left: 15,
                 zIndex: 1000,
-                display: !!isDrawerOpen ? 'none' : 'flex',
+                display: isDrawerOpen ? 'none' : 'flex',
                 alignItems: 'center',
                 padding: '10px 30px',
                 minWidth: '335px',
@@ -282,7 +277,7 @@ const DashboardHeaderWithFilter = (props) => {
                 boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
                 color: 'white',
                 flexDirection: 'row',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
             }}
         >
             <div>
@@ -290,14 +285,16 @@ const DashboardHeaderWithFilter = (props) => {
                     <img src={logotgdd2} style={{ backgroundColor: 'white', width: 25, height: 25, borderRadius: '50%', border: '1px solid white' }} />
                     <span style={{ fontSize: 16, fontWeight: 'bold', fontStyle: 'italic' }}>Logistics</span>
                 </div>
-                <span style={{ fontSize: 9, fontStyle: 'italic', whiteSpace: 'nowrap', fontWeight: '400' }}><span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động</span>
+                <span style={{ fontSize: 9, fontStyle: 'italic', whiteSpace: 'nowrap', fontWeight: '400' }}>
+                    <span style={{ fontSize: 8 }}>Thành viên của </span>Thế Giới Di Động
+                </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginLeft: 10 }}>
                 <span
                     style={{
                         fontSize: 20,
                         fontWeight: 'bold',
-                        display: isSmallScreen ? 'none' : 'block'
+                        display: isSmallScreen ? 'none' : 'block',
                     }}
                 >
                     {props?.title}
@@ -315,6 +312,7 @@ const DashboardHeaderWithFilter = (props) => {
         <div style={{ position: 'relative', overflowX: 'hidden' }}>
             {renderHeader()}
             <FilterSidebarDrawer
+                title={props?.title}
                 open={isDrawerOpen}
                 onClose={handleDrawerClose}
                 filterData={(value) => props.filterData(value)}

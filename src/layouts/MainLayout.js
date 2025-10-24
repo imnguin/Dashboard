@@ -81,6 +81,7 @@ const MainLayout = (props) => {
         },
     ];
 
+    console.log(props?.title)
     return (
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>

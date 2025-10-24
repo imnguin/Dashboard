@@ -22,7 +22,7 @@ dayjs.extend(weekday);
 dayjs.extend(localeData);
 
 const { RangePicker } = DatePicker;
-const Detail1 = () => {
+const Detail1 = (props) => {
     const { useBreakpoint } = Grid;
     const screens = useBreakpoint();
     const [api, contextHolder] = notification.useNotification();
