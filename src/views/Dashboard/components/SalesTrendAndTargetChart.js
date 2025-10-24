@@ -169,7 +169,7 @@ const SalesTrendAndTargetChart = (props) => {
                     <Col xs={24} md={12}>
                         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
                             <span style={{
-                                fontSize: 20,
+                                fontSize: 22,
                                 fontWeight: 'bold',
                                 marginRight: 15
                             }}>
@@ -178,8 +178,9 @@ const SalesTrendAndTargetChart = (props) => {
                             <span style={{
                                 fontSize: 20,
                                 fontWeight: 'bold',
+                                color: '#28a745'
                             }}>
-                                ${formatCurrency(11122352411111111116)}
+                                ${formatCurrency(1112235241111)}
                             </span>
                         </div>
                     </Col>

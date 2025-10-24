@@ -17,8 +17,8 @@ const Router = () => {
                             <React.Suspense fallback={<div>Đang tải dữ liệu... </div>}>
                                 <Routes>
                                     {
-                                        configRoute.map(({ component: Component, path, layout, breadcrumb }) => (
-                                            <Route path={path} key={path} element={Component ? <MainLayout layout={!!layout ? layout : 'MainLayout'}><Component /></MainLayout> : <Navigate to={'/'} replace={true} />} />
+                                        configRoute.map(({ component: Component, path, layout, breadcrumb, title }) => (
+                                            <Route path={path} key={path} element={Component ? <MainLayout layout={!!layout ? layout : 'MainLayout'} title={title}><Component /></MainLayout> : <Navigate to={'/'} replace={true} />} />
                                         ))
                                     }
                                 </Routes>

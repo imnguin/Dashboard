@@ -33,12 +33,11 @@ const StackedBarChartD3 = ({
     const minBarWidth = 15;
     const borderRadius = 5;
 
-    // ⭐ ĐIỀU CHỈNH 1: Tăng MARGIN BOTTOM
+    // Kích thước và Margin cố định
     const margin = { top: 20, right: 100, bottom: 70, left: 60 }; 
-    
-    // ⭐ ĐIỀU CHỈNH 2: Tăng KÍCH THƯỚC TỔNG THỂ
-    const totalWidth = 700; 
-    const totalHeight = 420; // Tăng từ 400 lên 420
+    // ⭐ ĐIỀU CHỈNH 1: GIẢM KÍCH THƯỚC VIEWBOX (Gọn gàng hơn)
+    const totalWidth = 600; 
+    const totalHeight = 340; 
     
     const width = totalWidth - margin.left - margin.right; 
     const height = totalHeight - margin.top - margin.bottom;
@@ -55,9 +54,10 @@ const StackedBarChartD3 = ({
 
     const drawChart = () => {
         const svg = d3.select(svgRef.current)
-            // Cập nhật VIEWBOX theo kích thước mới
+            // Cập nhật VIEWBOX
             .attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`) 
-            .attr("preserveAspectRatio", "xMidYMid meet");
+            // ⭐ ĐIỀU CHỈNH CHÍNH: KHÔI PHỤC GIỮ TỶ LỆ để KHÔNG BỊ BÓP MÉO
+            .attr("preserveAspectRatio", "xMidYMid meet"); 
 
         svg.selectAll('*').remove();
 
@@ -194,7 +194,7 @@ const StackedBarChartD3 = ({
             .on("mousemove", handleMouseMove)
             .on("mouseout", handleMouseOut);
 
-        // 4. Nhãn Giá trị trên Thanh (Giữ nguyên)
+        // 4. Nhãn Giá trị trên Thanh 
         levelGroup.selectAll(".bar-label")
             .data(d => d)
             .enter()
@@ -207,7 +207,7 @@ const StackedBarChartD3 = ({
             .attr("y", d => yScale(d.data.level) + yScale.bandwidth() / 2)
             .attr("dy", "0.35em")
             .attr("text-anchor", "middle")
-            .style("font-size", "14px")
+            .style("font-size", "0.9em") 
             .style("fill", "white")
             .style("font-weight", "bold")
             .text(d => {
@@ -222,7 +222,7 @@ const StackedBarChartD3 = ({
                 return '';
             });
 
-        // 5. Nhãn Tổng (Giữ nguyên)
+        // 5. Nhãn Tổng 
         g.selectAll(".total-label")
             .data(rawData)
             .enter()
@@ -231,7 +231,7 @@ const StackedBarChartD3 = ({
             .attr("x", width + 20)
             .attr("y", d => yScale(d.level) + yScale.bandwidth() / 2)
             .attr("dy", "0.35em")
-            .style("font-size", "18px")
+            .style("font-size", "1.1em") 
             .style("font-weight", "bold")
             .style("fill", "#333")
             .text(d => d.total);
@@ -246,13 +246,14 @@ const StackedBarChartD3 = ({
             .attr("class", "x-axis")
             .attr("transform", `translate(0, ${height})`)
             .call(xAxis)
+            .style("font-size", "1.1em")
             .select(".domain").remove();
 
         // 7. Trục Y (Giữ nguyên)
         g.append("g")
             .attr("class", "y-axis")
             .call(d3.axisLeft(yScale).tickSize(0).tickPadding(10))
-            .style("font-size", "13px")
+            .style("font-size", "1em") // Giữ tương đối
             .style("font-weight", "bold")
             .select(".domain").remove();
 
@@ -261,7 +262,6 @@ const StackedBarChartD3 = ({
 
         const legend = g.append("g")
             .attr("class", "legend")
-            // ⭐ ĐIỀU CHỈNH 3: Đặt Legend xa hơn trục X (40px)
             .attr("transform", `translate(0, ${height + 40})`); 
 
         const legendItem = legend.selectAll(".legend-item")
@@ -269,21 +269,20 @@ const StackedBarChartD3 = ({
             .enter()
             .append("g")
             .attr("class", "legend-item")
-            .attr("transform", (d, i) => `translate(${i * 200}, 0)`); // Tăng khoảng cách giữa các item
+            .attr("transform", (d, i) => `translate(${i * 180}, 0)`);
 
         legendItem.append("rect")
-            .attr("width", 14) // Tăng kích thước hình vuông
-            .attr("height", 14)
+            .attr("width", 18) 
+            .attr("height", 18)
             .attr("rx", 3)
             .attr("ry", 3)
             .attr("fill", d => colorMap[d]);
 
         legendItem.append("text")
-            .attr("x", 20) // Đẩy chữ xa hơn hình vuông
-            .attr("y", 7)
+            .attr("x", 24) 
+            .attr("y", 9)
             .attr("dy", "0.35em")
-            // ⭐ ĐIỀU CHỈNH 4: Tăng kích thước font chữ
-            .style("font-size", "16px") 
+            .style("font-size", "1.1em") 
             .style("fill", "#333")
             .text(d => d);
 
@@ -299,9 +298,19 @@ const StackedBarChartD3 = ({
     return (
         <div
             ref={containerRef}
-            style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}
+            style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                position: 'relative',
+                width: '100%', 
+                // ⭐ ĐIỀU CHỈNH 2: GIẢM CHIỀU CAO CONTAINER
+                height: '300px', 
+            }}
         >
-            <svg ref={svgRef}></svg>
+            <svg 
+                ref={svgRef}
+                style={{ width: '100%', height: '100%' }} 
+            ></svg>
             <div
                 ref={tooltipRef}
                 style={{

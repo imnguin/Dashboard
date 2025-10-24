@@ -53,7 +53,10 @@ const MainLayout = (props) => {
         <div className="app-container">
             <Row className="header-row" gutter={[0, 16]}>
                 <Col xs={24} md={12}>
-                    <DashboardHeaderWithFilter filterData={(filter) => setFilterData(filter)} />
+                    <DashboardHeaderWithFilter
+                        title={props?.title}
+                        filterData={(filter) => setFilterData(filter)}
+                    />
                 </Col>
                 <Col xs={0} md={12} className={`user-col ${!screens.md ? 'hidden' : ''}`}>
                     <div className="user-info">

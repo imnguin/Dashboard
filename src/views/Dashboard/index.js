@@ -306,7 +306,7 @@ const Dashboard = (props) => {
                                 <Col xs={24} sm={24} md={24} lg={24} xl={12}>
                                     <div className="personnel-card" onClick={() => NotificationService.info('Thông báo', 'Bạn vừa click nhân sự')}>
                                         <span style={{
-                                            fontSize: 30,
+                                            fontSize: 22,
                                             color: 'black',
                                             fontWeight: 'bold',
                                             padding: 10
@@ -335,7 +335,7 @@ const Dashboard = (props) => {
                                         <Table
                                             columns={columns}
                                             dataSource={data}
-                                            size="large"
+                                            size="middle"
                                             pagination={false}
                                         />
                                     </div>

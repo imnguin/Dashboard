@@ -5,6 +5,7 @@ import PageNotFound from "../views/PageNotFound";
 
 const configRoute = [
     {
+        title: 'Hiệu quả vận hành',
         path: '/',
         component: Dashboard,
         layout: 'MainLayout'

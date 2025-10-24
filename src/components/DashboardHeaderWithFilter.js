@@ -304,7 +304,7 @@ const DashboardHeaderWithFilter = (props) => {
                         display: isSmallScreen ? 'none' : 'block' // ẨN KHI MÀN HÌNH NHỎ
                     }}
                 >
-                    Hiệu quả vận hành
+                    {props?.title}
                 </span>
                 <img
                     src={proiconsfoldablevertical}

@@ -25,14 +25,14 @@
 /* Tiêu đề chính của bảng/biểu đồ */
 .operation-title {
   font-weight: bold; /* Độ đậm chữ */
-  font-size: 30px; /* Kích thước chữ */
+  font-size: 22px; /* Kích thước chữ */
   color: black; /* Màu chữ */
 }
 
 /* Số lượng (ví dụ: số đơn hàng) */
 .operation-count {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   color: #0084ff;
   margin-left: 15px; /* Lề trái */
 }
@@ -292,13 +292,13 @@
 /* Tiêu đề sự hài lòng */
 .satisfaction-title {
   font-weight: bold;
-  font-size: 30px;
+  font-size: 22px;
   color: black;
 }
 
 /* Số lượng đánh giá */
 .satisfaction-count {
-  font-size: 20px;
+  font-size: 15px;
   color: #0195ff;
   font-weight: bold;
 }
@@ -399,7 +399,7 @@
 /* Tiêu đề bảng */
 .table-title {
   font-weight: bold;
-  font-size: 30px;
+  font-size: 22px;
   color: black;
 }
 
